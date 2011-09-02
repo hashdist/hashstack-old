@@ -1,3 +1,45 @@
 [submodule "cython"]
 	path = cython
 	url = https://github.com/cython/cython.git
+[submodule "numpy"]
+	path = numpy
+	url = git@github.com:numpy/numpy.git
+[submodule "ipython"]
+	path = ipython
+	url = git@github.com:ipython/ipython.git
+[submodule "matplotlib"]
+	path = matplotlib
+	url = git@github.com:matplotlib/matplotlib.git
+[submodule "sympy"]
+	path = sympy
+	url = git@github.com:sympy/sympy.git
+[submodule "pytables"]
+	path = pytables
+	url = git@github.com:PyTables/PyTables.git
+[submodule "zlib"]
+	path = zlib
+	url = git@github.com:erdc-cm/zlib.git
+[submodule "szip"]
+	path = szip
+	url = git@github.com:erdc-cm/szip.git
+[submodule "petsc4py"]
+	path = petsc4py
+	url = git@github.com:erdc-cm/petsc4py.git
+[submodule "petsc"]
+	path = petsc
+	url = git@github.com:erdc-cm/petsc.git
+[submodule "numexpr"]
+	path = numexpr
+	url = git@github.com:erdc-cm/numexpr.git
+[submodule "nose"]
+	path = nose
+	url = git@github.com:erdc-cm/nose.git
+[submodule "mpi4py"]
+	path = mpi4py
+	url = git@github.com:erdc-cm/mpi4py.git
+[submodule "hdf5"]
+	path = hdf5
+	url = git@github.com:erdc-cm/hdf5.git
+[submodule "python"]
+	path = python
+	url = git@github.com:erdc-cm/python.git

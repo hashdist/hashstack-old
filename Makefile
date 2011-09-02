@@ -8,7 +8,7 @@ include versionsConfig/versions.${PYTHON_HPCMP_ARCH}
 
 all: install
 
-install: install_core
+install: install_core install_extensions
 
 install_core: install_core_python install_core_libraries install_core_modules
 

@@ -1,0 +1,227 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/pyadh/!svn/ver/4441/branches/proteus/externalPackages/superluConfig
+END
+make.linux32
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.linux32
+END
+make.cygwin32
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.cygwin32
+END
+make.darwin_i386_macports
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin_i386_macports
+END
+make.linux_mpicc_petsc
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.linux_mpicc_petsc
+END
+make.linux_64_python
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.linux_64_python
+END
+make.garnet
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/pyadh/!svn/ver/4441/branches/proteus/externalPackages/superluConfig/make.garnet
+END
+make.darwin~
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin~
+END
+make.darwin_x86~
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin_x86~
+END
+make.darwin64_intel
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin64_intel
+END
+make.darwin_x86
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin_x86
+END
+make.o3k_petsc
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.o3k_petsc
+END
+make.darwin_i386
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin_i386
+END
+make.darwin64
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/pyadh/!svn/ver/3418/branches/proteus/externalPackages/superluConfig/make.darwin64
+END
+make.darwin_x86_64
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin_x86_64
+END
+make.linux_32
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.linux_32
+END
+make.darwinspkg
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/pyadh/!svn/ver/3422/branches/proteus/externalPackages/superluConfig/make.darwinspkg
+END
+make.linux64
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.linux64
+END
+make.diamond
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/pyadh/!svn/ver/3392/branches/proteus/externalPackages/superluConfig/make.diamond
+END
+make.darwinports
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/pyadh/!svn/ver/3408/branches/proteus/externalPackages/superluConfig/make.darwinports
+END
+make.ranger
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.ranger
+END
+make.xt4
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.xt4
+END
+make.alpha_petsc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.alpha_petsc
+END
+make.darwin32_intel
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin32_intel
+END
+make.darwin
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/pyadh/!svn/ver/3931/branches/proteus/externalPackages/superluConfig/make.darwin
+END
+make.linuxspkg
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/pyadh/!svn/ver/3416/branches/proteus/externalPackages/superluConfig/make.linuxspkg
+END
+make.darwin_ppc
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin_ppc
+END
+make.mingw32
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.mingw32
+END
+make.lonestar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/pyadh/!svn/ver/3413/branches/proteus/externalPackages/superluConfig/make.lonestar
+END
+make.darwin32
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin32
+END
+make.darwin-universal
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin-universal
+END
+make.darwin_mpicc_petsc
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin_mpicc_petsc
+END
+make.alpha_petsc_quad
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.alpha_petsc_quad
+END
+make.linux_64_pyadh
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.linux_64_pyadh
+END
+make.darwin_ppc_macports
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin_ppc_macports
+END
+make.linux
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/pyadh/!svn/ver/3356/branches/proteus/externalPackages/superluConfig/make.linux
+END
+make.ranger2
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/pyadh/!svn/ver/3417/branches/proteus/externalPackages/superluConfig/make.ranger2
+END
+make.darwin32_mpicc_petsc
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/pyadh/!svn/ver/3355/branches/proteus/externalPackages/superluConfig/make.darwin32_mpicc_petsc
+END

@@ -1,0 +1,1 @@
+CC=/usr/bin/gcc CFLAGS="-arch x86_64 -arch i386" LD=/usr/bin/gcc LDFLAGS="-arch x86_64 -arch i386" ./configure --prefix=${PROTEUS_PREFIX} --enable-shared --enable-static

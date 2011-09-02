@@ -1,0 +1,5 @@
+#!/bin/csh
+setenv CC '/usr/bin/gcc'
+setenv CXX '/usr/bin/g++'
+setenv LD '/usr/bin/gcc'
+./configure --shared --prefix=${PYADH}/${PYADH_ARCH}
