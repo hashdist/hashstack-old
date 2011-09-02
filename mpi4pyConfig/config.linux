@@ -1,1 +1,1 @@
-${PROTEUS_PYTHON} setup.py config
+${PYTHON_HPCMP_PYTHON} setup.py config

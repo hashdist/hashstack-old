@@ -35,7 +35,7 @@ install_core_modules: install_numpy install_nose install_numexpr install_cython 
 
 install_extensions_libraries:
 
-install_extensions_modules: install_setuptools install_matplotlib install_sphinx
+install_extensions_modules: install_setuptools install_matplotlib
 
 #distclean
 distclean_core_python: distclean_python
@@ -46,7 +46,7 @@ distclean_core_modules: distclean_numpy distclean_nose distclean_tables distclea
 
 distclean_extensions_libraries: 
 
-distclean_extensions_modules: distclean_setuptools distclean_readline distclean_matplotlib distclean_sphinx
+distclean_extensions_modules: distclean_setuptools distclean_readline distclean_matplotlib
 
 #newConfig
 newConfig_core_python: newConfig_python
@@ -57,7 +57,7 @@ newConfig_core_modules: newConfig_numpy newConfig_nose newConfig_tables newConfi
 
 newConfig_extensions_libraries:
 
-newConfig_extensions_modules: newConfig_setuptools newConfig_readline newConfig_matplotlib newConfig_sphinx
+newConfig_extensions_modules: newConfig_setuptools newConfig_readline newConfig_matplotlib
 
 #editConfig
 editConfig_core_python: editConfig_python
@@ -67,7 +67,7 @@ editConfig_core_modules: editConfig_numpy editConfig_nose editConfig_tables edit
 
 editConfig_extensions_libraries:
 
-editConfig_extensions_modules: newConfig_setuptools newConfig_readline editConfig_matplotlib editConfig_sphinx
+editConfig_extensions_modules: newConfig_setuptools newConfig_readline editConfig_matplotlib
 
 #core
 #core python
@@ -432,25 +432,3 @@ distclean_matplotlib:
 	touch install_matplotlib
 	mv -f install_matplotlib install_matplotlib_last
 	cd ${MATPLOTLIB_VERSION} && make -k clean && rm -rf build
-#sphinx
-newConfig_sphinx:
-	echo "no sphinx customization implemented"
-
-editConfig_sphinx:
-	echo "no sphinx customization implemented"
-
-config_sphinx:
-	cd ${SPHINX_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py config > ../config_sphinx_progress 2>&1
-
-build_sphinx:
-	cd ${SPHINX_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_sphinx_progress 2>&1
-
-install_sphinx:
-	make config_sphinx build_sphinx
-	cd ${SPHINX_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_sphinx_progress 2>&1
-	cat config_sphinx_progress build_sphinx_progress install_sphinx_progress > install_sphinx
-
-distclean_sphinx:
-	touch install_sphinx
-	mv -f install_sphinx install_sphinx_last
-	cd ${SPHINX_VERSION} && make -k clean

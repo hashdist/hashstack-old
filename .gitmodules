@@ -3,16 +3,16 @@
 	url = https://github.com/cython/cython.git
 [submodule "numpy"]
 	path = numpy
-	url = git@github.com:numpy/numpy.git
+	url = https://github.com/numpy/numpy.git
 [submodule "ipython"]
 	path = ipython
-	url = git@github.com:ipython/ipython.git
+	url = https://github.com/ipython/ipython.git
 [submodule "matplotlib"]
 	path = matplotlib
-	url = git@github.com:matplotlib/matplotlib.git
+	url = https://github.com/matplotlib/matplotlib.git
 [submodule "sympy"]
 	path = sympy
-	url = git@github.com:sympy/sympy.git
+	url = https://github.com/sympy/sympy.git
 [submodule "pytables"]
 	path = pytables
 	url = git@github.com:PyTables/PyTables.git
@@ -43,3 +43,6 @@
 [submodule "python"]
 	path = python
 	url = git@github.com:erdc-cm/python.git
+[submodule "PyTables"]
+	path = PyTables
+	url = https://github.com/PyTables/PyTables.git

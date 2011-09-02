@@ -1,4 +1,4 @@
-${PROTEUS_PYTHON} setup.py install --hdf5=${PROTEUS_PREFIX} --lflags="-L${PROTEUS_PREFIX}/lib -lsz -lz" 
+${PYTHON_HPCMP_PYTHON} setup.py install --hdf5=${PYTHON_HPCMP_PREFIX} --lflags="-L${PYTHON_HPCMP_PREFIX}/lib -lsz -lz" 
 
 
 

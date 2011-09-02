@@ -1,1 +1,1 @@
-${PROTEUS_PYTHON} setup.py install
+${PYTHON_HPCMP_PYTHON} setup.py install
