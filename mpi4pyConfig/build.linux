@@ -1,1 +1,1 @@
-${PYTHON_HPCMP_PYTHON} setup.py install
+${PYTHONHPC_PYTHON} setup.py build --mpicc=mpicc --mpicxx=mpicxx

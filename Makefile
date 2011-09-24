@@ -1,14 +1,18 @@
 #
 #to add a new package 'pkg'
 #1. Add targets  config_pkg, build_pkg, install_pkg, newConfig_pkg, and editConfig_pkg and add those to the *_core_* or *_extensions_* targets
-#2. Add the pristine source for a version to directory or as a submodule
+#2. Add the pristine source for a version to the externalPackages directory
 #3. Set up the name of the package in versions.txt
 #
-include versionsConfig/versions.${PYTHON_HPCMP_ARCH}
+include versionsConfig/versions.${PYTHONHPC_ARCH}
 
-all: install
+all: install pip
 
-install: install_core install_extensions
+pip:
+	${PYTHONHPC_PYTHON} distribute_setup.py
+	easy_install pip
+
+install: install_core
 
 install_core: install_core_python install_core_libraries install_core_modules
 
@@ -21,53 +25,53 @@ distclean:
 
 newConfig: newConfig_core_python newConfig_core_libraries newConfig_core_modules newConfig_extensions_libraries newConfig_extensions_modules
 
-versionsConfig/versions.${PYTHON_HPCMP_ARCH}:
-	cd versionsConfig && cp versions.${PYTHON_HPCMP_ARCH_OLD} versions.${PYTHON_HPCMP_ARCH}
+versionsConfig/versions.${PYTHONHPC_ARCH}:
+	cd versionsConfig && cp versions.${PYTHONHPC_ARCH_OLD} versions.${PYTHONHPC_ARCH}
 
 editConfig: editConfig_core_python editConfig_core_libraries editConfig_core_modules editConfig_extensions_libraries editConfig_extensions_modules
 
 #install
 install_core_python: install_zlib install_python
 
-install_core_libraries: install_petsc install_szip install_hdf5
+install_core_libraries: install_petsc install_szip install_hdf5 install_triangle install_tetgen install_superlu 
 
-install_core_modules: install_numpy install_nose install_numexpr install_cython install_tables install_mpi4py install_petsc4py
+install_core_modules: install_numpy install_nose install_numexpr install_cython install_pytables install_mpi4py install_petsc4py
 
 install_extensions_libraries:
 
-install_extensions_modules: install_setuptools install_matplotlib
+install_extensions_modules: install_setuptools install_matplotlib install_sphinx
 
 #distclean
 distclean_core_python: distclean_python
 
-distclean_core_libraries: distclean_petsc distclean_zlib distclean_szip distclean_hdf5
+distclean_core_libraries: distclean_petsc distclean_zlib distclean_szip distclean_hdf5 distclean_triangle distclean_tetgen distclean_superlu 
 
-distclean_core_modules: distclean_numpy distclean_nose distclean_tables distclean_cython distclean_mpi4py distclean_petsc4py
+distclean_core_modules: distclean_numpy distclean_nose distclean_pytables distclean_cython distclean_mpi4py distclean_petsc4py distclean_numexpr
 
 distclean_extensions_libraries: 
 
-distclean_extensions_modules: distclean_setuptools distclean_readline distclean_matplotlib
+distclean_extensions_modules: distclean_setuptools distclean_readline distclean_matplotlib distclean_sphinx
 
 #newConfig
 newConfig_core_python: newConfig_python
 
-newConfig_core_libraries: newConfig_petsc newConfig_zlib newConfig_szip newConfig_hdf5
+newConfig_core_libraries: newConfig_petsc newConfig_zlib newConfig_szip newConfig_hdf5 newConfig_triangle newConfig_tetgen newConfig_superlu 
 
-newConfig_core_modules: newConfig_numpy newConfig_nose newConfig_tables newConfig_cython newConfig_mpi4py newConfig_petsc4py
+newConfig_core_modules: newConfig_numpy newConfig_nose newConfig_pytables newConfig_cython newConfig_mpi4py newConfig_petsc4py
 
 newConfig_extensions_libraries:
 
-newConfig_extensions_modules: newConfig_setuptools newConfig_readline newConfig_matplotlib
+newConfig_extensions_modules: newConfig_setuptools newConfig_readline newConfig_matplotlib newConfig_sphinx
 
 #editConfig
 editConfig_core_python: editConfig_python
-editConfig_core_libraries: editConfig_petsc editConfig_zlib editConfig_szip editConfig_hdf5
+editConfig_core_libraries: editConfig_petsc editConfig_zlib editConfig_szip editConfig_hdf5 editConfig_triangle editConfig_tetgen editConfig_superlu 
 
-editConfig_core_modules: editConfig_numpy editConfig_nose editConfig_tables editConfig_cython editConfig_mpi4py editConfig_petsc4py
+editConfig_core_modules: editConfig_numpy editConfig_nose editConfig_pytables editConfig_cython editConfig_mpi4py editConfig_petsc4py
 
 editConfig_extensions_libraries:
 
-editConfig_extensions_modules: newConfig_setuptools newConfig_readline editConfig_matplotlib
+editConfig_extensions_modules: newConfig_setuptools newConfig_readline editConfig_matplotlib editConfig_sphinx
 
 #core
 #core python
@@ -82,10 +86,10 @@ config_readline:
 	echo "no readline customization implemented" > config_readline_progress 2>&1
 
 build_readline:
-	cd ${READLINE_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_readline_progress 2>&1
+	cd ${READLINE_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_readline_progress 2>&1
 
 install_readline: 
-	cd ${READLINE_VERSION} &&  ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_readline_progress 2>&1
+	cd ${READLINE_VERSION} &&  ${PYTHONHPC_PYTHON} setup.py install > ../install_readline_progress 2>&1
 	cat config_readline_progress build_readline_progress install_readline_progress > install_readline
 
 distclean_readline:
@@ -95,20 +99,20 @@ distclean_readline:
 
 #python
 newConfig_python:
-	cd pythonConfig && cp configure.${PYTHON_HPCMP_ARCH_OLD} configure.${PYTHON_HPCMP_ARCH}
+	cd pythonConfig && cp configure.${PYTHONHPC_ARCH_OLD} configure.${PYTHONHPC_ARCH}
 
 editConfig_python:
-	cd pythonConfig && ${EDITOR} configure.${PYTHON_HPCMP_ARCH}
+	cd pythonConfig && ${EDITOR} configure.${PYTHONHPC_ARCH}
 
 config_python:
-	cd ${PYTHON_VERSION} && ../pythonConfig/configure.${PYTHON_HPCMP_ARCH} > ../config_python_progress 2>&1
+	cd ${PYTHON_VERSION} && ../pythonConfig/configure.${PYTHONHPC_ARCH} > ../config_python_progress 2>&1
 
 build_python:
 	cd ${PYTHON_VERSION} && make > ../build_python_progress 2>&1
 
 install_python:
 	make config_python build_python
-	cd ${PYTHON_VERSION} && PREFIXAPPS=${PYTHON_HPCMP_PREFIX} make install > ../install_python_progress 2>&1
+	cd ${PYTHON_VERSION} && PREFIXAPPS=${PYTHONHPC_PREFIX} make install > ../install_python_progress 2>&1
 	cat config_python_progress build_python_progress install_python_progress > install_python
 
 distclean_python:
@@ -119,13 +123,13 @@ distclean_python:
 #core libraries
 #zlib
 newConfig_zlib:
-	cd zlibConfig && cp configure.${PYTHON_HPCMP_ARCH_OLD} configure.${PYTHON_HPCMP_ARCH}
+	cd zlibConfig && cp configure.${PYTHONHPC_ARCH_OLD} configure.${PYTHONHPC_ARCH}
 
 editConfig_zlib:
-	cd zlibConfig && ${EDITOR} configure.${PYTHON_HPCMP_ARCH}
+	cd zlibConfig && ${EDITOR} configure.${PYTHONHPC_ARCH}
 
 config_zlib:
-	cd ${ZLIB_VERSION} && ../zlibConfig/configure.${PYTHON_HPCMP_ARCH} > ../config_zlib_progress 2>&1
+	cd ${ZLIB_VERSION} && ../zlibConfig/configure.${PYTHONHPC_ARCH} > ../config_zlib_progress 2>&1
 
 build_zlib:
 	cd ${ZLIB_VERSION} && make > ../build_zlib_progress 2>&1
@@ -142,13 +146,13 @@ distclean_zlib:
 
 #szip
 newConfig_szip:
-	cd szipConfig && cp configure.${PYTHON_HPCMP_ARCH_OLD} configure.${PYTHON_HPCMP_ARCH}
+	cd szipConfig && cp configure.${PYTHONHPC_ARCH_OLD} configure.${PYTHONHPC_ARCH}
 
 editConfig_szip:
-	cd szipConfig && ${EDITOR} configure.${PYTHON_HPCMP_ARCH}
+	cd szipConfig && ${EDITOR} configure.${PYTHONHPC_ARCH}
 
 config_szip:
-	cd ${SZIP_VERSION} && ../szipConfig/configure.${PYTHON_HPCMP_ARCH} > ../config_szip_progress 2>&1
+	cd ${SZIP_VERSION} && ../szipConfig/configure.${PYTHONHPC_ARCH} > ../config_szip_progress 2>&1
 
 build_szip:
 	cd ${SZIP_VERSION} && make > ../build_szip_progress 2>&1
@@ -165,13 +169,13 @@ distclean_szip:
 
 #hdf5
 newConfig_hdf5:
-	cd hdf5Config && cp configure.${PYTHON_HPCMP_ARCH_OLD} configure.${PYTHON_HPCMP_ARCH}
+	cd hdf5Config && cp configure.${PYTHONHPC_ARCH_OLD} configure.${PYTHONHPC_ARCH}
 
 editConfig_hdf5:
-	cd hdf5Config && ${EDITOR} configure.${PYTHON_HPCMP_ARCH}
+	cd hdf5Config && ${EDITOR} configure.${PYTHONHPC_ARCH}
 
 config_hdf5: install_zlib install_szip
-	cd ${HDF5_VERSION} && ../hdf5Config/configure.${PYTHON_HPCMP_ARCH} > ../config_hdf5_progress 2>&1
+	cd ${HDF5_VERSION} && ../hdf5Config/configure.${PYTHONHPC_ARCH} > ../config_hdf5_progress 2>&1
 
 build_hdf5:
 	cd ${HDF5_VERSION} && make > ../build_hdf5_progress 2>&1
@@ -186,6 +190,75 @@ distclean_hdf5:
 	mv -f install_hdf5 install_hdf5_last
 	cd ${HDF5_VERSION} && make -k distclean
 
+#triangle
+newConfig_triangle:
+	cd triangleConfig && cp makefile.${PYTHONHPC_ARCH_OLD} makefile.${PYTHONHPC_ARCH}
+
+editConfig_triangle:
+	cd triangleConfig && ${EDITOR} makefile.${PYTHONHPC_ARCH}
+
+config_triangle:
+	echo "triangle has no config step; run 'make editConfig_triangle'" > config_triangle_progress 2>&1
+
+build_triangle:
+	cd ${TRIANGLE_VERSION}/src && make -f ../../triangleConfig/makefile.${PYTHONHPC_ARCH} trilibrary all > ../../build_triangle_progress 2>&1
+
+install_triangle:
+	make config_triangle build_triangle
+	cd ${TRIANGLE_VERSION}/src && make -f ../../triangleConfig/makefile.${PYTHONHPC_ARCH} install > ../../install_triangle_progress 2>&1
+	cat config_triangle_progress build_triangle_progress install_triangle_progress > install_triangle
+
+distclean_triangle:
+	touch install_triangle
+	mv -f install_triangle install_triangle_last
+	cd ${TRIANGLE_VERSION}/src && make -f ../../triangleConfig/makefile.${PYTHONHPC_ARCH} -k distclean
+
+#tetgen
+newConfig_tetgen:
+	cd tetgenConfig && cp makefile.${PYTHONHPC_ARCH_OLD} makefile.${PYTHONHPC_ARCH}
+
+editConfig_tetgen:
+	cd tetgenConfig && ${EDITOR} makefile.${PYTHONHPC_ARCH}
+
+config_tetgen:
+	echo "tetgen has no configure step; run 'make editConfig_tetgen'" > config_tetgen_progress 2>&1
+
+build_tetgen:
+	cd ${TETGEN_VERSION} && make -f ../tetgenConfig/makefile.${PYTHONHPC_ARCH} > ../build_tetgen_progress 2>&1
+
+install_tetgen:
+	make config_tetgen build_tetgen
+	cd ${TETGEN_VERSION} && make -f ../tetgenConfig/makefile.${PYTHONHPC_ARCH} install > ../install_tetgen_progress 2>&1
+	cat config_tetgen_progress build_tetgen_progress install_tetgen_progress > install_tetgen
+
+distclean_tetgen:
+	touch install_tetgen
+	mv -f install_tetgen install_tetgen_last
+	cd ${TETGEN_VERSION} && make -f ../tetgenConfig/makefile.${PYTHONHPC_ARCH} -k clean
+
+#superlu
+newConfig_superlu:
+	cd superluConfig && cp make.${PYTHONHPC_ARCH_OLD} make.${PYTHONHPC_ARCH}
+
+editConfig_superlu:
+	cd superluConfig && ${EDITOR} make.${PYTHONHPC_ARCH}
+
+config_superlu:
+	cp superluConfig/make.${PYTHONHPC_ARCH} ${SUPERLU_VERSION}/make.inc > config_superlu_progress 2>&1
+
+build_superlu:
+	cd ${SUPERLU_VERSION} && make superlulib > ../build_superlu_progress 2>&1
+
+install_superlu:
+	make config_superlu build_superlu
+	cd ${SUPERLU_VERSION} && make install > ../install_superlu_progress 2>&1
+	cat config_superlu_progress build_superlu_progress install_superlu_progress > install_superlu
+
+distclean_superlu:
+	touch install_superlu
+	mv -f install_superlu install_superlu_last
+	cd ${SUPERLU_VERSION} && make -k clean
+
 #petsc
 get_petsc:
 	hg clone http://petsc.cs.iit.edu/petsc/petsc-dev
@@ -196,20 +269,20 @@ update_petsc:
 	cd petsc-dev/config/BuildSystem && hg pull -u
 
 newConfig_petsc:
-	cd petscConfig && cp configure.${PYTHON_HPCMP_ARCH_OLD} configure.${PYTHON_HPCMP_ARCH}
+	cd petscConfig && cp configure.${PYTHONHPC_ARCH_OLD} configure.${PYTHONHPC_ARCH}
 
 editConfig_petsc:
-	cd petscConfig && ${EDITOR} configure.${PYTHON_HPCMP_ARCH}
+	cd petscConfig && ${EDITOR} configure.${PYTHONHPC_ARCH}
 
 config_petsc:
-	cd ${PETSC_VERSION} && ../petscConfig/configure.${PYTHON_HPCMP_ARCH} > ../config_petsc_progress 2>&1
+	cd ${PETSC_VERSION} && PETSC_ARCH=${PYTHONHPC_ARCH} PETSC_DIR=${PWD}/${PETSC_VERSION} ../petscConfig/configure.${PYTHONHPC_ARCH} > ../config_petsc_progress 2>&1
 
 build_petsc:
-	cd ${PETSC_VERSION} && make > ../build_petsc_progress 2>&1
+	cd ${PETSC_VERSION} && PETSC_ARCH=${PYTHONHPC_ARCH} PETSC_DIR=${PWD}/${PETSC_VERSION} make > ../build_petsc_progress 2>&1
 
 install_petsc:
 	make config_petsc build_petsc
-	cd ${PETSC_VERSION} && make install > ../install_petsc_progress 2>&1
+	cd ${PETSC_VERSION} && PETSC_ARCH=${PYTHONHPC_ARCH} PETSC_DIR=${PWD}/${PETSC_VERSION} make install > ../install_petsc_progress 2>&1
 	cat config_petsc_progress build_petsc_progress install_petsc_progress > install_petsc
 
 distclean_petsc:
@@ -219,22 +292,21 @@ distclean_petsc:
 
 #numpy
 newConfig_numpy:
-	cd numpyConfig && cp site.cfg.${PYTHON_HPCMP_ARCH_OLD} site.cfg.${PYTHON_HPCMP_ARCH} 
+	cd numpyConfig && cp site.cfg.${PYTHONHPC_ARCH_OLD} site.cfg.${PYTHONHPC_ARCH} 
 
 editConfig_numpy:
-	cd numpyConfig && ${EDITOR} site.cfg.${PYTHON_HPCMP_ARCH}
+	cd numpyConfig && ${EDITOR} site.cfg.${PYTHONHPC_ARCH} build.numpy.${PYTHONHPC_ARCH}
 
 config_numpy:
 	echo "numpy has no config step run 'make editConfig_numpy'" > config_numpy_progress 2>&1
-	cp -f numpyConfig/site.cfg.${PYTHON_HPCMP_ARCH} ${NUMPY_VERSION}/site.cfg
+	cp -f numpyConfig/site.cfg.${PYTHONHPC_ARCH} ${NUMPY_VERSION}/site.cfg
 
 build_numpy:
-	cd ${NUMPY_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_numpy_progress 2>&1
+	cd ${NUMPY_VERSION} && ${PYTHONHPC}/externalPackages/numpyConfig/build.numpy.${PYTHONHPC_ARCH} > ../build_numpy_progress 2>&1
 
 install_numpy:
 	make config_numpy build_numpy
-	cd ${NUMPY_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_numpy_progress 2>&1
-	cat config_numpy_progress build_numpy_progress install_numpy_progress > install_numpy
+	cat config_numpy_progress build_numpy_progress > install_numpy
 
 distclean_numpy:
 	touch install_numpy
@@ -252,11 +324,11 @@ config_numexpr:
 	echo "numexpr has no customization" > config_numexpr_progress 2>&1
 
 build_numexpr:
-	cd ${NUMEXPR_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_numexpr_progress 2>&1
+	cd ${NUMEXPR_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_numexpr_progress 2>&1
 
 install_numexpr:
 	make config_numexpr build_numexpr
-	cd ${NUMEXPR_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_numexpr_progress 2>&1
+	cd ${NUMEXPR_VERSION} && ${PYTHONHPC_PYTHON} setup.py install > ../install_numexpr_progress 2>&1
 	cat config_numexpr_progress build_numexpr_progress install_numexpr_progress > install_numexpr
 
 distclean_numexpr:
@@ -264,28 +336,28 @@ distclean_numexpr:
 	mv -f install_numexpr install_numexpr_last
 	cd ${NUMEXPR_VERSION} && rm -rf build
 
-#tables
-newConfig_tables:
-	cd tablesConfig && cp build.${PYTHON_HPCMP_ARCH_OLD} build.${PYTHON_HPCMP_ARCH} && cp install.${PYTHON_HPCMP_ARCH_OLD} install.${PYTHON_HPCMP_ARCH}
+#pytables
+newConfig_pytables:
+	cd pytablesConfig && cp build.${PYTHONHPC_ARCH_OLD} build.${PYTHONHPC_ARCH} && cp install.${PYTHONHPC_ARCH_OLD} install.${PYTHONHPC_ARCH}
 
-editConfig_tables:
-	cd tablesConfig && ${EDITOR} build.${PYTHON_HPCMP_ARCH} install.${PYTHON_HPCMP_ARCH}
+editConfig_pytables:
+	cd pytablesConfig && ${EDITOR} build.${PYTHONHPC_ARCH} install.${PYTHONHPC_ARCH}
 
-config_tables:
-	echo "tables has no config step; run make 'make editConfig_tables'" > config_tables_progress 2>&1
+config_pytables:
+	echo "pytables has no config step; run make 'make editConfig_pytables'" > config_pytables_progress 2>&1
 
-build_tables:
-	cd ${TABLES_VERSION} && ../tablesConfig/build.${PYTHON_HPCMP_ARCH} > ../build_tables_progress 2>&1
+build_pytables:
+	cd ${PYTABLES_VERSION} && ../pytablesConfig/build.${PYTHONHPC_ARCH} > ../build_pytables_progress 2>&1
 
-install_tables: install_szip install_zlib install_hdf5
-	make config_tables build_tables
-	cd ${TABLES_VERSION} && ../tablesConfig/install.${PYTHON_HPCMP_ARCH} > ../install_tables_progress 2>&1
-	cat config_tables_progress build_tables_progress install_tables_progress > install_tables
+install_pytables: install_szip install_zlib install_hdf5
+	make config_pytables build_pytables
+	cd ${PYTABLES_VERSION} && ../pytablesConfig/install.${PYTHONHPC_ARCH} > ../install_pytables_progress 2>&1
+	cat config_pytables_progress build_pytables_progress install_pytables_progress > install_pytables
 
-distclean_tables:
-	touch install_tables
-	mv -f install_tables install_tables_last
-	cd ${TABLES_VERSION} && rm -rf build
+distclean_pytables:
+	touch install_pytables
+	mv -f install_pytables install_pytables_last
+	cd ${PYTABLES_VERSION} && rm -rf build
 
 #nose
 newConfig_nose:
@@ -298,11 +370,11 @@ config_nose:
 	echo "no nose customization implemented" > config_nose_progress 2>&1
 
 build_nose:
-	cd ${NOSE_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_nose_progress 2>&1
+	cd ${NOSE_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_nose_progress 2>&1
 
 install_nose:
 	make config_nose build_nose
-	cd ${NOSE_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_nose_progress 2>&1
+	cd ${NOSE_VERSION} && ${PYTHONHPC_PYTHON} setup.py install > ../install_nose_progress 2>&1
 	cat config_nose_progress build_nose_progress install_nose_progress > install_nose
 
 distclean_nose:
@@ -321,11 +393,11 @@ config_setuptools:
 	echo "no setuptools customization implemented" > config_setuptools_progress 2>&1
 
 build_setuptools:
-	cd ${SETUPTOOLS_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_setuptools_progress 2>&1
+	cd ${SETUPTOOLS_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_setuptools_progress 2>&1
 
 install_setuptools:
 	make config_setuptools build_setuptools
-	cd ${SETUPTOOLS_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_setuptools_progress 2>&1
+	cd ${SETUPTOOLS_VERSION} && ${PYTHONHPC_PYTHON} setup.py install > ../install_setuptools_progress 2>&1
 	cat config_setuptools_progress build_setuptools_progress install_setuptools_progress > install_setuptools
 
 distclean_setuptools:
@@ -335,20 +407,20 @@ distclean_setuptools:
 
 #mpi4py
 newConfig_mpi4py:
-	cd mpi4pyConfig && cp config.${PYTHON_HPCMP_ARCH_OLD} config.${PYTHON_HPCMP_ARCH}  && cp build.${PYTHON_HPCMP_ARCH_OLD} build.${PYTHON_HPCMP_ARCH} && cp install.${PYTHON_HPCMP_ARCH_OLD} install.${PYTHON_HPCMP_ARCH}
+	cd mpi4pyConfig && cp config.${PYTHONHPC_ARCH_OLD} config.${PYTHONHPC_ARCH}  && cp build.${PYTHONHPC_ARCH_OLD} build.${PYTHONHPC_ARCH} && cp install.${PYTHONHPC_ARCH_OLD} install.${PYTHONHPC_ARCH} && cp mpi.cfg.${PYTHONHPC_ARCH_OLD} mpi.cfg.${PYTHONHPC_ARCH}
 
 editConfig_mpi4py:
-	cd mpi4pyConfig && ${EDITOR} config.${PYTHON_HPCMP_ARCH} build.${PYTHON_HPCMP_ARCH} install.${PYTHON_HPCMP_ARCH}
+	cd mpi4pyConfig && ${EDITOR} config.${PYTHONHPC_ARCH} build.${PYTHONHPC_ARCH} install.${PYTHONHPC_ARCH} mpi.cfg.${PYTHONHPC_ARCH}
 
 config_mpi4py:
-	cd ${MPI4PY_VERSION} && ../mpi4pyConfig/config.${PYTHON_HPCMP_ARCH} > ../config_mpi4py_progress 2>&1
+	cd ${MPI4PY_VERSION} && cp ../mpi4pyConfig/mpi.cfg.${PYTHONHPC_ARCH} mpi.cfg && ../mpi4pyConfig/config.${PYTHONHPC_ARCH} > ../config_mpi4py_progress 2>&1
 
 build_mpi4py:
-	cd ${MPI4PY_VERSION} && ../mpi4pyConfig/build.${PYTHON_HPCMP_ARCH} > ../build_mpi4py_progress 2>&1
+	cd ${MPI4PY_VERSION} && ../mpi4pyConfig/build.${PYTHONHPC_ARCH} > ../build_mpi4py_progress 2>&1
 
 install_mpi4py:
 	make config_mpi4py build_mpi4py
-	cd ${MPI4PY_VERSION} && ../mpi4pyConfig/install.${PYTHON_HPCMP_ARCH} > ../install_mpi4py_progress 2>&1
+	cd ${MPI4PY_VERSION} && ../mpi4pyConfig/install.${PYTHONHPC_ARCH} > ../install_mpi4py_progress 2>&1
 	cat config_mpi4py_progress build_mpi4py_progress install_mpi4py_progress > install_mpi4py
 
 distclean_mpi4py:
@@ -369,14 +441,14 @@ editConfig_petsc4py:
 	echo "no petsc4py customization implemented"
 
 config_petsc4py:
-	cd ${PETSC4PY_VERSION} && PETSC_DIR=${PYTHON_HPCMP_PREFIX} PETSC_ARCH='' ${PYTHON_HPCMP_PYTHON} setup.py config > ../config_petsc4py_progress  2>&1
+	cd ${PETSC4PY_VERSION} && PETSC_DIR=${PYTHONHPC_PREFIX} PETSC_ARCH='' ${PYTHONHPC_PYTHON} setup.py config > ../config_petsc4py_progress  2>&1
 
 build_petsc4py:
-	cd ${PETSC4PY_VERSION} && PETSC_DIR=${PYTHON_HPCMP_PREFIX} PETSC_ARCH='' ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_petsc4py_progress  2>&1
+	cd ${PETSC4PY_VERSION} && PETSC_DIR=${PYTHONHPC_PREFIX} PETSC_ARCH='' ${PYTHONHPC_PYTHON} setup.py build > ../build_petsc4py_progress  2>&1
 
 install_petsc4py: install_petsc
 	make config_petsc4py build_petsc4py
-	cd ${PETSC4PY_VERSION} && PETSC_DIR=${PYTHON_HPCMP_PREFIX} PETSC_ARCH='' ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_petsc4py_progress 2>&1
+	cd ${PETSC4PY_VERSION} && PETSC_DIR=${PYTHONHPC_PREFIX} PETSC_ARCH='' ${PYTHONHPC_PYTHON} setup.py install > ../install_petsc4py_progress 2>&1
 	cat config_petsc4py_progress build_petsc4py_progress install_petsc4py_progress > install_petsc4py
 
 distclean_petsc4py:
@@ -392,14 +464,14 @@ editConfig_cython:
 	echo "no cython customization implemented"
 
 config_cython:
-	cd ${CYTHON_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py config > ../config_cython_progress 2>&1
+	cd ${CYTHON_VERSION} && ${PYTHONHPC_PYTHON} setup.py config > ../config_cython_progress 2>&1
 
 build_cython:
-	cd ${CYTHON_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_cython_progress 2>&1
+	cd ${CYTHON_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_cython_progress 2>&1
 
 install_cython:
 	make config_cython build_cython
-	cd ${CYTHON_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_cython_progress 2>&1
+	cd ${CYTHON_VERSION} && ${PYTHONHPC_PYTHON} setup.py install > ../install_cython_progress 2>&1
 	cat config_cython_progress build_cython_progress install_cython_progress > install_cython
 
 distclean_cython:
@@ -411,24 +483,117 @@ distclean_cython:
 #extensionsModules
 #matplotlib
 newConfig_matplotlib:
-	cd matplotlibConfig && cp setup.cfg.${PYTHON_HPCMP_ARCH_OLD} setup.cfg.${PYTHON_HPCMP_ARCH}
+	cd matplotlibConfig && cp setup.cfg.${PYTHONHPC_ARCH_OLD} setup.cfg.${PYTHONHPC_ARCH}
 
 editConfig_matplotlib:
-	cd matplotlibConfig && ${EDITOR} setup.cfg.${PYTHON_HPCMP_ARCH}
+	cd matplotlibConfig && ${EDITOR} setup.cfg.${PYTHONHPC_ARCH}
 
 config_matplotlib:
-	cp matplotlibConfig/setup.cfg.${PYTHON_HPCMP_ARCH} ${MATPLOTLIB_VERSION}/setup.cfg
-	cd ${MATPLOTLIB_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py config > ../config_matplotlib_progress 2>&1
+	cp matplotlibConfig/setup.cfg.${PYTHONHPC_ARCH} ${MATPLOTLIB_VERSION}/setup.cfg
+	cd ${MATPLOTLIB_VERSION} && ${PYTHONHPC_PYTHON} setup.py config > ../config_matplotlib_progress 2>&1
 
 build_matplotlib:
-	cd ${MATPLOTLIB_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py build > ../build_matplotlib_progress 2>&1
+	cd ${MATPLOTLIB_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_matplotlib_progress 2>&1
 
 install_matplotlib:
 	make config_matplotlib build_matplotlib
-	cd ${MATPLOTLIB_VERSION} && ${PYTHON_HPCMP_PYTHON} setup.py install > ../install_matplotlib_progress 2>&1
+	cd ${MATPLOTLIB_VERSION} && ${PYTHONHPC_PYTHON} setup.py install > ../install_matplotlib_progress 2>&1
 	cat config_matplotlib_progress build_matplotlib_progress install_matplotlib_progress > install_matplotlib
 
 distclean_matplotlib:
 	touch install_matplotlib
 	mv -f install_matplotlib install_matplotlib_last
 	cd ${MATPLOTLIB_VERSION} && make -k clean && rm -rf build
+#sphinx
+newConfig_sphinx:
+	echo "no sphinx customization implemented"
+
+editConfig_sphinx:
+	echo "no sphinx customization implemented"
+
+config_sphinx:
+	cd ${SPHINX_VERSION} && ${PYTHONHPC_PYTHON} setup.py config > ../config_sphinx_progress 2>&1
+
+build_sphinx:
+	cd ${SPHINX_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_sphinx_progress 2>&1
+
+install_sphinx:
+	make config_sphinx build_sphinx
+	cd ${SPHINX_VERSION} && ${PYTHONHPC_PYTHON} setup.py install > ../install_sphinx_progress 2>&1
+	cat config_sphinx_progress build_sphinx_progress install_sphinx_progress > install_sphinx
+
+distclean_sphinx:
+	touch install_sphinx
+	mv -f install_sphinx install_sphinx_last
+	cd ${SPHINX_VERSION} && make -k clean
+
+#sip
+newConfig_sip:
+	echo "no sip customization implemented"
+
+editConfig_sip:
+	echo "no sip customization implemented"
+
+config_sip:
+	cd ${SIP_VERSION} && ${PYTHONHPC_PYTHON} configure.py > ../config_sip_progress 2>&1
+
+build_sip:
+	cd ${SIP_VERSION} && make > ../build_sip_progress 2>&1
+
+install_sip:
+	make config_sip build_sip
+	cd ${SIP_VERSION} && make install > ../install_sip_progress 2>&1
+	cat config_sip_progress build_sip_progress install_sip_progress > install_sip
+
+distclean_sip:
+	touch install_sip
+	mv -f install_sip install_sip_last
+	cd ${SIP_VERSION} && make -k clean
+
+#qt
+newConfig_qt:
+	echo "no qt customization implemented"
+
+editConfig_qt:
+	echo "no qt customization implemented"
+
+config_qt:
+	cd ${QT_VERSION} && echo "yes\n" > yes.txt && ${PYTHONHPC_PYTHON} configure.py < yes.txt > ../config_qt_progress 2>&1 && rm yes.txt
+
+build_qt:
+	cd ${QT_VERSION} && make > ../build_qt_progress 2>&1
+
+install_qt: install_sip
+	make config_qt build_qt
+	cd ${QT_VERSION} && make install > ../install_qt_progress 2>&1
+	cat config_qt_progress build_qt_progress install_qt_progress > install_qt
+
+distclean_qt:
+	touch install_qt
+	mv -f install_qt install_qt_last
+	cd ${QT_VERSION} && make -k clean
+
+#ipython
+newConfig_ipython:
+	echo "no ipython customization implemented"
+
+editConfig_ipython:
+	echo "no ipython customization implemented"
+
+config_ipython:
+	pip install readline pyzmq pygments tornado pexpect Sphinx
+	cd ${IPYTHON_VERSION} && ${PYTHONHPC_PYTHON} setup.py config > ../config_ipython_progress 2>&1
+
+build_ipython:
+	cd ${IPYTHON_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_ipython_progress 2>&1
+
+install_ipython: install_qt install_matplotlib
+	make config_ipython build_ipython
+	cd ${IPYTHON_VERSION} && ${PYTHONHPC_PYTHON} setup.py install > ../install_ipython_progress 2>&1
+	cat config_ipython_progress build_ipython_progress install_ipython_progress > install_ipython
+
+distclean_ipython:
+	touch install_ipython
+	mv -f install_ipython install_ipython_last
+	cd ${IPYTHON_VERSION} && make -k clean
+

@@ -25,7 +25,7 @@ TMGLIB       = tmglib$(PLAT).a
 SUPERLULIB   = libsuperlu$(PLAT).a
 BLASDEF = -DUSE_VENDOR_BLAS
 BLASLIB =
-PREFIX = ${PROTEUS_PREFIX}
+PREFIX = ${PYTHONHPC_PREFIX}
 
 #
 #  The archiver and the flag(s) to use when building archive (library)

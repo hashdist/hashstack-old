@@ -1,1 +1,1 @@
-./configure --shared --prefix=${PROTEUS_PREFIX}
+CC="icc -gcc" ./configure --prefix=${PYTHONHPC_PREFIX}

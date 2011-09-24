@@ -1,1 +1,1 @@
-${PROTEUS_PYTHON} setup.py build --mpicxx=CC --mpicc=cc
+${PYTHONHPC_PYTHON} setup.py build --mpicxx=CC --mpicc=cc

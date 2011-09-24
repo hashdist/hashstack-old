@@ -1,2 +1,5 @@
-./configure --prefix=${PROTEUS_PREFIX} --with-pth CC="icc -m64 -pthread" CXX="icpc -m64 -pthread" LD="icc -m64 -pthread"
-#CC="gcc -m64 -pthread" CXX="g++ -m64 -pthread" LD="gcc -m64 -pthread"
+./configure --prefix=${PYTHONHPC_PREFIX} \
+CC="icc -DNDEBUG -DPYTHONHPC_FFI64_HACK -pthread -fp-model precise -fno-strict-aliasing -xSSE4.2 -O3" \
+CXX="icpc -DPYTHONHPC_FFI64_HACK -DNDEBUG -pthread -fp-model precise -fno-strict-aliasing -xSSE4.2 -O3" \
+--with-threads \
+--with-cxx-main="icpc -DPYTHONHPC_FFI64_HACK -pthread -fp-model precise -fno-strict-aliasing -xSSE4.2 -O3"

@@ -2,4 +2,4 @@
 setenv CC gcc
 setenv CXX g++
 setenv LD gcc
-./configure --enable-shared --prefix=${PROTEUS_PREFIX}
+./configure --enable-shared --prefix=${PYTHONHPC_PREFIX}

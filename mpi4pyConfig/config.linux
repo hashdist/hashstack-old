@@ -1,1 +1,1 @@
-${PYTHON_HPCMP_PYTHON} setup.py config
+${PYTHONHPC_PYTHON} setup.py config --mpicc=mpicc --mpicxx=mpicxx

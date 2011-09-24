@@ -1,1 +1,5 @@
-./configure --prefix=${PROTEUS_PREFIX}
+./configure --prefix=${PYTHONHPC_PREFIX} --with-threads --without-gcc \
+CXX="pgCC -DPYTHONHPC_FFI64_HACK -tp barcelona-64 -g" \
+CC="pgcc -DPYTHONHPC_FFI64_HACK -tp barcelona-64 -g" \
+LINKFORSHARED="-Wl,-export-dynamic" \
+--with-cxx-main="pgCC -DPYTHONHPC_FFI64_HACK -tp barcelona-64 -g"

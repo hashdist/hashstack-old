@@ -1,1 +1,1 @@
-./configure --prefix=${PROTEUS_PREFIX} --enable-framework=${PROTEUS_PREFIX} --disable-universalsdk CC="/usr/bin/gcc"  CXX="/usr/bin/g++" CPPFLAGS="-I/${PROTEUS_PREFIX}/include" CXXFLAGS="-I${PROTEUS_PREFIX}/include" LD="/usr/bin/gcc"  LDFLAGS="-L${PROTEUS_PREFIX}/lib"
+./configure --prefix=${PYTHONHPC_PREFIX} --enable-framework=${PYTHONHPC_PREFIX} --disable-universalsdk CC="/usr/bin/gcc"  CXX="/usr/bin/g++" CPPFLAGS="-I/${PYTHONHPC_PREFIX}/include" CXXFLAGS="-I${PYTHONHPC_PREFIX}/include" LD="/usr/bin/gcc"  LDFLAGS="-L${PYTHONHPC_PREFIX}/lib"

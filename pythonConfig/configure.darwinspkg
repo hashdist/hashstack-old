@@ -1,1 +1,1 @@
-./configure --prefix=${PROTEUS_PREFIX} CPPFLAGS="-I/${PROTEUS_PREFIX}/include" LDFLAGS="-L${PROTEUS_PREFIX}/lib"
+./configure --prefix=${PYTHONHPC_PREFIX} CPPFLAGS="-I/${PYTHONHPC_PREFIX}/include" LDFLAGS="-L${PYTHONHPC_PREFIX}/lib"

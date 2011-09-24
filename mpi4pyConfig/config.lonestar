@@ -1,2 +1,1 @@
-#!/bin/csh
-${PYADH_PYTHON} setup.py config --mpi=sgimpi
+${PYTHONHPC_PYTHON} setup.py config --mpicc=mpicc --mpicxx=mpicxx

@@ -102,9 +102,9 @@ trilibrary: $(BIN)triangle.o $(BIN)tricall
 	ranlib $(LIB)libtri.a
 
 install: trilibrary $(BIN)triangle $(BIN)showme
-	cp -f $(LIB)libtri.a $(PROTEUS_PREFIX)/lib
-	cp -f $(BIN)triangle $(BIN)showme  $(PROTEUS_PREFIX)/bin
-	cp -f triangle.h $(PROTEUS_PREFIX)/include
+	cp -f $(LIB)libtri.a $(PYTHONHPC_PREFIX)/lib
+	cp -f $(BIN)triangle $(BIN)showme  $(PYTHONHPC_PREFIX)/bin
+	cp -f triangle.h $(PYTHONHPC_PREFIX)/include
 
 $(BIN)triangle: $(SRC)triangle.c
 	$(CC) $(CSWITCHES) -o $(BIN)triangle $(SRC)triangle.c -lm

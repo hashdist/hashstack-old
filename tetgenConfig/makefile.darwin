@@ -68,7 +68,7 @@ clean:
 	$(RM) *.o *.a tetgen *~
 
 install: tetgen
-	cp tetgen $(PROTEUS_PREFIX)/bin
+	cp tetgen $(PYTHONHPC_PREFIX)/bin
 
 
 

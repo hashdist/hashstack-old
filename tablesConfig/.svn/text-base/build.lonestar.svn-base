@@ -1,4 +1,0 @@
-python setup.py build --hdf5=${PROTEUS_PREFIX}
-
-
-

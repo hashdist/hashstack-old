@@ -1,1 +1,1 @@
-${PROTEUS_PYTHON} setup.py install
+${PYTHONHPC_PYTHON} setup.py install

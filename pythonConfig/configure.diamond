@@ -1,1 +1,8 @@
-./configure --prefix=${PROTEUS_PREFIX}
+./configure --prefix=${PYTHONHPC_PREFIX} \
+CC="icc -DNDEBUG -DPYTHONHPC_FFI64_HACK -fp-model precise -fno-strict-aliasing -O3" \
+CXX="icpc -DPYTHONHPC_FFI64_HACK -DNDEBUG -fp-model precise -fno-strict-aliasing -O3" \
+--with-threads \
+--with-cxx-main="icpc -DPYTHONHPC_FFI64_HACK -pthread -fp-model precise -fno-strict-aliasing -O3"
+#
+#./configure --prefix=${PYTHONHPC_PREFIX} --with-pth CC="icc -DPYTHONHPC_FFI64_HACK -m64 -pthread" \
+#CXX="icpc -DPYTHONHPC_FFI64_HACK -m64 -pthread" LD="icc -DPYTHONHPC_FFI64_HACK -m64 -pthread"

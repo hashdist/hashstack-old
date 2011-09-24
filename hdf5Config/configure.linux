@@ -1,1 +1,1 @@
-./configure LDFLAGS="-L${PYTHON_HPCMP_PREFIX}/lib" LIBS="-lsz -lz" CFLAGS="-I${PYTHON_HPCMP_PREFIX}/include" --with-szlib=${PYTHON_HPCMP_PREFIX} --with-zlib=${PYTHON_HPCMP_PREFIX} --enable-shared --enable-threadsafe --with-pthread --prefix=${PYTHON_HPCMP_PREFIX}
+./configure LDFLAGS="-L${PYTHONHPC_PREFIX}/lib" LIBS="-lsz -lz" CFLAGS="-I${PYTHONHPC_PREFIX}/include" --with-szlib=${PYTHONHPC_PREFIX} --with-zlib=${PYTHONHPC_PREFIX} --enable-shared --enable-threadsafe -disable-parallel --with-pthread --with-pic --prefix=${PYTHONHPC_PREFIX}

@@ -1,4 +1,0 @@
-${PYTHON_HPCMP_PYTHON} setup.py install --hdf5=${PYTHON_HPCMP_PREFIX} --lflags="-L${PYTHON_HPCMP_PREFIX}/lib -lsz -lz" 
-
-
-

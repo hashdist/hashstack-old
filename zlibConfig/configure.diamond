@@ -4,4 +4,4 @@ unsetenv CXX
 unsetenv LD
 unsetenv LDSHARED
 unsetenv LDFLAGS
-./configure --shared --prefix=${PROTEUS_PREFIX}
+./configure --shared --prefix=${PYTHONHPC_PREFIX}

@@ -1,4 +1,4 @@
-./config/configure.py --prefix=${PROTEUS_PREFIX} --with-pic \
+./config/configure.py --prefix=${PYTHONHPC_PREFIX} --with-pic \
 --with-mpi-include=${CRAY_MPICH2_DIR}/include \
 --with-mpi-lib=\[${CRAY_MPICH2_DIR}/lib/libmpich.so\] \
 --with-blas-lapack-lib=\[/opt/acml/4.4.0/gnu64/lib/libacml.so\] \
