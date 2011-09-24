@@ -1,0 +1,1 @@
+CC='gcc' CXX='g++' F77='gfortan' F90='gfortran' FC='gfortran' ${PYTHONHPC_PYTHON} setup.py build install

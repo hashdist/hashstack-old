@@ -1,0 +1,1 @@
+CC='icc -gcc' CXX='icpc -gcc' F77='gfortran' F90='ifort' ./configure --enable-shared --with-pic --with-zlib=${PYTHONHPC_PREFIX} --with-szlib=${PYTHONHPC_PREFIX} --disable-parallel --enable-threadsafe --with-pthread --prefix=${PYTHONHPC_PREFIX} LDFLAGS="-L${PYTHONHPC_PREFIX}/lib" LIBS="-lsz -lz" CFLAGS="-I${PYTHONHPC_PREFIX}/include"

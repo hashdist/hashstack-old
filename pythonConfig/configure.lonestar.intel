@@ -1,0 +1,6 @@
+./configure --prefix=${PYTHONHPC_PREFIX} --with-threads --without-gcc \
+CC="icc -DPYTHONHPC_FFI64_HACK -fno-strict-aliasing -g" 
+#\
+#CXX="icpc -DPYTHONHPC_FFI64_HACK -fno-strict-aliasing -g" \
+#--with-threads --without-gcc \
+#--with-cxx-main="icpc -DPYTHONHPC_FFI64_HACK -fno-strict-aliasing -g"

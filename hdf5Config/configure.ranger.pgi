@@ -1,0 +1,1 @@
+./configure --with-szlib=${PYTHONHPC_PREFIX} --with-zlib=${PYTHONHPC_PREFIX} --enable-shared --enable-threadsafe --with-pthread --prefix=${PYTHONHPC_PREFIX}
