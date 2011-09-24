@@ -6,11 +6,14 @@
 #
 include versionsConfig/versions.${PYTHONHPC_ARCH}
 
-all: install pip
+all: install pip virtualenv
 
 pip:
 	${PYTHONHPC_PYTHON} distribute_setup.py
 	easy_install pip
+
+virtualenv:
+	pip install virtualenv
 
 install: install_core
 
@@ -33,7 +36,7 @@ editConfig: editConfig_core_python editConfig_core_libraries editConfig_core_mod
 #install
 install_core_python: install_zlib install_python
 
-install_core_libraries: install_petsc install_szip install_hdf5 install_triangle install_tetgen install_superlu 
+install_core_libraries: install_petsc install_szip install_hdf5
 
 install_core_modules: install_numpy install_nose install_numexpr install_cython install_pytables install_mpi4py install_petsc4py
 
@@ -44,18 +47,18 @@ install_extensions_modules: install_setuptools install_matplotlib install_sphinx
 #distclean
 distclean_core_python: distclean_python
 
-distclean_core_libraries: distclean_petsc distclean_zlib distclean_szip distclean_hdf5 distclean_triangle distclean_tetgen distclean_superlu 
+distclean_core_libraries: distclean_petsc distclean_zlib distclean_szip distclean_hdf5
 
 distclean_core_modules: distclean_numpy distclean_nose distclean_pytables distclean_cython distclean_mpi4py distclean_petsc4py distclean_numexpr
 
 distclean_extensions_libraries: 
 
-distclean_extensions_modules: distclean_setuptools distclean_readline distclean_matplotlib distclean_sphinx
+distclean_extensions_modules: distclean_setuptools distclean_readline distclean_matplotlib
 
 #newConfig
 newConfig_core_python: newConfig_python
 
-newConfig_core_libraries: newConfig_petsc newConfig_zlib newConfig_szip newConfig_hdf5 newConfig_triangle newConfig_tetgen newConfig_superlu 
+newConfig_core_libraries: newConfig_petsc newConfig_zlib newConfig_szip newConfig_hdf5
 
 newConfig_core_modules: newConfig_numpy newConfig_nose newConfig_pytables newConfig_cython newConfig_mpi4py newConfig_petsc4py
 
@@ -65,7 +68,7 @@ newConfig_extensions_modules: newConfig_setuptools newConfig_readline newConfig_
 
 #editConfig
 editConfig_core_python: editConfig_python
-editConfig_core_libraries: editConfig_petsc editConfig_zlib editConfig_szip editConfig_hdf5 editConfig_triangle editConfig_tetgen editConfig_superlu 
+editConfig_core_libraries: editConfig_petsc editConfig_zlib editConfig_szip editConfig_hdf5
 
 editConfig_core_modules: editConfig_numpy editConfig_nose editConfig_pytables editConfig_cython editConfig_mpi4py editConfig_petsc4py
 
@@ -190,75 +193,6 @@ distclean_hdf5:
 	mv -f install_hdf5 install_hdf5_last
 	cd ${HDF5_VERSION} && make -k distclean
 
-#triangle
-newConfig_triangle:
-	cd triangleConfig && cp makefile.${PYTHONHPC_ARCH_OLD} makefile.${PYTHONHPC_ARCH}
-
-editConfig_triangle:
-	cd triangleConfig && ${EDITOR} makefile.${PYTHONHPC_ARCH}
-
-config_triangle:
-	echo "triangle has no config step; run 'make editConfig_triangle'" > config_triangle_progress 2>&1
-
-build_triangle:
-	cd ${TRIANGLE_VERSION}/src && make -f ../../triangleConfig/makefile.${PYTHONHPC_ARCH} trilibrary all > ../../build_triangle_progress 2>&1
-
-install_triangle:
-	make config_triangle build_triangle
-	cd ${TRIANGLE_VERSION}/src && make -f ../../triangleConfig/makefile.${PYTHONHPC_ARCH} install > ../../install_triangle_progress 2>&1
-	cat config_triangle_progress build_triangle_progress install_triangle_progress > install_triangle
-
-distclean_triangle:
-	touch install_triangle
-	mv -f install_triangle install_triangle_last
-	cd ${TRIANGLE_VERSION}/src && make -f ../../triangleConfig/makefile.${PYTHONHPC_ARCH} -k distclean
-
-#tetgen
-newConfig_tetgen:
-	cd tetgenConfig && cp makefile.${PYTHONHPC_ARCH_OLD} makefile.${PYTHONHPC_ARCH}
-
-editConfig_tetgen:
-	cd tetgenConfig && ${EDITOR} makefile.${PYTHONHPC_ARCH}
-
-config_tetgen:
-	echo "tetgen has no configure step; run 'make editConfig_tetgen'" > config_tetgen_progress 2>&1
-
-build_tetgen:
-	cd ${TETGEN_VERSION} && make -f ../tetgenConfig/makefile.${PYTHONHPC_ARCH} > ../build_tetgen_progress 2>&1
-
-install_tetgen:
-	make config_tetgen build_tetgen
-	cd ${TETGEN_VERSION} && make -f ../tetgenConfig/makefile.${PYTHONHPC_ARCH} install > ../install_tetgen_progress 2>&1
-	cat config_tetgen_progress build_tetgen_progress install_tetgen_progress > install_tetgen
-
-distclean_tetgen:
-	touch install_tetgen
-	mv -f install_tetgen install_tetgen_last
-	cd ${TETGEN_VERSION} && make -f ../tetgenConfig/makefile.${PYTHONHPC_ARCH} -k clean
-
-#superlu
-newConfig_superlu:
-	cd superluConfig && cp make.${PYTHONHPC_ARCH_OLD} make.${PYTHONHPC_ARCH}
-
-editConfig_superlu:
-	cd superluConfig && ${EDITOR} make.${PYTHONHPC_ARCH}
-
-config_superlu:
-	cp superluConfig/make.${PYTHONHPC_ARCH} ${SUPERLU_VERSION}/make.inc > config_superlu_progress 2>&1
-
-build_superlu:
-	cd ${SUPERLU_VERSION} && make superlulib > ../build_superlu_progress 2>&1
-
-install_superlu:
-	make config_superlu build_superlu
-	cd ${SUPERLU_VERSION} && make install > ../install_superlu_progress 2>&1
-	cat config_superlu_progress build_superlu_progress install_superlu_progress > install_superlu
-
-distclean_superlu:
-	touch install_superlu
-	mv -f install_superlu install_superlu_last
-	cd ${SUPERLU_VERSION} && make -k clean
-
 #petsc
 get_petsc:
 	hg clone http://petsc.cs.iit.edu/petsc/petsc-dev
@@ -302,7 +236,7 @@ config_numpy:
 	cp -f numpyConfig/site.cfg.${PYTHONHPC_ARCH} ${NUMPY_VERSION}/site.cfg
 
 build_numpy:
-	cd ${NUMPY_VERSION} && ${PYTHONHPC}/externalPackages/numpyConfig/build.numpy.${PYTHONHPC_ARCH} > ../build_numpy_progress 2>&1
+	cd ${NUMPY_VERSION} && ${PYTHONHPC}/numpyConfig/build.numpy.${PYTHONHPC_ARCH} > ../build_numpy_progress 2>&1
 
 install_numpy:
 	make config_numpy build_numpy
@@ -504,28 +438,6 @@ distclean_matplotlib:
 	touch install_matplotlib
 	mv -f install_matplotlib install_matplotlib_last
 	cd ${MATPLOTLIB_VERSION} && make -k clean && rm -rf build
-#sphinx
-newConfig_sphinx:
-	echo "no sphinx customization implemented"
-
-editConfig_sphinx:
-	echo "no sphinx customization implemented"
-
-config_sphinx:
-	cd ${SPHINX_VERSION} && ${PYTHONHPC_PYTHON} setup.py config > ../config_sphinx_progress 2>&1
-
-build_sphinx:
-	cd ${SPHINX_VERSION} && ${PYTHONHPC_PYTHON} setup.py build > ../build_sphinx_progress 2>&1
-
-install_sphinx:
-	make config_sphinx build_sphinx
-	cd ${SPHINX_VERSION} && ${PYTHONHPC_PYTHON} setup.py install > ../install_sphinx_progress 2>&1
-	cat config_sphinx_progress build_sphinx_progress install_sphinx_progress > install_sphinx
-
-distclean_sphinx:
-	touch install_sphinx
-	mv -f install_sphinx install_sphinx_last
-	cd ${SPHINX_VERSION} && make -k clean
 
 #sip
 newConfig_sip:
