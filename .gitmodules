@@ -34,9 +34,6 @@
 [submodule "nose"]
 	path = nose
 	url = git://github.com/erdc-cm/nose.git
-[submodule "mpi4py"]
-	path = mpi4py
-	url = git://github.com/erdc-cm/mpi4py.git
 [submodule "hdf5"]
 	path = hdf5
 	url = git://github.com/erdc-cm/hdf5.git
