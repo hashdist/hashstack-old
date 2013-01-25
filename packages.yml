@@ -1,42 +1,64 @@
-PyTables:
+- package: PyTables
   url: git://github.com/PyTables/PyTables.git
   key: git:67157a739ad9e152f9959e93afb81d08fffad489
-cython:
+
+
+- package: cython
   url: git://github.com/cython/cython.git
   key: git:278cc33820799a99b2ac8bee396c3f43ac01b854
-hdf5:
+
+
+- package: hdf5
   url: git://github.com/erdc-cm/hdf5.git
   key: git:e853fa711d4ecc71ba7025c64db5bbe41558d635
-ipython:
+
+
+- package: ipython
   url: git://github.com/ipython/ipython.git
   key: git:7b26cae765f48679319ce3909f2837b22a4ba55b
-matplotlib:
+
+- package: matplotlib
   url: git://github.com/matplotlib/matplotlib.git
   key: git:4c75fac733ab8193705545c47abeca59adda90fb
-nose:
+
+
+- package: nose
   url: git://github.com/erdc-cm/nose.git
   key: git:ccb3878af99138301c612d5bb92e7a27d3e39d22
-numexpr:
+
+- package: numexpr
   url: git://github.com/erdc-cm/numexpr.git
   key: git:ed3ca13b58548d68fbc8b9a380990aac1e4897c9
-numpy:
+
+- package: numpy
   url: git://github.com/numpy/numpy.git
   key: git:900d82ecd42932fc62c080341f8c918c9e1125b7
-petsc:
-  url: git://github.com/erdc-cm/petsc-dev.git
-  key: git:019c80a3e60736758f6518730c1b3025076a3853
-petsc4py:
+
+
+#petsc:
+#  url: git://github.com/erdc-cm/petsc-dev.git
+#  key: git:019c80a3e60736758f6518730c1b3025076a3853
+
+- package: petsc4py
   url: git://github.com/erdc-cm/petsc4py.git
   key: git:b9795f134f61531121d2a923f687df75bf56eb70
-python:
+
+- package: python
   url: http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2
   key: tar.bz2:ojsfpyi4wfj23q7ufcvpdea7yvq2g5gd
-sympy:
+  deps: [zlib]
+
+- package: sympy
   url: git://github.com/sympy/sympy.git
   key: git:41327f6a096516b4e723d2ce2ba30319f1ee7dc4
-szip:
+
+
+- package: szip
   url: git://github.com/erdc-cm/szip.git
   key: git:87863577a4656d5414b0d598c91fed1dd227f74a
-zlib:
+
+
+- package: zlib
   url: git://github.com/erdc-cm/zlib.git
   key: git:f7d921d70f092380e224502bf92e256936ddce8a
+  deps: []
