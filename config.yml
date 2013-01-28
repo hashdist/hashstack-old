@@ -1,0 +1,3 @@
+PATH: [/usr/bin, /bin]
+arch: linux
+packages: [python]

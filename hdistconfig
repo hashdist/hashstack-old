@@ -1,10 +1,10 @@
 [global]
-cache = hdist/cache
-db = hdist/db
+cache = cache
+db = db
 
 [sourcecache]
-sources = hdist/src
+sources = src
 
 [builder]
-build-temp = hdist/bld
-artifacts = hdist/opt
+build-temp = bld
+artifacts = opt

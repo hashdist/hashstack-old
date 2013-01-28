@@ -6,6 +6,7 @@
 - package: cython
   url: git://github.com/cython/cython.git
   key: git:278cc33820799a99b2ac8bee396c3f43ac01b854
+  deps: [python]
 
 
 - package: hdf5

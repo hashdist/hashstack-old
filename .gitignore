@@ -2,4 +2,8 @@
 *.pyc
 *.pyo
 
-/hdist
+/opt
+/bld
+/db
+/src
+/profiles
