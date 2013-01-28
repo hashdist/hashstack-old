@@ -23,13 +23,15 @@ def standard_recipe(ctx, attrs, configfiles, build_spec):
     script = [
         ['cd', 'src'],
         ["CC=/usr/bin/ccache /usr/bin/gcc"],
-        ['PYTHONHPC_PREFIX=${ARTIFACT}']
+        ['PYTHONHPC_PREFIX=${ARTIFACT}'],
+        ['hdist', 'build-profile', 'push'],
         ]
     if 'configure' in configfiles:
         script += [['sh', '../configure']]
     script += [
         ['make'],
-        ['make', 'install']
+        ['make', 'install'],
+        ['hdist', 'build-profile', 'pop'],
         ]
     build_spec['build']['script'].append([script]) # make a sub-scope for above comments
     add_profile_install(build_spec)

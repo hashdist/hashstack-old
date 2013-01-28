@@ -12,7 +12,7 @@
 - package: hdf5
   url: git://github.com/erdc-cm/hdf5.git
   key: git:e853fa711d4ecc71ba7025c64db5bbe41558d635
-
+  deps: [szip, zlib]
 
 - package: ipython
   url: git://github.com/ipython/ipython.git
@@ -57,6 +57,7 @@
 - package: szip
   url: git://github.com/erdc-cm/szip.git
   key: git:87863577a4656d5414b0d598c91fed1dd227f74a
+  deps: []
 
 
 - package: zlib
