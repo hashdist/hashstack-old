@@ -22,31 +22,37 @@ class Context(object):
         self.built = {}
 
     def get_artifact_id(self, name):
-        return self.built[name][0]
+        return self.built[name]['id']
 
     def get_before_list(self, name):
-        return self.built[name][1]
+        return self.built[name]['before']
 
     def build_all(self, packages, root_name):
-        built = self.built # { name : (artifact_id, before_list) }
+        built = self.built # { name : dep_spec }
         # depth-first traversal
+
         def visit(name):
+            # returns: dep_spec, that is, dict(ref=..., id=..., before=...)
             if name in built:
                 return built[name]
             pkg = packages[name]
             imports = [] # the imports to build this package
-            before = [] # to be given to dependee, which puts this in before-list for this artifact
-            for dep in pkg.get('deps', []):
-                dep_artifact_id, dep_before = visit(dep)
-                imports.append({'ref': dep.upper(), 'id': dep_artifact_id, 'before': dep_before})
-                before.append(dep_artifact_id)
-            artifact_id = build_package(self, pkg, imports)
-            result = (artifact_id, before)
-            built[name] = result
-            return result
 
-        artifact_id, before_list = visit(root_name)
-        return artifact_id
+            all_deps = complete_dependencies(packages, [name])
+            for dep in all_deps:
+                if dep == name:
+                    continue
+                imports.append(visit(dep))
+
+            artifact_id = build_package(self, pkg, imports)
+            
+            before = [self.get_artifact_id(dep) for dep in pkg['deps']]
+            dep_spec = {'ref': name.upper(), 'id': artifact_id, 'before': before}
+            built[name] = dep_spec
+            return dep_spec
+
+        dep_spec = visit(root_name)
+        return dep_spec['id']
 
 
 def download_sources(ctx, pkg):
@@ -134,7 +140,7 @@ def main():
 
     env = {'PATH': ':'.join(hpcmp_config['PATH'])}
     arch = hpcmp_config['arch']
-    target_link = pjoin('profiles', arch)
+    target_link = 'local'
     silent_makedirs('profiles')
     
     # Set up Hashdist components, configured by ./hdistconfig
@@ -143,9 +149,21 @@ def main():
 
     with open('packages.yml') as f:
         package_list = yaml.safe_load(f)
+
+    # Add common dependencies to every package
+    for pkg in package_list:
+        if pkg['package'] in ('launcher,'):
+            continue
+        pkg['deps'].append('launcher')
+
     packages = dict((pkg['package'], pkg) for pkg in package_list)
+
+
     subset = hpcmp_config.get('packages', packages.keys())
     subset = complete_dependencies(packages, subset)
+
+    ctx.launcher_id = ctx.build_all(packages, 'launcher')
+
 
     packages['profile'] = {'package': 'profile', 'recipe': 'profile',
                            'deps': subset}
