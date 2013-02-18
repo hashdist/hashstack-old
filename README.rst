@@ -40,7 +40,7 @@ built is the "recipe", e.g., set ``recipe: distutils`` for a
 
 The ``standard`` recipe is a configure-make-install-style package,
 and reads configuration files from files such as
- ``${package}Config/configure.$arch`` to figure out how to do
+``${package}Config/configure.$arch`` to figure out how to do
 the configuration.
 
 The recipes are implemented as Python code that generates Hashdist
