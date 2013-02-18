@@ -141,7 +141,6 @@ def main():
     env = {'PATH': ':'.join(hpcmp_config['PATH'])}
     arch = hpcmp_config['arch']
     target_link = 'local'
-    silent_makedirs('profiles')
     
     # Set up Hashdist components, configured by ./hdistconfig
     hdist_config = load_configuration_from_inifile('./hdistconfig')

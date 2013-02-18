@@ -66,7 +66,7 @@ def standard_recipe(ctx, attrs, configfiles, build_spec):
         ['make'],
         ['make', 'install'],
         ['hdist', 'build-profile', 'pop'],
-        ['hdist', 'build-postprocess', '--launcher-shebangs', '--write-protect'],
+        ['hdist', 'build-postprocess', '--shebang=multiline', '--write-protect'],
         ]
     build_spec['build']['script'].append([script]) # make a sub-scope for above comments
     add_profile_install(ctx, attrs, build_spec)
@@ -84,7 +84,7 @@ def distutils_recipe(ctx, attrs, configure, build_spec):
     script = [
         ['cd', 'src'],
         ['${PYTHON}/bin/python', 'setup.py', 'install', '--prefix=${ARTIFACT}'],
-        ['hdist', 'build-postprocess', '--launcher-shebangs', '--write-protect'],
+        ['hdist', 'build-postprocess', '--shebang=multiline', '--write-protect'],
         ]
     build_spec['build']['script'].append([script])
     add_profile_install(ctx, attrs, build_spec)
