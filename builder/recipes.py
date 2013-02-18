@@ -49,9 +49,6 @@ def add_profile_install(ctx, attrs, build_spec):
          "target": "$PROFILE"}
         ]
 
-
-
-
 def standard_recipe(ctx, attrs, configfiles, build_spec):
     script = [
         ['cd', 'src'],
