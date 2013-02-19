@@ -3,6 +3,8 @@ import os
 from os.path import join as pjoin
 import argparse
 from glob import glob
+import traceback
+import textwrap
 
 from hashdist.deps import yaml
 from hashdist.core import load_configuration_from_inifile, SourceCache, BuildStore, atomic_symlink
@@ -145,27 +147,42 @@ def main():
     # Set up Hashdist components, configured by ./hdistconfig
     hdist_config = load_configuration_from_inifile('./hdistconfig')
     ctx = Context(hdist_config, args.verbose, arch, env)
+    try:
+        with open('packages.yml') as f:
+            package_list = yaml.safe_load(f)
 
-    with open('packages.yml') as f:
-        package_list = yaml.safe_load(f)
+        # Add common dependencies to every package
+        for pkg in package_list:
+            if pkg['package'] in ('launcher,'):
+                continue
+            pkg['deps'].append('launcher')
 
-    # Add common dependencies to every package
-    for pkg in package_list:
-        if pkg['package'] in ('launcher,'):
-            continue
-        pkg['deps'].append('launcher')
-
-    packages = dict((pkg['package'], pkg) for pkg in package_list)
-
-
-    subset = hpcmp_config.get('packages', packages.keys())
-    subset = complete_dependencies(packages, subset)
-
-    ctx.launcher_id = ctx.build_all(packages, 'launcher')
+        packages = dict((pkg['package'], pkg) for pkg in package_list)
 
 
-    packages['profile'] = {'package': 'profile', 'recipe': 'profile',
-                           'deps': subset}
-    profile_aid = ctx.build_all(packages, 'profile')
-    profile_path = ctx.build_store.resolve(profile_aid)
-    atomic_symlink(profile_path, target_link)
+        subset = hpcmp_config.get('packages', packages.keys())
+        subset = complete_dependencies(packages, subset)
+
+        ctx.launcher_id = ctx.build_all(packages, 'launcher')
+
+
+        packages['profile'] = {'package': 'profile', 'recipe': 'profile',
+                               'deps': subset}
+        profile_aid = ctx.build_all(packages, 'profile')
+        profile_path = ctx.build_store.resolve(profile_aid)
+        atomic_symlink(profile_path, target_link)
+    except:
+        if ctx.logger.error_occured:
+            sys.exit(127)
+        else:
+            print
+            print "Uncaught exception:"
+            traceback.print_exc()
+            print
+            text = """\
+            This exception has not been translated to a human-friendly error
+            message, please file an issue at
+            https://github.com/hashdist/python-hpcmp2/issues pasting this
+            stack trace.
+            """
+            print textwrap.fill(textwrap.dedent(text), width=78)
