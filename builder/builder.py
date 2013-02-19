@@ -173,9 +173,7 @@ def main():
         profile_path = ctx.build_store.resolve(profile_aid)
         atomic_symlink(profile_path, target_link)
     except:
-        if ctx.logger.error_occurred:
-            sys.exit(127)
-        else:
+        if not ctx.logger.error_occurred:
             print("Uncaught exception:", file=sys.stderr)
             traceback.print_exc(file=sys.stderr)
             print(file=sys.stderr)
@@ -186,3 +184,4 @@ def main():
             stack trace.
             """
             print(textwrap.fill(textwrap.dedent(text), width=78), file=sys.stderr)
+        sys.exit(127)
