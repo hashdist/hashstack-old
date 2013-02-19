@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import sys
 import os
 from os.path import join as pjoin
@@ -175,14 +177,13 @@ def main():
         if ctx.logger.error_occured:
             sys.exit(127)
         else:
-            print
-            print "Uncaught exception:"
-            traceback.print_exc()
-            print
+            print("Uncaught exception:", file=sys.stderr)
+            traceback.print_exc(file=sys.stderr)
+            print(file=sys.stderr)
             text = """\
             This exception has not been translated to a human-friendly error
             message, please file an issue at
             https://github.com/hashdist/python-hpcmp2/issues pasting this
             stack trace.
             """
-            print textwrap.fill(textwrap.dedent(text), width=78)
+            print(textwrap.fill(textwrap.dedent(text), width=78), file=sys.stderr)
