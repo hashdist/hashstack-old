@@ -4,7 +4,7 @@ import os
 import subprocess
 from subprocess import Popen, check_call, CalledProcessError, PIPE
 
-HASHDIST_COMMIT = '855eb19f93f56c9ecbf95fc3c449cd2053f661c3'
+HASHDIST_COMMIT = '56be62da900e81413c3f961f507089461e751e5a'
 
 # Rest of builder assume the python-hpcmp dir is the cwd
 os.chdir(os.path.dirname(__file__))
