@@ -164,7 +164,6 @@ def main():
 
         subset = hpcmp_config.get('packages', packages.keys())
         subset = complete_dependencies(packages, subset)
-
         ctx.launcher_id = ctx.build_all(packages, 'launcher')
 
 
@@ -174,7 +173,7 @@ def main():
         profile_path = ctx.build_store.resolve(profile_aid)
         atomic_symlink(profile_path, target_link)
     except:
-        if ctx.logger.error_occured:
+        if ctx.logger.error_occurred:
             sys.exit(127)
         else:
             print("Uncaught exception:", file=sys.stderr)
