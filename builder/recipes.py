@@ -77,8 +77,9 @@ def pure_make_recipe(ctx, attrs, configfiles, build_spec):
 
 def distutils_recipe(ctx, attrs, configure, build_spec):
     script = [
-        ['mkdir', '-p', '$ARTIFACT/lib/python2.7/site-packages'],
-        ['PYTHONPATH=$ARTIFACT/lib/python2.7/site-packages'],
+        ['py_version_short=$($PYTHON/bin/python', '-c', 'import sys; print sys.version.split()[0][0:3]', ')'],
+        ['PYTHONPATH=$ARTIFACT/lib/python${py_version_short}/site-packages'],
+        ['mkdir', '-p', '$ARTIFACT/lib/python${py_version_short}/site-packages'],
         ['cd', 'src'],
         ['${PYTHON}/bin/python', 'setup.py', 'install', '--prefix=${ARTIFACT}'],
         ['hdist', 'build-postprocess', '--shebang=multiline', '--write-protect'],
