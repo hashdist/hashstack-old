@@ -96,7 +96,7 @@ def build_package(ctx, pkg, imports):
             dict(key=pkg['key'], target='src',
                  strip=0 if pkg['key'].startswith('git:') else 1)
             ]
-        script.append(["@hdist", "build-unpack-sources"])
+        script.append({"hdist": ["build-unpack-sources"]})
 
     # Environment:
 

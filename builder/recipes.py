@@ -9,7 +9,7 @@ def add_profile_install(ctx, attrs, build_spec):
         "object": {}
         }
     build_spec['files'].append(artifact_spec_file)
-    build_spec['build']['script'].insert(0, ['@hdist', 'build-write-files'])
+    build_spec['build']['script'].insert(0, {'hdist': ['build-write-files']})
 
     if not attrs.get('profile_install', True):
         return
@@ -18,7 +18,7 @@ def add_profile_install(ctx, attrs, build_spec):
     artifact_spec_file['object'] = {
         "install": {
             "import": [{"ref": "LAUNCHER", "id": ctx.launcher_id}],
-            "script": [["@hdist", "create-links", "--key=install/link_rules", "artifact.json"]],
+            "script": [{"hdist": ["create-links", "--key=install/link_rules", "artifact.json"]}],
             "link_rules": rules
             }
         }
@@ -50,41 +50,53 @@ def add_profile_install(ctx, attrs, build_spec):
         ]
 
 def standard_recipe(ctx, attrs, configfiles, build_spec):
-    script = [
-        ['cd', 'src'],
-        ['PYTHONHPC_PREFIX=${ARTIFACT}'],
-        ['hdist', 'build-profile', 'push'],
-        ]
+    script = []
+    script += [{'hdist': ['build-profile', 'push']}]
     if 'configure' in configfiles:
-        script += [['sh', '../configure']]
+        script += [{'cmd': ['sh', '../configure']}]
     script += [
-        ['make'],
-        ['make', 'install'],
-        ['hdist', 'build-profile', 'pop'],
-        ['hdist', 'build-postprocess', '--shebang=multiline', '--write-protect'],
+        {'cmd': ['make']},
+        {'cmd': ['make', 'install']},
+        {'hdist': ['build-profile', 'pop']},
+        {'hdist': ['build-postprocess', '--shebang=multiline', '--write-protect']},
         ]
-    build_spec['build']['script'].append([script]) # make a sub-scope for above comments
+
+    scope = {
+        'env': {'PYTHONHPC_PREFIX': '$ARTIFACT'},
+        'cwd': 'src',
+        'scope': script
+        }
+
+    build_spec['build']['script'].append(scope)
     add_profile_install(ctx, attrs, build_spec)
 
 def pure_make_recipe(ctx, attrs, configfiles, build_spec):
     script = [
-        ['cd', 'src'],
-        ['make', 'install', 'PREFIX=${ARTIFACT}'],
-        ['hdist', 'build-postprocess', '--write-protect'],
+        {'cmd': ['make', 'install', 'PREFIX=${ARTIFACT}']},
+        {'hdist': ['build-postprocess', '--write-protect']},
         ]
-    build_spec['build']['script'].append([script]) # make a sub-scope for above comments
+    scope = {
+        'env': {'PYTHONHPC_PREFIX': '$ARTIFACT'},
+        'cwd': 'src',
+        'scope': script
+        }
+    build_spec['build']['script'].append(scope) # make a sub-scope for above comments
     add_profile_install(ctx, attrs, build_spec)
 
 def distutils_recipe(ctx, attrs, configure, build_spec):
     script = [
-        ['py_version_short=$($PYTHON/bin/python', '-c', 'import sys; print sys.version.split()[0][0:3]', ')'],
-        ['PYTHONPATH=$ARTIFACT/lib/python${py_version_short}/site-packages'],
-        ['mkdir', '-p', '$ARTIFACT/lib/python${py_version_short}/site-packages'],
-        ['cd', 'src'],
-        ['${PYTHON}/bin/python', 'setup.py', 'install', '--prefix=${ARTIFACT}'],
-        ['hdist', 'build-postprocess', '--shebang=multiline', '--write-protect'],
+        {'cmd': ['$PYTHON/bin/python', '-c', 'import sys; print sys.version.split()[0][0:3]', ')'],
+         'to_var': 'py_version_short'},
+        {'env': {'PYTHONPATH': '$ARTIFACT/lib/python${py_version_short}/site-packages'},
+         'cwd': 'src',
+         'scope': [
+             {'cmd': ['mkdir', '-p', '$ARTIFACT/lib/python${py_version_short}/site-packages']},
+             {'cmd': ['${PYTHON}/bin/python', 'setup.py', 'install', '--prefix=${ARTIFACT}']},
+             {'hdist': ['build-postprocess', '--shebang=multiline', '--write-protect']},
+             ]
+         }
         ]
-    build_spec['build']['script'].append([script])
+    build_spec['build']['script'] += script
     add_profile_install(ctx, attrs, build_spec)
 
 def profile_recipe(ctx, attrs, configfiles, build_spec):
@@ -96,5 +108,5 @@ def profile_recipe(ctx, attrs, configfiles, build_spec):
     build_spec['profile'] = profile
 
     # emit command to create profile
-    cmd = ["hdist", "create-profile", "--key=profile", "build.json", "$ARTIFACT"]
+    cmd = {"hdist": ["create-profile", "--key=profile", "build.json", "$ARTIFACT"]}
     build_spec['build']['script'].append(cmd)
