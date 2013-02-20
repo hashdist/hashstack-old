@@ -157,6 +157,10 @@ def main(hdist_config_filename):
         for pkg in package_list:
             if pkg['package'] in ('launcher,'):
                 continue
+            if 'deps' not in pkg:
+                print("Missing 'deps' in package %s" % pkg['package'], file=sys.stderr)
+                return 2
+
             pkg['deps'].append('launcher')
 
         packages = dict((pkg['package'], pkg) for pkg in package_list)
@@ -172,6 +176,7 @@ def main(hdist_config_filename):
         profile_aid = ctx.build_all(packages, 'profile')
         profile_path = ctx.build_store.resolve(profile_aid)
         atomic_symlink(profile_path, target_link)
+        return 0
     except:
         if not ctx.logger.error_occurred:
             print("Uncaught exception:", file=sys.stderr)
@@ -184,4 +189,4 @@ def main(hdist_config_filename):
             stack trace.
             """
             print(textwrap.fill(textwrap.dedent(text), width=78), file=sys.stderr)
-        sys.exit(127)
+        return 127
