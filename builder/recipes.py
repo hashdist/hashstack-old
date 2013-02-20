@@ -52,8 +52,6 @@ def add_profile_install(ctx, attrs, build_spec):
 def standard_recipe(ctx, attrs, configfiles, build_spec):
     script = [
         ['cd', 'src'],
-        ["CC=/usr/bin/ccache /usr/bin/gcc"],
-        ["CCACHE_NODIRECT=1"],
         ['PYTHONHPC_PREFIX=${ARTIFACT}'],
         ['hdist', 'build-profile', 'push'],
         ]
