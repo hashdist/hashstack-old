@@ -3,6 +3,9 @@ import os
 import subprocess
 from subprocess import Popen, check_call, CalledProcessError, PIPE
 
+def get_hdist_config_filename():
+    return _hdist_config_filename
+
 def fetch_hashdist(hashdist_path, hashdist_commit):
     if os.path.exists(hashdist_path):
         p = Popen(['git', 'rev-parse', 'HEAD'], cwd=hashdist_path, stdout=PIPE)
@@ -27,8 +30,12 @@ def fetch_hashdist(hashdist_path, hashdist_commit):
     
 
 def setup(root_dir):
+    global _hdist_config_filename
+    
     # Rest of builder assume the python-hpcmp dir is the cwd
     os.chdir(root_dir)
+
+    _hdist_config_filename = os.path.abspath('hdistconfig')
 
     # If HASHDIST is set, we are in development mode and we use the Hashdist provided.
     # Otherwise, fetch the correct hashdist into the 'hashdist' subfolder
@@ -39,3 +46,4 @@ def setup(root_dir):
         hashdist_path = os.path.realpath('_hashdist')
         fetch_hashdist(hashdist_path, hashdist_commit)
     sys.path.insert(0, hashdist_path)
+

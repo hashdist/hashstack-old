@@ -2,9 +2,10 @@
 
 import sys
 import os
-from builder.bootstrap import setup
+from builder.bootstrap import setup, get_hdist_config_filename
 
 setup(os.path.dirname(__file__))
 
 from hashdist.cli.main import main
-sys.exit(main(sys.argv, os.environ))
+
+sys.exit(main(sys.argv, os.environ, default_config_filename=get_hdist_config_filename()))

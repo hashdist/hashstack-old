@@ -129,7 +129,7 @@ def complete_dependencies(packages, subset):
         search(root)
     return result
 
-def main():
+def main(hdist_config_filename):
     # Parse arguments
     argparser = argparse.ArgumentParser()
     argparser.add_argument('-v', '--verbose', help='verbose', action='store_true')
@@ -147,7 +147,7 @@ def main():
     target_link = 'local'
     
     # Set up Hashdist components, configured by ./hdistconfig
-    hdist_config = load_configuration_from_inifile('./hdistconfig')
+    hdist_config = load_configuration_from_inifile(hdist_config_filename)
     ctx = Context(hdist_config, args.verbose, arch, env)
     try:
         with open('packages.yml') as f:
