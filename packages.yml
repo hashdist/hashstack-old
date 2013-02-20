@@ -1,3 +1,9 @@
+- package: python
+  url: http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2
+  key: tar.bz2:ojsfpyi4wfj23q7ufcvpdea7yvq2g5gd
+  deps: [zlib]
+  requires_launcher: true
+
 - package: PyTables
   url: git://github.com/PyTables/PyTables.git
   key: git:67157a739ad9e152f9959e93afb81d08fffad489
@@ -10,14 +16,53 @@
   deps: [python]
 
 - package: hdf5
-  url: git://github.com/erdc-cm/hdf5.git
-  key: git:e853fa711d4ecc71ba7025c64db5bbe41558d635
+  url: http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.10-patch1.tar.bz2
+  key: tar.bz2:fevpwnqvvwpgr5gv2ghlwepeu47sv3hd
   deps: [szip, zlib]
 
+- package: readline
+  recipe: distutils
+  url: https://pypi.python.org/packages/source/r/readline/readline-6.2.4.1.tar.gz
+  key: tar.gz:4ahynyb57zjopukqftwfyzahbmzgehef
+  deps: [python, distribute]
+
+- package: pyzmq
+  recipe: distutils
+  deps: [python, cython]
+  key: tar.gz:3ltuep2ku7et7ddx3lorly2m4zlwcing
+  url: https://github.com/zeromq/pyzmq/downloads/pyzmq-2.2.0.1.tar.gz
+
+- package: pygments
+  recipe: distutils
+  deps: [python]
+  url: https://pypi.python.org/packages/source/P/Pygments/Pygments-1.6.tar.gz
+  key: tar.gz:pgpnjsxxoulokrcaqbwy3hgyfj3apx67
+
+- package: tornado
+  recipe: distutils
+  deps: [python]
+  url: https://pypi.python.org/packages/source/t/tornado/tornado-2.4.1.tar.gz
+  key: tar.gz:ctjzftyunghlu5nzfglur6udofxxyax4
+
+- package: pexpect
+  recipe: distutils
+  deps: [python]
+
+- package: Sphinx
+  recipe: distutils
+  deps: [python]
+
+- package: distribute
+  recipe: distutils
+  url: https://pypi.python.org/packages/source/d/distribute/distribute-0.6.35.tar.gz
+  key: tar.gz:p3t45etocwyam3dneqpb74trymh7tg46
+  deps: [python]
+
 - package: ipython
-  url: git://github.com/ipython/ipython.git
-  key: git:7b26cae765f48679319ce3909f2837b22a4ba55b
-  deps: []
+  url: https://github.com/downloads/ipython/ipython/ipython-0.13.1.tar.gz
+  key: tar.gz:ho7rbfoe7up36cqiohm6ezlruhhdyqit
+  deps: [python, pyzmq, pygments, readline] # + tornado, pexpect, Sphinx
+  recipe: distutils
 
 - package: matplotlib
   url: git://github.com/matplotlib/matplotlib.git
@@ -50,12 +95,6 @@
   url: git://github.com/erdc-cm/petsc4py.git
   key: git:b9795f134f61531121d2a923f687df75bf56eb70
   deps: []
-
-- package: python
-  url: http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2
-  key: tar.bz2:ojsfpyi4wfj23q7ufcvpdea7yvq2g5gd
-  deps: [zlib]
-  requires_launcher: true
 
 - package: sympy
   url: git://github.com/sympy/sympy.git

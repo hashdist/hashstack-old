@@ -6,4 +6,4 @@ PATH: [/usr/bin, /bin]
 arch: linux
 
 # Which packages from package.yml to include in the profile.
-packages: [python, nose, cython]
+packages: [distribute]#python, nose, cython, ipython]
