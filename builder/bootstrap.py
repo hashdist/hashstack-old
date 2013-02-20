@@ -43,7 +43,8 @@ def setup(root_dir):
     if hashdist_path is None:
         with open('hashdist-version') as f:
             hashdist_commit = f.read().strip()
-        hashdist_path = os.path.realpath('_hashdist')
+        hashdist_path = '_hashdist'
         fetch_hashdist(hashdist_path, hashdist_commit)
+    hashdist_path = os.path.realpath(hashdist_path)
     sys.path.insert(0, hashdist_path)
 
