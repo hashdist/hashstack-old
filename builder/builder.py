@@ -69,10 +69,9 @@ def download_sources(ctx, pkg):
 
 def build_package(ctx, pkg, imports):
     # Basic structure
-    script = []
     buildspec = dict(name=pkg['package'],
                      version='n',
-                     build={"commands": script, "import": imports, "env": ctx.build_env})
+                     build={"import": imports, "env": ctx.build_env})
 
     # Listing the sources to unpack. We want to have:
     #   - $BUILD/src: the tarball/git commit listed in package.json,

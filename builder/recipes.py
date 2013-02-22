@@ -106,3 +106,15 @@ def distutils_recipe(ctx, pkg_attrs, configure, build_spec):
         })
     add_profile_install(ctx, pkg_attrs, build_spec)
 
+def profile_recipe(ctx, attrs, configfiles, build_spec):
+    profile_spec = []
+    for dep in attrs['deps']:
+        before = ctx.get_before_list(dep)
+        profile_spec.append({"id": ctx.get_artifact_id(dep), "before": before})
+
+    # emit command to create profile
+    build_spec['build'].update({
+        "hit": ["create-profile", "$in0", "$ARTIFACT"],
+        "inputs": [
+            {'json': profile_spec}
+            ]})
