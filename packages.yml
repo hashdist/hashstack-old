@@ -61,7 +61,7 @@
 - package: ipython
   url: https://github.com/downloads/ipython/ipython/ipython-0.13.1.tar.gz
   key: tar.gz:ho7rbfoe7up36cqiohm6ezlruhhdyqit
-  deps: [python, pyzmq, pygments, readline] # + tornado, pexpect, Sphinx
+  deps: [python, pyzmq, readline] # + tornado, pexpect, Sphinx
   recipe: distutils
 
 - package: matplotlib

@@ -4,23 +4,14 @@ import os
 from pprint import pprint
 
 def add_profile_install(ctx, attrs, build_spec):
-    artifact_spec_file = {
-        "target": "$ARTIFACT/artifact.json",
-        "object": {}
-        }
-    build_spec['files'].append(artifact_spec_file)
-    build_spec['build']['commands'].insert(0, {'hit': ['build-write-files']})
-
     if not attrs.get('profile_install', True):
         return
 
     rules = []
-    artifact_spec_file['object'] = {
-        "install": {
-            "import": [{"ref": "LAUNCHER", "id": ctx.launcher_id}],
-            "commands": [{"hit": ["create-links", "--key=install/link_rules", "artifact.json"]}],
-            "link_rules": rules
-            },
+    build_spec['profile_install'] = {
+        "import": [{"ref": "LAUNCHER", "id": ctx.launcher_id}],
+        "commands": [{"hit": ["create-links", "$in0"],
+                      "inputs": [{"json": rules}]}],
         }
 
     if attrs.get('requires_launcher', False):
@@ -88,7 +79,7 @@ def json_multiline(s):
     return dedent(s).splitlines()
 
 def distutils_recipe(ctx, attrs, configure, build_spec):
-    script = {
+    commands = [{
         'cwd': 'src',
         'commands': [
             {'cmd': ['${PYTHON}/bin/python', '$in0'],
@@ -105,19 +96,25 @@ def distutils_recipe(ctx, attrs, configure, build_spec):
                      # setuptools/distribute happy. Finding the path emulates
                      # exactly what distutilswhen used with Unix --prefix
                      pyver = sys.version.split()[0][0:3]
-                     pypath = pjoin(env['ARTIFACT'], 'lib', 'python' + pyver, 'site-packages')
-                     os.makedirs(pypath)
-                     env['PYTHONPATH'] = pathsep.join([pypath] + env.get('PYTHONPATH', '').split(pathsep)
+                     site_packages = pjoin('lib', 'python' + pyver, 'site-packages')
+
+                     # temporarily until an hashdist issue is fixed
+                     python_path = [pjoin(x, site_packages) for x
+                                    in env['HDIST_IMPORT_PATHS'].split() + [env['ARTIFACT']]]
+                     python_path = python_path[::-1]
+                     os.makedirs(python_path[0]) # make the local one to keep setuptools happy
+                     env['PYTHONPATH'] = pathsep.join(python_path)
+                     
                      # TODO: hashdist.build.exportenviron(), then run below in a new command
-                     subprocess.check_call([sys.executable, 'setup.py', 'install', '--prefix=' + env['ARTIFACT'])
+                     subprocess.check_call([sys.executable, 'setup.py', 'install', '--prefix=' + env['ARTIFACT']])
                      """)
                   },
                  ]
              },
              {'hit': ['build-postprocess', '--shebang=multiline', '--write-protect']}
             ]
-        }
-    build_spec['build']['commands'] += script
+        }]
+    build_spec['build']['commands'] += commands
     add_profile_install(ctx, attrs, build_spec)
 
 def profile_recipe(ctx, attrs, configfiles, build_spec):
