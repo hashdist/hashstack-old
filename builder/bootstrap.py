@@ -32,9 +32,6 @@ def fetch_hashdist(hashdist_path, hashdist_commit):
 def setup(root_dir):
     global _hdist_config_filename
     
-    # Rest of builder assume the python-hpcmp dir is the cwd
-    os.chdir(root_dir)
-
     _hdist_config_filename = os.path.abspath('hdistconfig')
 
     # If HASHDIST is set, we are in development mode and we use the Hashdist provided.

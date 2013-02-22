@@ -1,9 +1,17 @@
 #!/usr/bin/env python
 import os
 import sys
-
 from builder.bootstrap import setup, get_hdist_config_filename
-setup(os.path.dirname(__file__))
+
+root_dir = os.path.dirname(__file__)
+setup(root_dir)
 
 from builder.builder import main
-sys.exit(main(get_hdist_config_filename()))
+from hashdist.cli.main import help_on_exceptions
+from hashdist.hdist_logging import Logger, DEBUG
+
+logger = Logger(DEBUG)
+
+# Rest of builder assume the python-hpcmp dir is the cwd
+os.chdir(root_dir)
+sys.exit(help_on_exceptions(logger, main, logger, get_hdist_config_filename()))

@@ -16,9 +16,9 @@ from hashdist.hdist_logging import Logger, DEBUG, INFO
 from . import recipes as recipes_mod
 
 class Context(object):
-    def __init__(self, config, verbose, arch, build_env):
+    def __init__(self, logger, config, verbose, arch, build_env):
         self.config = config
-        self.logger = logger = Logger(DEBUG if verbose else INFO)
+        self.logger = logger
         self.source_cache = SourceCache.create_from_config(config, logger, create_dirs=True)
         self.build_store = BuildStore.create_from_config(config, logger, create_dirs=True)
         self.arch = arch
@@ -129,7 +129,7 @@ def complete_dependencies(packages, subset):
         search(root)
     return result
 
-def main(hdist_config_filename):
+def main(logger, hdist_config_filename):
     # Parse arguments
     argparser = argparse.ArgumentParser()
     argparser.add_argument('-v', '--verbose', help='verbose', action='store_true')
@@ -148,45 +148,32 @@ def main(hdist_config_filename):
     
     # Set up Hashdist components, configured by ./hdistconfig
     hdist_config = load_configuration_from_inifile(hdist_config_filename)
-    ctx = Context(hdist_config, args.verbose, arch, env)
-    try:
-        with open('packages.yml') as f:
-            package_list = yaml.safe_load(f)
+    ctx = Context(logger, hdist_config, args.verbose, arch, env)
 
-        # Add common dependencies to every package
-        for pkg in package_list:
-            if pkg['package'] in ('launcher,'):
-                continue
-            if 'deps' not in pkg:
-                print("Missing 'deps' in package %s" % pkg['package'], file=sys.stderr)
-                return 2
+    with open('packages.yml') as f:
+        package_list = yaml.safe_load(f)
 
-            pkg['deps'].append('launcher')
+    # Add common dependencies to every package
+    for pkg in package_list:
+        if pkg['package'] in ('launcher,'):
+            continue
+        if 'deps' not in pkg:
+            print("Missing 'deps' in package %s" % pkg['package'], file=sys.stderr)
+            return 2
 
-        packages = dict((pkg['package'], pkg) for pkg in package_list)
+        pkg['deps'].append('launcher')
 
-
-        subset = hpcmp_config.get('packages', packages.keys())
-        subset = complete_dependencies(packages, subset)
-        ctx.launcher_id = ctx.build_all(packages, 'launcher')
+    packages = dict((pkg['package'], pkg) for pkg in package_list)
 
 
-        packages['profile'] = {'package': 'profile', 'recipe': 'profile',
-                               'deps': subset}
-        profile_aid = ctx.build_all(packages, 'profile')
-        profile_path = ctx.build_store.resolve(profile_aid)
-        atomic_symlink(profile_path, target_link)
-        return 0
-    except:
-        if not ctx.logger.error_occurred:
-            print("Uncaught exception:", file=sys.stderr)
-            traceback.print_exc(file=sys.stderr)
-            print(file=sys.stderr)
-            text = """\
-            This exception has not been translated to a human-friendly error
-            message, please file an issue at
-            https://github.com/hashdist/python-hpcmp2/issues pasting this
-            stack trace.
-            """
-            print(textwrap.fill(textwrap.dedent(text), width=78), file=sys.stderr)
-        return 127
+    subset = hpcmp_config.get('packages', packages.keys())
+    subset = complete_dependencies(packages, subset)
+    ctx.launcher_id = ctx.build_all(packages, 'launcher')
+
+
+    packages['profile'] = {'package': 'profile', 'recipe': 'profile',
+                           'deps': subset}
+    profile_aid = ctx.build_all(packages, 'profile')
+    profile_path = ctx.build_store.resolve(profile_aid)
+    atomic_symlink(profile_path, target_link)
+    return 0
