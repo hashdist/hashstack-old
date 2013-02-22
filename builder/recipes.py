@@ -9,7 +9,7 @@ def add_profile_install(ctx, attrs, build_spec):
         "object": {}
         }
     build_spec['files'].append(artifact_spec_file)
-    build_spec['build']['script'].insert(0, {'hdist': ['build-write-files']})
+    build_spec['build']['commands'].insert(0, {'hit': ['build-write-files']})
 
     if not attrs.get('profile_install', True):
         return
@@ -18,9 +18,9 @@ def add_profile_install(ctx, attrs, build_spec):
     artifact_spec_file['object'] = {
         "install": {
             "import": [{"ref": "LAUNCHER", "id": ctx.launcher_id}],
-            "script": [{"hdist": ["create-links", "--key=install/link_rules", "artifact.json"]}],
+            "commands": [{"hit": ["create-links", "--key=install/link_rules", "artifact.json"]}],
             "link_rules": rules
-            }
+            },
         }
 
     if attrs.get('requires_launcher', False):
@@ -51,52 +51,73 @@ def add_profile_install(ctx, attrs, build_spec):
 
 def standard_recipe(ctx, attrs, configfiles, build_spec):
     script = []
-    script += [{'hdist': ['build-profile', 'push']}]
+    script += [{'hit': ['build-profile', 'push']}]
     if 'configure' in configfiles:
         script += [{'cmd': ['sh', '../configure']}]
     script += [
         {'cmd': ['make']},
         {'cmd': ['make', 'install']},
-        {'hdist': ['build-profile', 'pop']},
-        {'hdist': ['build-postprocess', '--shebang=multiline', '--write-protect']},
+        {'hit': ['build-profile', 'pop']},
+        {'hit': ['build-postprocess', '--shebang=multiline', '--write-protect']},
         ]
 
     scope = {
         'env': {'PYTHONHPC_PREFIX': '$ARTIFACT'},
         'cwd': 'src',
-        'scope': script
+        'commands': script
         }
 
-    build_spec['build']['script'].append(scope)
+    build_spec['build']['commands'].append(scope)
     add_profile_install(ctx, attrs, build_spec)
 
 def pure_make_recipe(ctx, attrs, configfiles, build_spec):
     script = [
         {'cmd': ['make', 'install', 'PREFIX=${ARTIFACT}']},
-        {'hdist': ['build-postprocess', '--write-protect']},
+        {'hit': ['build-postprocess', '--write-protect']},
         ]
     scope = {
         'env': {'PYTHONHPC_PREFIX': '$ARTIFACT'},
         'cwd': 'src',
-        'scope': script
+        'commands': script
         }
-    build_spec['build']['script'].append(scope) # make a sub-scope for above comments
+    build_spec['build']['commands'].append(scope) # make a sub-scope for above comments
     add_profile_install(ctx, attrs, build_spec)
 
+def json_multiline(s):
+    from textwrap import dedent
+    return dedent(s).splitlines()
+
 def distutils_recipe(ctx, attrs, configure, build_spec):
-    script = [
-        {'cmd': ['$PYTHON/bin/python', '-c', 'import sys; print sys.version.split()[0][0:3]', ')'],
-         'to_var': 'py_version_short'},
-        {'env': {'PYTHONPATH': '$ARTIFACT/lib/python${py_version_short}/site-packages'},
-         'cwd': 'src',
-         'scope': [
-             {'cmd': ['mkdir', '-p', '$ARTIFACT/lib/python${py_version_short}/site-packages']},
-             {'cmd': ['${PYTHON}/bin/python', 'setup.py', 'install', '--prefix=${ARTIFACT}']},
-             {'hdist': ['build-postprocess', '--shebang=multiline', '--write-protect']},
-             ]
-         }
-        ]
-    build_spec['build']['script'] += script
+    script = {
+        'cwd': 'src',
+        'commands': [
+            {'cmd': ['${PYTHON}/bin/python', '$in0'],
+             'inputs': [
+                 {'text': json_multiline("""\
+                     import sys
+                     import os
+                     from os.path import join as pjoin, pathsep
+                     import subprocess
+                     env = os.environ
+                     
+                     # need to set up a local site-packages and put it in
+                     # PYTHONPATH before launching setup.py to make
+                     # setuptools/distribute happy. Finding the path emulates
+                     # exactly what distutilswhen used with Unix --prefix
+                     pyver = sys.version.split()[0][0:3]
+                     pypath = pjoin(env['ARTIFACT'], 'lib', 'python' + pyver, 'site-packages')
+                     os.makedirs(pypath)
+                     env['PYTHONPATH'] = pathsep.join([pypath] + env.get('PYTHONPATH', '').split(pathsep)
+                     # TODO: hashdist.build.exportenviron(), then run below in a new command
+                     subprocess.check_call([sys.executable, 'setup.py', 'install', '--prefix=' + env['ARTIFACT'])
+                     """)
+                  },
+                 ]
+             },
+             {'hit': ['build-postprocess', '--shebang=multiline', '--write-protect']}
+            ]
+        }
+    build_spec['build']['commands'] += script
     add_profile_install(ctx, attrs, build_spec)
 
 def profile_recipe(ctx, attrs, configfiles, build_spec):
@@ -108,5 +129,7 @@ def profile_recipe(ctx, attrs, configfiles, build_spec):
     build_spec['profile'] = profile
 
     # emit command to create profile
-    cmd = {"hdist": ["create-profile", "--key=profile", "build.json", "$ARTIFACT"]}
-    build_spec['build']['script'].append(cmd)
+    cmd = {"hit": ["create-profile", "--key=profile", "build.json", "$ARTIFACT"]}
+    build_spec['build']['commands'].append(cmd)
+
+

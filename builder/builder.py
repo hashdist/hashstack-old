@@ -72,8 +72,7 @@ def build_package(ctx, pkg, imports):
     script = []
     buildspec = dict(name=pkg['package'],
                      version='n',
-                     build={'script': script, 'import': imports, 'env': ctx.build_env},
-                     files=[])
+                     build={"commands": script, "import": imports, "env": ctx.build_env})
 
     # Listing the sources to unpack. We want to have:
     #   - $BUILD/src: the tarball/git commit listed in package.json,
@@ -96,7 +95,6 @@ def build_package(ctx, pkg, imports):
             dict(key=pkg['key'], target='src',
                  strip=0 if pkg['key'].startswith('git:') else 1)
             ]
-        script.append({"hdist": ["build-unpack-sources"]})
 
     # Environment:
 
