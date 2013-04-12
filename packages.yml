@@ -79,8 +79,9 @@
 
 - package: numexpr
   url: git://github.com/erdc-cm/numexpr.git
-  key: git:ed3ca13b58548d68fbc8b9a380990aac1e4897c9
-  deps: []
+  key: git:c452bb8fa8aac87b89d131f5d542cecea522a239
+  deps: [python, numpy]
+  recipe: distutils
 
 - package: numpy
   url: git://github.com/numpy/numpy.git
@@ -125,4 +126,4 @@
 - package: pytables
   url: https://pypi.python.org/packages/source/t/tables/tables-2.4.0.tar.gz
   key: tar.gz:fpndwh734ihogxktg7mxa4p7if32o5bl
-  deps: [python]
+  deps: [python, numexpr]
