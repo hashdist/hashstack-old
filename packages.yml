@@ -144,11 +144,17 @@
 - package: sphinx
   url: https://pypi.python.org/packages/source/S/Sphinx/Sphinx-1.2b1.tar.gz
   key: tar.gz:cyicw2pjhhm64yfqlvuuvackqpr44bd4
-  deps: [python, distribute]
+  deps: [python, distribute, docutils]
   recipe: distutils
 
 - package: distribute
   url: https://pypi.python.org/packages/source/d/distribute/distribute-0.6.36.tar.gz
   key: tar.gz:er2ptudqnndwzyhbhemvzq23gyfnwzs5
+  deps: [python]
+  recipe: distutils
+
+- package: docutils
+  url: https://pypi.python.org/packages/source/d/docutils/docutils-0.10.tar.gz
+  key: tar.gz:g4dcjzq3m5z5ulzpwf6mfjhk5jf3lfwd
   deps: [python]
   recipe: distutils
