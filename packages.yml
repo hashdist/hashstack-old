@@ -128,3 +128,9 @@
   key: tar.gz:fpndwh734ihogxktg7mxa4p7if32o5bl
   deps: [python, numexpr, cython]
   recipe: distutils
+
+- package: mpi4py
+  url: http://mpi4py.googlecode.com/files/mpi4py-1.3.tar.gz
+  key: tar.gz:wavtsotn3azgbzvn6wiybhfknxlt7soq
+  deps: [python]
+  recipe: distutils
