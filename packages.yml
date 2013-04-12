@@ -89,10 +89,10 @@
   deps: [python]
   recipe: distutils
 
-
-#petsc:
-#  url: git://github.com/erdc-cm/petsc-dev.git
-#  key: git:019c80a3e60736758f6518730c1b3025076a3853
+- package: petsc
+  url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.3-p6.tar.gz
+  key: tar.gz:bhqdyhmhdjcoimrnmgyapo7p2cr6btvf
+  deps: [mpich]
 
 - package: petsc4py
   url: git://github.com/erdc-cm/petsc4py.git
