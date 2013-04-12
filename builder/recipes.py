@@ -66,6 +66,18 @@ def pure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
         })
     add_profile_install(ctx, pkg_attrs, build_spec)
 
+def configure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    build_spec["build"].update({
+        "cwd": "src",
+        "commands": [
+            {"cmd": ["./configure", "--prefix=${ARTIFACT}"]},
+            {"cmd": ["make"]},
+            {"cmd": ["make", "install"]},
+            {"hit": ["build-postprocess", "--write-protect"]}
+            ]
+        })
+    add_profile_install(ctx, pkg_attrs, build_spec)
+
 def json_multiline(s):
     from textwrap import dedent
     return dedent(s).splitlines()
