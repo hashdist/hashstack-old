@@ -67,7 +67,8 @@
 - package: matplotlib
   url: git://github.com/matplotlib/matplotlib.git
   key: git:4c75fac733ab8193705545c47abeca59adda90fb
-  deps: []
+  deps: [python, numpy]
+  recipe: distutils
 
 
 - package: nose

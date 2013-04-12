@@ -7,4 +7,4 @@ arch: linux
 
 # Which packages from package.yml to include in the profile
 # (dependencies are automatically included)
-packages: [nose, readline, ipython, numpy]
+packages: [nose, readline, ipython, numpy, matplotlib]
