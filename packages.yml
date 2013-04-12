@@ -78,8 +78,8 @@
   deps: [python]
 
 - package: numexpr
-  url: git://github.com/erdc-cm/numexpr.git
-  key: git:c452bb8fa8aac87b89d131f5d542cecea522a239
+  url: https://pypi.python.org/packages/source/n/numexpr/numexpr-1.4.2.tar.gz
+  key: tar.gz:hd3t6bacxssskzqynw7muwdjrfqxyaxy
   deps: [python, numpy]
   recipe: distutils
 
