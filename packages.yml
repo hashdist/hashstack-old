@@ -121,3 +121,8 @@
   recipe: pure_make
   profile_install: false
   deps: []
+
+- package: pytables
+  url: https://pypi.python.org/packages/source/t/tables/tables-2.4.0.tar.gz
+  key: tar.gz:fpndwh734ihogxktg7mxa4p7if32o5bl
+  deps: [python]
