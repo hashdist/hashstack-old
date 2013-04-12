@@ -21,7 +21,7 @@ or, for more verbose output::
     ./update -v
 
 The resulting software stack will be put in ``local`` (which is a
-symlink to a Hashdist "profile" unde ``opt``). To use it, add the
+symlink to a Hashdist "profile" under ``opt``). To use it, add the
 following to your environment::
 
     export PATH=/path/to/python-hpcmp/local/bin:$PATH
