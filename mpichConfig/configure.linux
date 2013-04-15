@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+./configure CFLAGS=-fPIC --enable-shared --prefix=${PYTHONHPC_PREFIX}

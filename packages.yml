@@ -139,7 +139,6 @@
   url: http://www.mpich.org/static/tarballs/3.0.3/mpich-3.0.3.tar.gz
   key: tar.gz:jj5yo7oe3e45wwngkuqqn35bud5kdfkr
   deps: []
-  recipe: configure_make
 
 - package: sphinx
   url: https://pypi.python.org/packages/source/S/Sphinx/Sphinx-1.2b1.tar.gz
