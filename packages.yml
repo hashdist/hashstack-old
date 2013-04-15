@@ -170,3 +170,9 @@
   key: tar.gz:fgtq4vmghzfws73nt465yqc2rc4duml6
   deps: []
   recipe: configure_make
+
+- package: daetk
+  url: git://github.com/erdc-cm/daetk.git
+  key: git:001688ce3c4c59051e4d0d80a173d4435d3e0beb
+  deps: [petsc]
+  recipe: bash_script
