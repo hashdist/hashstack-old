@@ -95,9 +95,10 @@
   deps: [mpich, python]
 
 - package: petsc4py
-  url: git://github.com/erdc-cm/petsc4py.git
-  key: git:b9795f134f61531121d2a923f687df75bf56eb70
-  deps: []
+  url: https://petsc4py.googlecode.com/files/petsc4py-3.3.1.tar.gz
+  key: tar.gz:347my4i3ng7uf5mygwdhylesjrzjqjun
+  deps: [python, petsc]
+  recipe: bash_script
 
 - package: sympy
   url: git://github.com/sympy/sympy.git
