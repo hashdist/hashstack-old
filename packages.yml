@@ -67,7 +67,7 @@
 - package: matplotlib
   url: git://github.com/matplotlib/matplotlib.git
   key: git:4c75fac733ab8193705545c47abeca59adda90fb
-  deps: [python, numpy]
+  deps: [python, numpy, freetype]
   recipe: distutils
 
 
@@ -164,3 +164,9 @@
   key: tar.gz:vbpbqu3v3n24ccpzt3g6hvkucxydlzyg
   deps: [python, distribute]
   recipe: distutils
+
+- package: freetype
+  url: http://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz
+  key: tar.gz:fgtq4vmghzfws73nt465yqc2rc4duml6
+  deps: []
+  recipe: configure_make
