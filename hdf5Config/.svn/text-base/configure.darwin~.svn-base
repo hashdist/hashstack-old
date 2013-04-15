@@ -1,1 +1,0 @@
-./configure --disable-parallel --disable-fortran --with-zlib=${PROTEUS_PREFIX} --with-szlib=${PROTEUS_PREFIX} --enable-shared --prefix=${PROTEUS_PREFIX} FC='' CC=gcc CXX=g++ CFLAGS="-I${PROTEUS_PREFIX}/include" LDFLAGS="-L${PROTEUS_PREFIX}/lib" LIBS="-lsz -lz"
