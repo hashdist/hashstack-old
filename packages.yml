@@ -176,3 +176,9 @@
   key: git:001688ce3c4c59051e4d0d80a173d4435d3e0beb
   deps: [petsc]
   recipe: bash_script
+
+- package: superlu
+  url: http://crd-legacy.lbl.gov/~xiaoye/SuperLU/superlu_4.3.tar.gz
+  key: tar.gz:c2msamroxg44nizum5bdcr45atpxerac
+  deps: []
+  recipe: pure_make
