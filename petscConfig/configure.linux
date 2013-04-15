@@ -1,3 +1,1 @@
-./config/configure.py --with-pic --with-clanguage=C --with-cc=mpicc --with-mpi-compilers --with-shared --prefix=${PYTHONHPC_PREFIX}
-
-
+$PYTHON/bin/python ./config/configure.py --with-pic --with-clanguage=C --with-cc=$MPICH/bin/mpicc --with-mpi-compilers --with-shared-libraries --prefix=$ARTIFACT --with-fortran=0

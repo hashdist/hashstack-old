@@ -92,7 +92,7 @@
 - package: petsc
   url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.3-p6.tar.gz
   key: tar.gz:bhqdyhmhdjcoimrnmgyapo7p2cr6btvf
-  deps: [mpich]
+  deps: [mpich, python]
 
 - package: petsc4py
   url: git://github.com/erdc-cm/petsc4py.git
