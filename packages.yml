@@ -133,7 +133,7 @@
   url: http://mpi4py.googlecode.com/files/mpi4py-1.3.tar.gz
   key: tar.gz:wavtsotn3azgbzvn6wiybhfknxlt7soq
   deps: [python, mpich]
-  recipe: distutils
+  recipe: bash_script
 
 - package: mpich
   url: http://www.mpich.org/static/tarballs/3.0.3/mpich-3.0.3.tar.gz

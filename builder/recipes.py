@@ -78,6 +78,21 @@ def configure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
         })
     add_profile_install(ctx, pkg_attrs, build_spec)
 
+def bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    commands = []
+    commands += [{"hit": ["build-profile", "push"]}]
+    commands += [
+            {"cmd": ["bash", "../bash_script"]},
+            {"hit": ["build-profile", "pop"]},
+            {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]},
+        ]
+
+    build_spec["build"]["env"]["PYTHONHPC_PREFIX"] = "$ARTIFACT"
+    build_spec["build"].update({
+        "cwd": "src",
+        "commands": commands})
+    add_profile_install(ctx, pkg_attrs, build_spec)
+
 def json_multiline(s):
     from textwrap import dedent
     return dedent(s).splitlines()
