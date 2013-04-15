@@ -182,3 +182,9 @@
   key: tar.gz:c2msamroxg44nizum5bdcr45atpxerac
   deps: []
   recipe: pure_make
+
+- package: tetgen
+  url: http://tetgen.org/files/tetgen1.4.3.tar.gz
+  key: tar.gz:sutrdoygw73e7wcv5msmgpyi4p5pic65
+  deps: []
+  recipe: bash_script
