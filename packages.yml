@@ -128,7 +128,7 @@
   url: https://pypi.python.org/packages/source/t/tables/tables-2.4.0.tar.gz
   key: tar.gz:fpndwh734ihogxktg7mxa4p7if32o5bl
   deps: [python, numexpr, cython, hdf5]
-  recipe: distutils
+  recipe: bash_script
 
 - package: mpi4py
   url: http://mpi4py.googlecode.com/files/mpi4py-1.3.tar.gz
