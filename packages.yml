@@ -97,7 +97,7 @@
 - package: petsc4py
   url: https://petsc4py.googlecode.com/files/petsc4py-3.3.1.tar.gz
   key: tar.gz:347my4i3ng7uf5mygwdhylesjrzjqjun
-  deps: [python, petsc]
+  deps: [python, numpy, petsc]
   recipe: bash_script
 
 - package: sympy
