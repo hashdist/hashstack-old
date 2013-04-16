@@ -4,11 +4,6 @@
   deps: [zlib]
   requires_launcher: true
 
-- package: PyTables
-  url: git://github.com/PyTables/PyTables.git
-  key: git:67157a739ad9e152f9959e93afb81d08fffad489
-  deps: []
-
 - package: cython
   recipe: distutils
   url: git://github.com/cython/cython.git
@@ -48,16 +43,6 @@
   recipe: distutils
   deps: [python]
 
-- package: Sphinx
-  recipe: distutils
-  deps: [python]
-
-- package: distribute
-  recipe: distutils
-  url: https://pypi.python.org/packages/source/d/distribute/distribute-0.6.35.tar.gz
-  key: tar.gz:p3t45etocwyam3dneqpb74trymh7tg46
-  deps: [python]
-
 - package: ipython
   url: https://github.com/downloads/ipython/ipython/ipython-0.13.1.tar.gz
   key: tar.gz:ho7rbfoe7up36cqiohm6ezlruhhdyqit
@@ -69,7 +54,6 @@
   key: git:4c75fac733ab8193705545c47abeca59adda90fb
   deps: [python, numpy, freetype]
   recipe: distutils
-
 
 - package: nose
   recipe: distutils
@@ -105,12 +89,10 @@
   key: git:41327f6a096516b4e723d2ce2ba30319f1ee7dc4
   deps: []
 
-
 - package: szip
   url: git://github.com/erdc-cm/szip.git
   key: git:87863577a4656d5414b0d598c91fed1dd227f74a
   deps: []
-
 
 - package: zlib
   url: git://github.com/erdc-cm/zlib.git
