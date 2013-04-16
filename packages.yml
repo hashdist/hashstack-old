@@ -178,10 +178,10 @@
   recipe: bash_script
 
 - package: superlu
-  url: http://crd-legacy.lbl.gov/~xiaoye/SuperLU/superlu_4.3.tar.gz
-  key: tar.gz:c2msamroxg44nizum5bdcr45atpxerac
+  url: git://github.com/erdc-cm/superlu
+  key: git:55f7d100d8a5ffa2222534126c2b52986d4ff5bb
   deps: []
-  recipe: pure_make
+  recipe: bash_script
 
 - package: tetgen
   url: http://tetgen.org/files/tetgen1.4.3.tar.gz

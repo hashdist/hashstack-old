@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -e
+
+cp ../make.inc make.inc
+mkdir lib
+export SuperLUroot=`pwd`
+make lib
+mkdir ${ARTIFACT}/lib/
+cp lib/libsuperlu_4.1.a ${ARTIFACT}/lib/
