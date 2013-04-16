@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 export arch=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
 export LDFLAGS="-L/usr/lib/$arch -L/lib/$arch"
 export CFLAGS="-I/usr/include/$arch"
