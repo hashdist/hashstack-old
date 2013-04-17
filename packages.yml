@@ -87,7 +87,8 @@
 - package: sympy
   url: http://sympy.googlecode.com/files/sympy-0.7.2.tar.gz
   key: tar.gz:emck5pjjrwf5izzhhizlsd6wniso4yol
-  deps: []
+  deps: [python]
+  recipe: distutils
 
 - package: szip
   url: http://www.hdfgroup.org/ftp/lib-external/szip/2.1/src/szip-2.1.tar.gz
