@@ -34,10 +34,10 @@
   key: tar.gz:pgpnjsxxoulokrcaqbwy3hgyfj3apx67
 
 - package: tornado
-  recipe: distutils
+  url: https://pypi.python.org/packages/source/t/tornado/tornado-3.0.1.tar.gz
+  key: tar.gz:duhrhxytlc5i6birx4ws66zm65flwrxu
   deps: [python]
-  url: https://pypi.python.org/packages/source/t/tornado/tornado-2.4.1.tar.gz
-  key: tar.gz:ctjzftyunghlu5nzfglur6udofxxyax4
+  recipe: distutils
 
 - package: pexpect
   recipe: distutils
@@ -46,7 +46,7 @@
 - package: ipython
   url: https://github.com/downloads/ipython/ipython/ipython-0.13.1.tar.gz
   key: tar.gz:ho7rbfoe7up36cqiohm6ezlruhhdyqit
-  deps: [python, pyzmq, readline] # + tornado, pexpect, Sphinx
+  deps: [python, pyzmq, readline, tornado]
   recipe: distutils
 
 - package: matplotlib
