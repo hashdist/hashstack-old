@@ -42,7 +42,7 @@ class Context(object):
             pkg = packages[name]
             imports = [] # the imports to build this package
 
-            all_deps = complete_dependencies(packages, [name])
+            all_deps = complete_dependencies(self, packages, [name])
             for dep in all_deps:
                 if dep == name:
                     continue
@@ -51,7 +51,7 @@ class Context(object):
             artifact_id = build_package(self, pkg, imports)
             
             before = [self.get_artifact_id(dep) for dep in pkg['deps']]
-            dep_spec = {'ref': name.upper(), 'id': artifact_id, 'before': before}
+            dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id, 'before': before}
             built[name] = dep_spec
             return dep_spec
 
@@ -109,7 +109,7 @@ def build_package(ctx, pkg, imports):
     artifact_id, dir = ctx.build_store.ensure_present(buildspec, ctx.config, keep_build='error')
     return artifact_id
 
-def complete_dependencies(packages, subset):
+def complete_dependencies(ctx, packages, subset):
     """
     Given a package database `packages` and a list of package names `subset`,
     return `subset` extended so that all ultimate dependencies are included.
@@ -118,7 +118,13 @@ def complete_dependencies(packages, subset):
     result = []
     def search(pkgname):
         if pkgname not in visited:
-            for dep in packages[pkgname].get('deps', []):
+            try:
+                pkg = packages[pkgname]
+            except KeyError:
+                msg = "Package referenced but not found: %s" % pkgname
+                ctx.logger.error(msg)
+                raise ValueError(msg)
+            for dep in pkg.get('deps', []):
                 search(dep)
             visited.add(pkgname)
             result.append(pkgname)
@@ -151,25 +157,44 @@ def main(logger, hdist_config_filename):
         package_list = yaml.safe_load(f)
 
     # Add common dependencies to every package
+    packages = {}
     for pkg in package_list:
-        if pkg['package'] in ('launcher,'):
-            continue
         if 'deps' not in pkg:
             print("Missing 'deps' in package %s" % pkg['package'], file=sys.stderr)
             return 2
 
-        pkg['deps'].append('launcher')
+        # Basic default rules for package settings
+        if pkg['package'] != 'launcher':
+            pkg['deps'].append('launcher')
+        if 'provides' not in pkg:
+            pkg['provides'] = pkg['package']
 
     packages = dict((pkg['package'], pkg) for pkg in package_list)
 
-
     subset = hpcmp_config.get('packages', packages.keys())
-    subset = complete_dependencies(packages, subset)
+    preferred = dict([(packages[pkgname]['provides'], packages[pkgname])
+                      for pkgname in subset])
+
+    # Run over packages and replace deps on virtual packages ("provides")
+    # with the ones found in the subset in the config file
+    for pkg_name, pkg in packages.items():
+        deps = []
+        for dep_name in pkg['deps']:
+            pref = preferred.get(dep_name, None)
+            if pref is not None:
+                dep_name = pref['package']
+            deps.append(dep_name)
+        pkg['deps'] = deps
+
+    subset = complete_dependencies(ctx, packages, subset)
+
+    # For virtual packages, they must be present among the manually
+    # selected set to be selected.
     ctx.launcher_id = ctx.build_all(packages, 'launcher')
 
 
     packages['profile'] = {'package': 'profile', 'recipe': 'profile',
-                           'deps': subset}
+                           'deps': subset, 'provides': 'profile'}
     profile_aid = ctx.build_all(packages, 'profile')
     profile_path = ctx.build_store.resolve(profile_aid)
     atomic_symlink(profile_path, target_link)
