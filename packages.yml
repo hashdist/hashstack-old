@@ -174,8 +174,8 @@
   recipe: bash_script
 
 - package: git
-  url: https://github.com/git/git/archive/v1.8.2.1.tar.gz
-  key: tar.gz:xxaxnd3qzy6y6pso3tontgzpqwt7q4z7
+  url: https://git-core.googlecode.com/files/git-1.8.2.1.tar.gz
+  key: tar.gz:5vw37envnqkuaytvmo26q2b744tnvseb
   deps: [zlib, curl]
 
 - package: curl
