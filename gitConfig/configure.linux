@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+# TODO: find an official tarball which has the "configure" script, so that we
+# don't have to call autoconf:
+autoconf
+./configure --prefix=$ARTIFACT --with-zlib=$ZLIB --with-curl=$CURL

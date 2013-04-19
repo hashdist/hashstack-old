@@ -172,3 +172,14 @@
   key: tar.gz:sutrdoygw73e7wcv5msmgpyi4p5pic65
   deps: []
   recipe: bash_script
+
+- package: git
+  url: https://github.com/git/git/archive/v1.8.2.1.tar.gz
+  key: tar.gz:xxaxnd3qzy6y6pso3tontgzpqwt7q4z7
+  deps: [zlib, curl]
+
+- package: curl
+  url: http://curl.haxx.se/download/curl-7.30.0.tar.bz2
+  key: tar.bz2:nmoeca4hx2ucman25sc5nktbsvlzizzo
+  deps: []
+  recipe: configure_make
