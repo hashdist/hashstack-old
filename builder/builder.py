@@ -7,6 +7,7 @@ import argparse
 from glob import glob
 import traceback
 import textwrap
+from pprint import pprint
 
 from hashdist.deps import yaml
 from hashdist.core import load_configuration_from_inifile, SourceCache, BuildStore, atomic_symlink
@@ -28,30 +29,25 @@ class Context(object):
     def get_artifact_id(self, name):
         return self.built[name]['id']
 
-    def get_before_list(self, name):
-        return self.built[name]['before']
-
     def build_all(self, packages, root_name):
         built = self.built # { name : dep_spec }
         # depth-first traversal
 
         def visit(name):
-            # returns: dep_spec, that is, dict(ref=..., id=..., before=...)
+            # returns: dep_spec, that is, dict(ref=..., id=...)
             if name in built:
                 return built[name]
             pkg = packages[name]
             imports = [] # the imports to build this package
 
-            all_deps = complete_dependencies(self, packages, [name])
+            all_deps = complete_dependencies_stable_order(self, packages, [name])
+
             for dep in all_deps:
                 if dep == name:
                     continue
                 imports.append(visit(dep))
-
             artifact_id = build_package(self, pkg, imports)
-            
-            before = [self.get_artifact_id(dep) for dep in pkg['deps']]
-            dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id, 'before': before}
+            dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id}
             built[name] = dep_spec
             return dep_spec
 
@@ -68,10 +64,16 @@ def download_sources(ctx, pkg):
 
 
 def build_package(ctx, pkg, imports):
-    # Basic structure
+    # Basic structure.
+    # Make sure to deep-copy imports as we may modify it.
+    imports = [dict(x) for x in imports]
+    commands = []
     buildspec = dict(name=pkg['package'],
                      version='n',
-                     build={"import": imports, "env": ctx.build_env})
+                     build={"import": imports, "commands": commands},
+                     on_import=[])
+    for key in sorted(ctx.build_env.keys()):
+        commands.append({"set": key, "value": ctx.build_env[key]})
 
     # Listing the sources to unpack. We want to have:
     #   - $BUILD/src: the tarball/git commit listed in package.json,
@@ -109,10 +111,13 @@ def build_package(ctx, pkg, imports):
     artifact_id, dir = ctx.build_store.ensure_present(buildspec, ctx.config, keep_build='error')
     return artifact_id
 
-def complete_dependencies(ctx, packages, subset):
+def complete_dependencies_stable_order(ctx, packages, subset):
     """
     Given a package database `packages` and a list of package names `subset`,
     return `subset` extended so that all ultimate dependencies are included.
+
+    Visits packages ordering first by dependency structure, then
+    alphabetically, so that for a given input the output is always the same.
     """
     visited = set()
     result = []
@@ -124,11 +129,11 @@ def complete_dependencies(ctx, packages, subset):
                 msg = "Package referenced but not found: %s" % pkgname
                 ctx.logger.error(msg)
                 raise ValueError(msg)
-            for dep in pkg.get('deps', []):
+            for dep in sorted(pkg.get('deps', [])):
                 search(dep)
             visited.add(pkgname)
             result.append(pkgname)
-    for root in subset:
+    for root in sorted(subset):
         search(root)
     return result
 
@@ -186,7 +191,7 @@ def main(logger, hdist_config_filename):
             deps.append(dep_name)
         pkg['deps'] = deps
 
-    subset = complete_dependencies(ctx, packages, subset)
+    subset = complete_dependencies_stable_order(ctx, packages, subset)
 
     # For virtual packages, they must be present among the manually
     # selected set to be selected.

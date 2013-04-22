@@ -38,106 +38,122 @@ def add_profile_install(ctx, pkg_attrs, build_spec):
          "target": "$PROFILE"}
         ]
 
-def standard_recipe(ctx, pkg_attrs, configfiles, build_spec):
-    commands = []
-    commands += [{"hit": ["build-profile", "push"]}]
+def disable_imports_env(build_spec):
+    # Sets "in_env=False" on all imports; useful when one wants to rely on
+    # hit build-profile push instead.
+    for import_ in build_spec['build']['import']:
+        import_['in_env'] = False
+
+def standard_recipe(ctx, pkg_attrs, configfiles, build_spec, postprocess=True):
+    create_temp_profile = pkg_attrs.get('create_temp_profile', True)
+    commands = build_spec['build']['commands']
+    commands += [
+        {"set": "PYTHONHPC_PREFIX", "value": "$ARTIFACT"},
+        {"chdir": "src"},
+        ]
+    if create_temp_profile:
+        commands += [
+            {"hit": ["build-profile", "push"]},
+            {"append_path": "PATH", "value": "$ARTIFACT/bin"},
+            ]
     if "configure" in configfiles:
         commands += [{"cmd": ["sh", "../configure"]}]
     commands += [
-            {"cmd": ["make"]},
-            {"cmd": ["make", "install"]},
-            {"hit": ["build-profile", "pop"]},
-            {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]},
-        ]
+        {"cmd": ["make"]},
+        {"cmd": ["make", "install"]}]
+    if create_temp_profile:
+        commands += [{"hit": ["build-profile", "pop"]}]
+    if postprocess:
+        commands += [{"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]}]
 
-    build_spec["build"]["env"]["PYTHONHPC_PREFIX"] = "$ARTIFACT"
-    build_spec["build"].update({
-        "cwd": "src",
-        "commands": commands})
+    if create_temp_profile:
+        disable_imports_env(build_spec)
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def pure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
-    build_spec["build"].update({
-        "cwd": "src",
-        "commands": [
-            {"cmd": ["make", "install", "PREFIX=${ARTIFACT}"]},
-            {"hit": ["build-postprocess", "--write-protect"]}
-            ]
-        })
+    build_spec["build"]["commands"] += [
+        {"chdir": "src"},
+        {"cmd": ["make", "install", "PREFIX=${ARTIFACT}"]},
+        {"hit": ["build-postprocess", "--write-protect"]}
+        ]
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def configure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
-    build_spec["build"].update({
-        "cwd": "src",
-        "commands": [
-            {"cmd": ["./configure", "--prefix=${ARTIFACT}"]},
-            {"cmd": ["make"]},
-            {"cmd": ["make", "install"]},
-            {"hit": ["build-postprocess", "--write-protect"]}
-            ]
-        })
+    build_spec["build"]["commands"] += [
+        {"chdir": "src"},
+        {"cmd": ["./configure", "--prefix=${ARTIFACT}"]},
+        {"cmd": ["make"]},
+        {"cmd": ["make", "install"]},
+        {"hit": ["build-postprocess", "--write-protect"]}
+        ]
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
-    commands = []
-    commands += [{"hit": ["build-profile", "push"]}]
+    create_temp_profile = pkg_attrs.get('create_temp_profile', True)
+    commands = build_spec["build"]["commands"]
+    if create_temp_profile:
+        commands += [{"hit": ["build-profile", "push"]}]
     commands += [
-            {"cmd": ["bash", "../bash_script"]},
-            {"hit": ["build-profile", "pop"]},
-            {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]},
+        {"set": "PYTHONHPC_PREFIX", "value": "$ARTIFACT"},
+        {"chdir": "src"},
+        {"cmd": ["bash", "../bash_script"]}]
+    if create_temp_profile:
+        commands += [{"hit": ["build-profile", "pop"]}]
+    commands += [
+        {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]},
         ]
 
-    build_spec["build"]["env"]["PYTHONHPC_PREFIX"] = "$ARTIFACT"
-    build_spec["build"].update({
-        "cwd": "src",
-        "commands": commands})
+    if create_temp_profile:
+        disable_imports_env(build_spec)
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def json_multiline(s):
     from textwrap import dedent
     return dedent(s).splitlines()
 
+def python_recipe(ctx, pkg_attrs, configure, build_spec):
+    standard_recipe(ctx, pkg_attrs, configure, build_spec, postprocess=False)
+    # Use the newly built Python to modify artifact.json so that
+    # we make the PYTHON_SITE_PACKAGES_REL variable available, which contains,
+    # e.g., "lib/python2.7/site-packages"
+    build_spec["build"]["commands"] += [
+        {"cmd": ["$ARTIFACT/bin/python", "$in0"], "inputs": [
+            {"text": json_multiline("""\
+            import os, sys, json
+            pjoin = os.path.join
+
+            pyver = sys.version.split()[0][0:3]
+            site_packages = pjoin('lib', 'python' + pyver, 'site-packages')
+            artifact_json = pjoin(os.environ['ARTIFACT'], 'artifact.json')
+            with open(artifact_json) as f:
+                doc = json.load(f)
+            doc['on_import'] += [{'set': 'PYTHON_SITE_PACKAGES_REL', 'value': site_packages}]
+            with open(artifact_json, 'w') as f:
+                json.dump(doc, f, indent=2, separators=(', ', ' : '), sort_keys=True)
+            """)}
+            ]},
+        {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]}
+        ]
+
 def distutils_recipe(ctx, pkg_attrs, configure, build_spec):
-    build_spec["build"].update({
-        "cwd": "src",
-        "commands": [
-            {"cmd": ["${PYTHON}/bin/python", "$in0"],
-             "inputs": [
-                 {"text": json_multiline("""\
-                    import sys
-                    import os
-                    from os.path import join as pjoin, pathsep
-                    import subprocess
-                    env = os.environ
-                
-                    # need to set up a local site-packages and put it in
-                    # PYTHONPATH before launching setup.py to make
-                    # setuptools/distribute happy. Finding the path emulates
-                    # exactly what distutilswhen used with Unix --prefix
-                    pyver = sys.version.split()[0][0:3]
-                    site_packages = pjoin('lib', 'python' + pyver, 'site-packages')
-                
-                    # temporarily until an hashdist issue is fixed
-                    python_path = [pjoin(x, site_packages) for x in
-                                   env['HDIST_IMPORT_PATHS'].split() + [env['ARTIFACT']]]
-                    python_path = python_path[::-1]
-                    os.makedirs(python_path[0]) # make the local one to keep setuptools happy
-                    env['PYTHONPATH'] = pathsep.join(python_path)
-                    
-                    # TODO: hashdist.build.exportenviron(), then run below in a new command
-                    subprocess.check_call([sys.executable, 'setup.py', 'install', '--prefix=' + env['ARTIFACT']])
-                    """)
-                  }]},
-            {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]}
-            ]
-        })
+    build_spec["build"]["commands"] += [
+        # to make setuptools/distribute happy, one must set up a local site-packages
+        # and put it in PYTHONPATH before launching setup.py
+        {"prepend_path": "PYTHONPATH", "value": "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"},
+        {"cmd": ["mkdir", "-p", "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"]},
+        {"chdir": "src"},
+        {"cmd": ["$PYTHON/bin/python", "setup.py", "install", "--prefix=$ARTIFACT"]},
+        {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]}
+        ]
+    build_spec["on_import"] += [
+        {"prepend_path": "PYTHONPATH", "value": "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"}
+        ]
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def profile_recipe(ctx, attrs, configfiles, build_spec):
     profile_spec = []
     for dep in attrs['deps']:
-        before = ctx.get_before_list(dep)
-        profile_spec.append({"id": ctx.get_artifact_id(dep), "before": before})
+        profile_spec.append({"id": ctx.get_artifact_id(dep)})
 
     # emit command to create profile
     build_spec['build'].update({
