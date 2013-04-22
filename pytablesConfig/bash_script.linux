@@ -2,33 +2,5 @@
 
 set -e
 
-cat << EOF | $PYTHON/bin/python
-import sys
-import os
-from os.path import join as pjoin, pathsep
-env = os.environ
-
-# need to set up a local site-packages and put it in
-# PYTHONPATH before launching setup.py to make
-# setuptools/distribute happy. Finding the path emulates
-# exactly what distutilswhen used with Unix --prefix
-pyver = sys.version.split()[0][0:3]
-site_packages = pjoin('lib', 'python' + pyver, 'site-packages')
-
-# temporarily until an hashdist issue is fixed
-python_path = [pjoin(x, site_packages) for x in
-           env['HDIST_IMPORT_PATHS'].split() + [env['ARTIFACT']]]
-python_path = python_path[::-1]
-python_path = pathsep.join(python_path)
-f = open("python_path", "w")
-f.write(python_path)
-f.close()
-EOF
-
-export PYTHONPATH=$(cat python_path)
-echo "Constructed the following PYTHONPATH:"
-echo $PYTHONPATH
-echo
-
 $PYTHON/bin/python setup.py build --hdf5=$HDF5
 $PYTHON/bin/python setup.py install --hdf5=$HDF5 --prefix=$ARTIFACT
