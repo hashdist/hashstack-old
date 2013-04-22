@@ -45,7 +45,7 @@ def disable_imports_env(build_spec):
         import_['in_env'] = False
 
 def standard_recipe(ctx, pkg_attrs, configfiles, build_spec, postprocess=True):
-    create_temp_profile = pkg_attrs.get('create_temp_profile', True)
+    create_temp_profile = pkg_attrs.get('create_temp_profile', False)
     commands = build_spec['build']['commands']
     commands += [
         {"set": "PYTHONHPC_PREFIX", "value": "$ARTIFACT"},
@@ -89,7 +89,7 @@ def configure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
-    create_temp_profile = pkg_attrs.get('create_temp_profile', True)
+    create_temp_profile = pkg_attrs.get('create_temp_profile', False)
     commands = build_spec["build"]["commands"]
     if create_temp_profile:
         commands += [{"hit": ["build-profile", "push"]}]
