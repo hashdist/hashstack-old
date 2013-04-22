@@ -38,25 +38,36 @@ def add_profile_install(ctx, pkg_attrs, build_spec):
          "target": "$PROFILE"}
         ]
 
+def disable_imports_env(build_spec):
+    # Sets "in_env=False" on all imports; useful when one wants to rely on
+    # hit build-profile push instead.
+    for import_ in build_spec['build']['import']:
+        import_['in_env'] = False
+
 def standard_recipe(ctx, pkg_attrs, configfiles, build_spec, postprocess=True):
+    create_temp_profile = pkg_attrs.get('create_temp_profile', True)
     commands = build_spec['build']['commands']
     commands += [
         {"set": "PYTHONHPC_PREFIX", "value": "$ARTIFACT"},
         {"chdir": "src"},
         ]
-    commands += [
-        {"hit": ["build-profile", "push"]},
-        {"append_path": "PATH", "value": "$ARTIFACT/bin"},
-        ]
+    if create_temp_profile:
+        commands += [
+            {"hit": ["build-profile", "push"]},
+            {"append_path": "PATH", "value": "$ARTIFACT/bin"},
+            ]
     if "configure" in configfiles:
         commands += [{"cmd": ["sh", "../configure"]}]
     commands += [
         {"cmd": ["make"]},
-        {"cmd": ["make", "install"]},
-        {"hit": ["build-profile", "pop"]}]
+        {"cmd": ["make", "install"]}]
+    if create_temp_profile:
+        commands += [{"hit": ["build-profile", "pop"]}]
     if postprocess:
         commands += [{"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]}]
 
+    if create_temp_profile:
+        disable_imports_env(build_spec)
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def pure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
@@ -78,16 +89,22 @@ def configure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    create_temp_profile = pkg_attrs.get('create_temp_profile', True)
     commands = build_spec["build"]["commands"]
-    commands += [{"hit": ["build-profile", "push"]}]
+    if create_temp_profile:
+        commands += [{"hit": ["build-profile", "push"]}]
     commands += [
         {"set": "PYTHONHPC_PREFIX", "value": "$ARTIFACT"},
         {"chdir": "src"},
-        {"cmd": ["bash", "../bash_script"]},
-        {"hit": ["build-profile", "pop"]},
+        {"cmd": ["bash", "../bash_script"]}]
+    if create_temp_profile:
+        commands += [{"hit": ["build-profile", "pop"]}]
+    commands += [
         {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]},
         ]
 
+    if create_temp_profile:
+        disable_imports_env(build_spec)
     add_profile_install(ctx, pkg_attrs, build_spec)
 
 def json_multiline(s):
