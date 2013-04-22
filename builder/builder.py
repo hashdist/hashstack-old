@@ -64,7 +64,9 @@ def download_sources(ctx, pkg):
 
 
 def build_package(ctx, pkg, imports):
-    # Basic structure
+    # Basic structure.
+    # Make sure to deep-copy imports as we may modify it.
+    imports = [dict(x) for x in imports]
     commands = []
     buildspec = dict(name=pkg['package'],
                      version='n',
