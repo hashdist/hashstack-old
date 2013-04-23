@@ -156,8 +156,8 @@ def profile_recipe(ctx, attrs, configfiles, build_spec):
         profile_spec.append({"id": ctx.get_artifact_id(dep)})
 
     # emit command to create profile
-    build_spec['build'].update({
+    build_spec['build']['commands'] += [{
         "hit": ["create-profile", "$in0", "$ARTIFACT"],
         "inputs": [
             {'json': profile_spec}
-            ]})
+            ]}]
