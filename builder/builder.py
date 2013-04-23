@@ -60,7 +60,7 @@ def download_sources(ctx, pkg):
     Download source code for a given package
     """
     ctx.logger.info('Downloading sources for %s' % pkg['package'])
-    ctx.source_cache.fetch(pkg['url'], pkg['key'])
+    ctx.source_cache.fetch(pkg['url'], pkg['key'], pkg['package'])
 
 
 def build_package(ctx, pkg, imports):
