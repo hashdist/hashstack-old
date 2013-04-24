@@ -184,3 +184,9 @@
   key: tar.bz2:nmoeca4hx2ucman25sc5nktbsvlzizzo
   deps: []
   recipe: configure_make
+
+- package: triangle
+  url: http://www.netlib.org/voronoi/triangle.zip
+  key: zip:c5tde6w5aocjl6ruthu3ptdeef4sff2q
+  deps: []
+  recipe: bash_script

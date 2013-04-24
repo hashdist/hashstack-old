@@ -1,0 +1,7 @@
+#! /bin/bash
+
+set -e
+
+make triangle
+mkdir -p $ARTIFACT/bin
+cp triangle $ARTIFACT/bin/
