@@ -3,7 +3,6 @@ from __future__ import print_function
 import sys
 import os
 from os.path import join as pjoin
-import argparse
 from glob import glob
 import traceback
 import textwrap
@@ -15,6 +14,11 @@ from hashdist.core.fileutils import silent_makedirs
 from hashdist.hdist_logging import Logger, DEBUG, INFO
 
 from . import recipes as recipes_mod
+
+try:
+    import argparse
+except ImportError:
+    from hashdist.deps import argparse
 
 class Context(object):
     def __init__(self, logger, config, verbose, arch, build_env):
