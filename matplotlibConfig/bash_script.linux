@@ -1,0 +1,6 @@
+#! /bin/bash
+
+set -e
+
+CFLAGS="-I$FREETYPE/include -I$FREETYPE/include/freetype2" LDFLAGS="-L$FREETYPE/lib" $PYTHON/bin/python setup.py build
+$PYTHON/bin/python setup.py install
