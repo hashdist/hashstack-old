@@ -2,5 +2,5 @@
 
 set -e
 
-CFLAGS="-I$PNG/include -I$FREETYPE/include -I$FREETYPE/include/freetype2" LDFLAGS="-L$FREETYPE/lib -L$PNG/lib" $PYTHON/bin/python setup.py build
+CFLAGS="-I$PNG/include -I$FREETYPE/include -I$FREETYPE/include/freetype2" LDFLAGS="-L$FREETYPE/lib -L$PNG/lib -Wl,-rpath=$PNG/lib" $PYTHON/bin/python setup.py build
 $PYTHON/bin/python setup.py install
