@@ -41,7 +41,7 @@ class Context(object):
         def visit(name):
             # returns: dep_spec, that is, dict(ref=..., id=...)
             if name in built:
-                return built[name]
+                return built[name], []
             pkg = packages[name]
             imports = [] # the imports to build this package
 
@@ -50,15 +50,15 @@ class Context(object):
             for dep in all_deps:
                 if dep == name:
                     continue
-                imports.append(visit(dep))
+                spec, _ = visit(dep)
+                imports.append(spec)
             artifact_id = build_package(self, pkg, imports)
-            dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id,
-                    'imports': imports}
+            dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id}
             built[name] = dep_spec
-            return dep_spec
+            return dep_spec, imports
 
-        dep_spec = visit(root_name)
-        self._imports = dep_spec['imports']
+        dep_spec, imports = visit(root_name)
+        self._imports = imports
         return dep_spec['id']
 
 
