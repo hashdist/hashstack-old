@@ -9,7 +9,8 @@ import textwrap
 from pprint import pprint
 
 from hashdist.deps import yaml
-from hashdist.core import load_configuration_from_inifile, SourceCache, BuildStore, atomic_symlink
+from hashdist.core import (load_configuration_from_inifile, SourceCache,
+        BuildStore, atomic_symlink, make_profile)
 from hashdist.core.fileutils import silent_makedirs
 from hashdist.hdist_logging import Logger, DEBUG, INFO
 
@@ -148,6 +149,7 @@ def main(logger, hdist_config_filename):
     #argparser.add_argument('arch', help='e.g., "linux"')
     #argparser.add_argument('subset', nargs='*', help='only attempt to build packages given '
     #                       '(+ their dependencies)')
+    argparser.add_argument('-c', '--copy', help='Create a copy of the profile')
     args = argparser.parse_args()
 
     with open('config.yml') as f:
@@ -207,4 +209,11 @@ def main(logger, hdist_config_filename):
     profile_aid = ctx.build_all(packages, 'profile')
     profile_path = ctx.build_store.resolve(profile_aid)
     atomic_symlink(profile_path, target_link)
+
+    if args.copy:
+        from hashdist.core.run_job import unpack_virtuals_envvar
+        virtuals = unpack_virtuals_envvar(os.environ.get('HDIST_VIRTUALS', ''))
+        make_profile(logger, ctx.build_store, [{"id": profile_aid}],
+                args.copy, virtuals, hdist_config)
+
     return 0
