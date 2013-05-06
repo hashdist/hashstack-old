@@ -52,11 +52,13 @@ class Context(object):
                     continue
                 imports.append(visit(dep))
             artifact_id = build_package(self, pkg, imports)
-            dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id}
+            dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id,
+                    'imports': imports}
             built[name] = dep_spec
             return dep_spec
 
         dep_spec = visit(root_name)
+        self._imports = dep_spec['imports']
         return dep_spec['id']
 
 
@@ -213,7 +215,7 @@ def main(logger, hdist_config_filename):
     if args.copy:
         from hashdist.core.run_job import unpack_virtuals_envvar
         virtuals = unpack_virtuals_envvar(os.environ.get('HDIST_VIRTUALS', ''))
-        make_profile(logger, ctx.build_store, [{"id": profile_aid}],
+        make_profile(logger, ctx.build_store, ctx._imports,
                 args.copy, virtuals, hdist_config)
 
     return 0
