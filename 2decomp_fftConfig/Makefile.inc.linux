@@ -54,7 +54,7 @@ endif
 
 
 #----------------------- Fortran Compiler ----------------------------
-F90=mpif90
+F90=${MPI}/bin/mpif90
 
 # enable preprocessing
 CPPFLAGS=-cpp
