@@ -202,3 +202,9 @@
   key: tar.gz:xft6qaw27yw3aq6pxxyaipqtcl445hat
   deps: [python, numpy]
   recipe: distutils
+
+- package: 2decomp_fft
+  url: http://www.2decomp.org/download/2decomp_fft-1.5.847.tar.gz
+  key: tar.gz:we35pt43o4o6bilu2htmj7yojc2kqs2r
+  deps: [mpi]
+  recipe: bash_script

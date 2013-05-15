@@ -1,0 +1,8 @@
+#! /bin/bash
+
+set -e
+
+cp ../Makefile.inc src/Makefile.inc
+make
+mkdir -p $ARTIFACT/include
+cp include/* $ARTIFACT/include/
