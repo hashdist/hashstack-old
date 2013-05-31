@@ -225,3 +225,9 @@
   key: tar.gz:wog6isdcvgdsspgt3dp24hcatviuw3co
   deps: []
   recipe: configure_make
+
+- package: mayavi
+  url: https://github.com/enthought/mayavi.git
+  key: git:576b9ca3da90a33690138edf6d350c3f72d6b34e
+  deps: [distribute, numpy, vtk]
+  recipe: bash_script
