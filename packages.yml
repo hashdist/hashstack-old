@@ -214,3 +214,8 @@
   key: tar.gz:6kkzwdtkupoga2rgglpmaqrqs4tiusji
   deps: []
   recipe: bash_script
+
+- package: mesa
+  url: ftp://ftp.freedesktop.org/pub/mesa/9.1.3/MesaLib-9.1.3.tar.bz2
+  key: tar.bz2:rvo2yiqc2a2vx7247umdlaxmqft5dujc
+  deps: []

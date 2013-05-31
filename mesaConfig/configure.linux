@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+./configure --prefix=$ARTIFACT --enable-osmesa --disable-dri --disable-glx --disable-egl --enable-xlib-glx --disable-gallium-llvm --with-dri-drivers="" --with-gallium-drivers=""
