@@ -208,3 +208,9 @@
   key: tar.gz:we35pt43o4o6bilu2htmj7yojc2kqs2r
   deps: [mpi]
   recipe: bash_script
+
+- package: vtk
+  url: http://www.vtk.org/files/release/6.0/vtk-6.0.0.rc2.tar.gz
+  key: tar.gz:6kkzwdtkupoga2rgglpmaqrqs4tiusji
+  deps: []
+  recipe: bash_script
