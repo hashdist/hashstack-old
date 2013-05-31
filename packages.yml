@@ -212,7 +212,7 @@
 - package: vtk
   url: http://www.vtk.org/files/release/6.0/vtk-6.0.0.rc2.tar.gz
   key: tar.gz:6kkzwdtkupoga2rgglpmaqrqs4tiusji
-  deps: [mesa]
+  deps: [mesa, python]
   recipe: bash_script
 
 - package: mesa
