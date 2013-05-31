@@ -2,5 +2,10 @@
 
 set -e
 
-cmake .
+cmake -DCMAKE_INSTALL_PREFIX:PATH="$ARTIFACT" \
+    -DVTK_USE_OFFSCREEN=ON \
+    -DOSMESA_INCLUDE_DIR=$MESA \
+    -DOSMESA_LIBRARY=$MESA/lib/libOSMesa.so \
+
 make
+make install
