@@ -1,6 +1,6 @@
 - package: python
-  url: http://python.org/ftp/python/2.7.4/Python-2.7.4.tar.bz2
-  key: tar.bz2:anpxaxka7dwjm32debv2kaehbdurds72
+  url: http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
+  key: tar.bz2:hndxkvegjzqwuba64tl456mes5ixoc6h
   deps: [zlib]
   recipe: python
   requires_launcher: true
