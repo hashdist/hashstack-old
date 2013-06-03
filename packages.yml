@@ -226,6 +226,18 @@
   deps: []
   recipe: configure_make
 
+- package: autoconf
+  url: http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+  key: tar.gz:svf5ngzzd3obfvveuunc3ukhmvb5uxdl
+  deps: [m4]
+  recipe: bash_script
+
+- package: m4
+  url: http://ftp.gnu.org/gnu/m4/m4-1.4.16.tar.bz2
+  key: tar.bz2:ijiayh653ef4wfq6nnmn5ey5o2mstrev
+  deps: []
+  recipe: configure_make
+
 - package: mayavi
   url: https://github.com/enthought/mayavi.git
   key: git:0dedbd920f1b242ca7ecfaa4474bae5cfc79af69
