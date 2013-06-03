@@ -228,7 +228,7 @@
 
 - package: mayavi
   url: https://github.com/enthought/mayavi.git
-  key: git:576b9ca3da90a33690138edf6d350c3f72d6b34e
+  key: git:0dedbd920f1b242ca7ecfaa4474bae5cfc79af69
   deps: [distribute, numpy, vtk, traitsui, apptools]
   recipe: python_bash_script
 
