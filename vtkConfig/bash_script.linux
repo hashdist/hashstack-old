@@ -20,3 +20,6 @@ cmake -DCMAKE_INSTALL_PREFIX:PATH="$ARTIFACT" \
 
 make
 make install
+
+# Fix RPATH:
+find $ARTIFACT/$PYTHON_SITE_PACKAGES_REL/vtk/*.so | xargs -n1 $PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib
