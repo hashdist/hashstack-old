@@ -161,3 +161,28 @@ def profile_recipe(ctx, attrs, configfiles, build_spec):
         "inputs": [
             {'json': profile_spec}
             ]}]
+
+def python_bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    create_temp_profile = pkg_attrs.get('create_temp_profile', False)
+    commands = build_spec["build"]["commands"]
+    if create_temp_profile:
+        commands += [{"hit": ["build-profile", "push"]}]
+    commands += [
+        # to make setuptools/distribute happy, one must set up a local site-packages
+        # and put it in PYTHONPATH before launching setup.py
+        {"prepend_path": "PYTHONPATH", "value": "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"},
+        {"set": "PYTHONHPC_PREFIX", "value": "$ARTIFACT"},
+        {"chdir": "src"},
+        {"cmd": ["bash", "../bash_script"]}]
+    if create_temp_profile:
+        commands += [{"hit": ["build-profile", "pop"]}]
+    commands += [
+        {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]},
+        ]
+
+    if create_temp_profile:
+        disable_imports_env(build_spec)
+    build_spec["on_import"] += [
+        {"prepend_path": "PYTHONPATH", "value": "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"}
+        ]
+    add_profile_install(ctx, pkg_attrs, build_spec)
