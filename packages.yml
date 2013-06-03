@@ -231,3 +231,21 @@
   key: git:576b9ca3da90a33690138edf6d350c3f72d6b34e
   deps: [distribute, numpy, vtk]
   recipe: python_bash_script
+
+- package: traits
+  url: https://github.com/enthought/traits.git
+  key: git:da1d69129e95ed9117906b246c54779b1df5d8f3
+  deps: [numpy, distribute]
+  recipe: distutils
+
+- package: traitsui
+  url: https://github.com/enthought/traitsui.git
+  key: git:2e3840301e6e2235efa661c61b26154a61cf70ba
+  deps: [distribute, pyface]
+  recipe: distutils
+
+- package: pyface
+  url: https://github.com/enthought/pyface.git
+  key: git:a104f36cae458093840b179dc8c94e051efe8a18
+  deps: [distribute, traits]
+  recipe: distutils
