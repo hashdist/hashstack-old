@@ -249,3 +249,15 @@
   key: git:a104f36cae458093840b179dc8c94e051efe8a18
   deps: [distribute, traits]
   recipe: distutils
+
+- package: apptools
+  url: https://github.com/enthought/apptools.git
+  key: git:ef5408f787a8cbda5442d960b7decfdfad5efca1
+  deps: [distribute, configobj, traitsui]
+  recipe: distutils
+
+- package: configobj
+  url: https://pypi.python.org/packages/source/c/configobj/configobj-4.7.2.tar.gz
+  key: tar.gz:kfp7si2gewjoqmq57c2iyr7dikhy2qdo
+  deps: [python]
+  recipe: distutils
