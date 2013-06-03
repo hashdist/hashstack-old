@@ -261,3 +261,9 @@
   key: tar.gz:kfp7si2gewjoqmq57c2iyr7dikhy2qdo
   deps: [python]
   recipe: distutils
+
+- package: patchelf
+  url: http://hydra.nixos.org/build/1524660/download/2/patchelf-0.6.tar.bz2
+  key: tar.bz2:7r7h7kk7fax4g6szdkacmkpa4hwqppbk
+  deps: []
+  recipe: configure_make
