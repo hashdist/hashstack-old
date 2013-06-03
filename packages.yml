@@ -238,6 +238,12 @@
   deps: []
   recipe: configure_make
 
+- package: automake
+  url: http://ftp.gnu.org/gnu/automake/automake-1.13.3.tar.gz
+  key: tar.gz:ra6jd63675zvzvbg27wpij4wsprplbcc
+  deps: []
+  recipe: configure_make
+
 - package: mayavi
   url: https://github.com/enthought/mayavi.git
   key: git:0dedbd920f1b242ca7ecfaa4474bae5cfc79af69
