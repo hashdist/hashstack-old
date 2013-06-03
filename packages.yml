@@ -12,8 +12,8 @@
   deps: [python]
 
 - package: hdf5
-  url: http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.10-patch1.tar.bz2
-  key: tar.bz2:fevpwnqvvwpgr5gv2ghlwepeu47sv3hd
+  url: http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.11.tar.bz2
+  key: tar.bz2:l2q3vax4o42q5zriw6k243w6ax7ov4og
   deps: [szip, zlib]
 
 - package: readline
