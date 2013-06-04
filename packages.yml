@@ -297,3 +297,9 @@
   key: tar.gz:7u6gjs3g6lcouj7jgtjhlecnslhmjffi
   deps: [python]
   recipe: python_bash_script
+
+- package: cmake
+  url: http://www.cmake.org/files/v2.8/cmake-2.8.11.tar.gz
+  key: tar.gz:edingzqxs75ifqm6pj24omk4mqhaahft
+  deps: []
+  recipe: bash_script
