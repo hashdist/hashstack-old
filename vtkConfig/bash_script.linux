@@ -24,7 +24,7 @@ make install
 # Fix RPATH:
 echo "Patching RPATH:"
 echo $ARTIFACT/$PYTHON_SITE_PACKAGES_REL/vtk/*.so
-echo $PATCHELF/bin/patchelf
+echo $PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib:$MESA/lib:$PYTHON/lib
 echo "Start:"
-find $ARTIFACT/$PYTHON_SITE_PACKAGES_REL/vtk/*.so | xargs -n1 $PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib
+find $ARTIFACT/$PYTHON_SITE_PACKAGES_REL/vtk/*.so | xargs -n1 $PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib:$MESA/lib:$PYTHON/lib
 echo "Done."
