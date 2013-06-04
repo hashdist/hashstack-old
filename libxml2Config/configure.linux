@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+export PATH="$PYTHON/bin:$PATH"
+
+./configure --prefix=$ARTIFACT
