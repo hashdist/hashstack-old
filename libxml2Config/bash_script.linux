@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+./configure --prefix=$ARTIFACT --without-python
+make
+make install
+
+cd python
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT
