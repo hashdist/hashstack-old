@@ -18,6 +18,7 @@ export LIBTOOLIZE=$LIBTOOL_orig/bin/libtoolize
 
 export ACLOCAL_PATH=$LIBTOOL_orig/share/aclocal
 
+export PATH="$PYTHON/bin:$PATH"
 
 $AUTOCONF_orig/bin/autoreconf -fi
 
