@@ -13,7 +13,7 @@ LIBTOOL_orig=$LIBTOOL
 export LIBTOOL=$LIBTOOL_orig/bin/libtool
 
 export AUTOHEADER=$AUTOCONF_orig/bin/autoheader
-export ACLOCAL=$AUTOMAKE_orig/bin/aclocal
+export ACLOCAL="$AUTOMAKE_orig/bin/aclocal -I$PKGCONF/share/aclocal"
 export LIBTOOLIZE=$LIBTOOL_orig/bin/libtoolize
 
 export ACLOCAL_PATH=$LIBTOOL_orig/share/aclocal
