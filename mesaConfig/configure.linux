@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -e
-
-# Needed because of: https://bugs.freedesktop.org/show_bug.cgi?id=63615
-autoreconf -fi
-
-# Build OSMesa
-./configure --prefix=$ARTIFACT --enable-osmesa --disable-dri --disable-egl --enable-xlib-glx --disable-gallium-llvm --with-dri-drivers="" --with-gallium-drivers=""

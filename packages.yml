@@ -1,6 +1,6 @@
 - package: python
-  url: http://python.org/ftp/python/2.7.4/Python-2.7.4.tar.bz2
-  key: tar.bz2:anpxaxka7dwjm32debv2kaehbdurds72
+  url: http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
+  key: tar.bz2:hndxkvegjzqwuba64tl456mes5ixoc6h
   deps: [zlib]
   recipe: python
   requires_launcher: true
@@ -12,8 +12,8 @@
   deps: [python]
 
 - package: hdf5
-  url: http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.10-patch1.tar.bz2
-  key: tar.bz2:fevpwnqvvwpgr5gv2ghlwepeu47sv3hd
+  url: http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.11.tar.bz2
+  key: tar.bz2:l2q3vax4o42q5zriw6k243w6ax7ov4og
   deps: [szip, zlib]
 
 - package: readline
@@ -212,16 +212,94 @@
 - package: vtk
   url: http://www.vtk.org/files/release/6.0/vtk-6.0.0.rc2.tar.gz
   key: tar.gz:6kkzwdtkupoga2rgglpmaqrqs4tiusji
-  deps: [mesa]
-  recipe: bash_script
+  deps: [mesa, python, patchelf, cmake]
+  recipe: python_bash_script
 
 - package: mesa
   url: ftp://ftp.freedesktop.org/pub/mesa/9.1.3/MesaLib-9.1.3.tar.bz2
   key: tar.bz2:rvo2yiqc2a2vx7247umdlaxmqft5dujc
-  deps: [libtool]
+  deps: [libtool, m4, autoconf, automake, pkgconf, python, libxml2]
+  recipe: bash_script
 
 - package: libtool
   url: http://ftpmirror.gnu.org/libtool/libtool-2.4.2.tar.gz
   key: tar.gz:wog6isdcvgdsspgt3dp24hcatviuw3co
   deps: []
   recipe: configure_make
+
+- package: autoconf
+  url: http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+  key: tar.gz:svf5ngzzd3obfvveuunc3ukhmvb5uxdl
+  deps: [m4]
+  recipe: bash_script
+
+- package: m4
+  url: http://ftp.gnu.org/gnu/m4/m4-1.4.16.tar.bz2
+  key: tar.bz2:ijiayh653ef4wfq6nnmn5ey5o2mstrev
+  deps: []
+  recipe: configure_make
+
+- package: automake
+  url: http://ftp.gnu.org/gnu/automake/automake-1.13.3.tar.gz
+  key: tar.gz:ra6jd63675zvzvbg27wpij4wsprplbcc
+  deps: [autoconf]
+
+- package: mayavi
+  url: https://github.com/enthought/mayavi.git
+  key: git:0dedbd920f1b242ca7ecfaa4474bae5cfc79af69
+  deps: [distribute, numpy, vtk, traitsui, apptools]
+  recipe: distutils
+
+- package: traits
+  url: https://github.com/enthought/traits.git
+  key: git:da1d69129e95ed9117906b246c54779b1df5d8f3
+  deps: [numpy, distribute]
+  recipe: distutils
+
+- package: traitsui
+  url: https://github.com/enthought/traitsui.git
+  key: git:2e3840301e6e2235efa661c61b26154a61cf70ba
+  deps: [distribute, pyface]
+  recipe: distutils
+
+- package: pyface
+  url: https://github.com/enthought/pyface.git
+  key: git:a104f36cae458093840b179dc8c94e051efe8a18
+  deps: [distribute, traits]
+  recipe: distutils
+
+- package: apptools
+  url: https://github.com/enthought/apptools.git
+  key: git:ef5408f787a8cbda5442d960b7decfdfad5efca1
+  deps: [distribute, configobj, traitsui]
+  recipe: distutils
+
+- package: configobj
+  url: https://pypi.python.org/packages/source/c/configobj/configobj-4.7.2.tar.gz
+  key: tar.gz:kfp7si2gewjoqmq57c2iyr7dikhy2qdo
+  deps: [python]
+  recipe: distutils
+
+- package: patchelf
+  url: http://hydra.nixos.org/build/1524660/download/2/patchelf-0.6.tar.bz2
+  key: tar.bz2:7r7h7kk7fax4g6szdkacmkpa4hwqppbk
+  deps: []
+  recipe: configure_make
+
+- package: pkgconf
+  url: http://rabbit.dereferenced.org/~nenolod/distfiles/pkgconf-0.9.2.tar.bz2
+  key: tar.bz2:5dd6utysqizyhuwjkwanisl32cc2uego
+  deps: []
+  recipe: configure_make
+
+- package: libxml2
+  url: ftp://xmlsoft.org/libxml2/libxml2-2.9.1.tar.gz
+  key: tar.gz:7u6gjs3g6lcouj7jgtjhlecnslhmjffi
+  deps: [python]
+  recipe: python_bash_script
+
+- package: cmake
+  url: http://www.cmake.org/files/v2.8/cmake-2.8.11.tar.gz
+  key: tar.gz:edingzqxs75ifqm6pj24omk4mqhaahft
+  deps: []
+  recipe: bash_script
