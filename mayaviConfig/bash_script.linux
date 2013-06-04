@@ -1,7 +1,0 @@
-#! /bin/bash
-
-set -e
-
-mkdir -p $ARTIFACT/lib/python2.7/site-packages/
-
-$PYTHON/bin/python setup.py install --prefix=$ARTIFACT
