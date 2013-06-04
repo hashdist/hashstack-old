@@ -3,7 +3,5 @@
 set -e
 
 mkdir -p $ARTIFACT/lib/python2.7/site-packages/
-# This should rather be fixed in the vtk package itself:
-export LD_LIBRARY_PATH=$VTK/lib/
 
 $PYTHON/bin/python setup.py install --prefix=$ARTIFACT
