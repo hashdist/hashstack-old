@@ -2,7 +2,7 @@
 
 set -e
 
-cmake -DCMAKE_INSTALL_PREFIX:PATH="$ARTIFACT" \
+$CMAKE/bin/cmake -DCMAKE_INSTALL_PREFIX:PATH="$ARTIFACT" \
     -DBUILD_TESTING:BOOL=OFF \
     -DBUILD_EXAMPLES:BOOL=OFF \
     -DOSMESA_LIBRARY:FILEPATH=$MESA/lib/libOSMesa.so \
@@ -22,4 +22,9 @@ make
 make install
 
 # Fix RPATH:
+echo "Patching RPATH:"
+echo $ARTIFACT/$PYTHON_SITE_PACKAGES_REL/vtk/*.so
+echo $PATCHELF/bin/patchelf
+echo "Start:"
 find $ARTIFACT/$PYTHON_SITE_PACKAGES_REL/vtk/*.so | xargs -n1 $PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib
+echo "Done."
