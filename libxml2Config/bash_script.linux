@@ -7,4 +7,5 @@ make
 make install
 
 cd python
-$PYTHON/bin/python setup.py install --prefix=$ARTIFACT
+
+LDFLAGS="-L$ARTIFACT/lib -Wl,-rpath=$ARTIFACT/lib" $PYTHON/bin/python setup.py install --prefix=$ARTIFACT
