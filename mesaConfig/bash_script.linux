@@ -22,5 +22,8 @@ export PATH="$PYTHON/bin:$PATH"
 
 $AUTOCONF_orig/bin/autoreconf -fi
 
+
 # Build OSMesa
 ./configure --prefix=$ARTIFACT --enable-osmesa --disable-dri --disable-egl --enable-xlib-glx --disable-gallium-llvm --with-dri-drivers="" --with-gallium-drivers=""
+make
+make install
