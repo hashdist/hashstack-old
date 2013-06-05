@@ -281,10 +281,10 @@
   recipe: distutils
 
 - package: patchelf
-  url: http://hydra.nixos.org/build/1524660/download/2/patchelf-0.6.tar.bz2
-  key: tar.bz2:7r7h7kk7fax4g6szdkacmkpa4hwqppbk
-  deps: []
-  recipe: configure_make
+  url: https://github.com/NixOS/patchelf
+  key: git:eea5b990b1fa41408f348abb098ca5f4d3c4382c
+  deps: [libtool, m4, autoconf, automake, pkgconf]
+  recipe: bash_script
 
 - package: pkgconf
   url: http://rabbit.dereferenced.org/~nenolod/distfiles/pkgconf-0.9.2.tar.bz2
