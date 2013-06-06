@@ -5,4 +5,4 @@ set -e
 export PKG_CONFIG_PATH=$PNG/lib/pkgconfig
 
 CFLAGS="-I$PNG/include -I$FREETYPE/include -I$FREETYPE/include/freetype2" LDFLAGS="-L$FREETYPE/lib -L$PNG/lib -Wl,-rpath=$PNG/lib" $PYTHON/bin/python setup.py build
-$PYTHON/bin/python setup.py install
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT
