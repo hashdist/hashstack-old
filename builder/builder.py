@@ -213,8 +213,7 @@ def main(logger, hdist_config_filename):
     atomic_symlink(profile_path, target_link)
 
     if args.copy:
-        from hashdist.core.run_job import unpack_virtuals_envvar
-        virtuals = unpack_virtuals_envvar(os.environ.get('HDIST_VIRTUALS', ''))
+        virtuals = {}
         make_profile(logger, ctx.build_store, ctx._imports,
                 args.copy, virtuals, hdist_config)
 
