@@ -3,9 +3,9 @@
 set -e
 
 export arch=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
-export LDFLAGS="-L/usr/lib/$arch -L/lib/$arch"
+export LDFLAGS="-L/usr/lib/$arch -L/lib/$arch -Wl,-rpath=$ARTIFACT/lib"
 export CFLAGS="-I/usr/include/$arch"
 export CPPFLAGS="-I/usr/include/$arch"
 # Fix for #21:
 export HAS_HG="no"
-./configure --prefix=${PYTHONHPC_PREFIX}
+./configure --prefix=$ARTIFACT --enable-shared
