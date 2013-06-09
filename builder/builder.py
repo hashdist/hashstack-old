@@ -58,8 +58,7 @@ class Context(object):
             return dep_spec, imports
 
         dep_spec, imports = visit(root_name)
-        self._imports = imports
-        return dep_spec['id']
+        return dep_spec['id'], imports
 
 
 def download_sources(ctx, pkg):
@@ -203,18 +202,18 @@ def main(logger, hdist_config_filename):
 
     # For virtual packages, they must be present among the manually
     # selected set to be selected.
-    ctx.launcher_id = ctx.build_all(packages, 'launcher')
+    ctx.launcher_id, imports = ctx.build_all(packages, 'launcher')
 
 
     packages['profile'] = {'package': 'profile', 'recipe': 'profile',
                            'deps': subset, 'provides': 'profile'}
-    profile_aid = ctx.build_all(packages, 'profile')
+    profile_aid, imports = ctx.build_all(packages, 'profile')
     profile_path = ctx.build_store.resolve(profile_aid)
     atomic_symlink(profile_path, target_link)
 
     if args.copy:
         virtuals = {}
-        make_profile(logger, ctx.build_store, ctx._imports,
+        make_profile(logger, ctx.build_store, imports,
                 args.copy, virtuals, hdist_config)
 
     return 0
