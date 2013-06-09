@@ -30,18 +30,20 @@ class Context(object):
         self.arch = arch
         self.build_env = build_env
         self.built = {}
+        self.imports_cache = {}
 
     def get_artifact_id(self, name):
         return self.built[name]['id']
 
     def build_all(self, packages, root_name):
         built = self.built # { name : dep_spec }
+        imports_cache = self.imports_cache
         # depth-first traversal
 
         def visit(name):
             # returns: dep_spec, that is, dict(ref=..., id=...)
             if name in built:
-                return built[name], []
+                return built[name], imports_cache[name]
             pkg = packages[name]
             imports = [] # the imports to build this package
 
@@ -55,6 +57,7 @@ class Context(object):
             artifact_id = build_package(self, pkg, imports)
             dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id}
             built[name] = dep_spec
+            imports_cache[name] = imports
             return dep_spec, imports
 
         dep_spec, imports = visit(root_name)
