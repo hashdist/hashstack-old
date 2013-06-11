@@ -249,30 +249,35 @@
   url: https://github.com/enthought/mayavi.git
   key: git:0dedbd920f1b242ca7ecfaa4474bae5cfc79af69
   deps: [distribute, numpy, vtk, traitsui, apptools]
+  unpack_egg: true
   recipe: distutils
 
 - package: traits
   url: https://github.com/enthought/traits.git
   key: git:da1d69129e95ed9117906b246c54779b1df5d8f3
   deps: [numpy, distribute]
+  unpack_egg: true
   recipe: distutils
 
 - package: traitsui
   url: https://github.com/enthought/traitsui.git
   key: git:2e3840301e6e2235efa661c61b26154a61cf70ba
   deps: [distribute, pyface]
+  unpack_egg: true
   recipe: distutils
 
 - package: pyface
   url: https://github.com/enthought/pyface.git
   key: git:a104f36cae458093840b179dc8c94e051efe8a18
   deps: [distribute, traits]
+  unpack_egg: true
   recipe: distutils
 
 - package: apptools
   url: https://github.com/enthought/apptools.git
   key: git:ef5408f787a8cbda5442d960b7decfdfad5efca1
   deps: [distribute, configobj, traitsui]
+  unpack_egg: true
   recipe: distutils
 
 - package: configobj
