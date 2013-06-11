@@ -147,8 +147,7 @@ def distutils_recipe(ctx, pkg_attrs, configure, build_spec):
         ]
     if uses_eggs:
         build_spec["build"]["commands"] += [
-            {"cmd": ["mv", "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}/*.egg/*",
-                "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}/"]},
+            {"cmd": ["sh", "-c", "mv ${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}/*.egg/* ${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}/"]},
             ]
     build_spec["build"]["commands"] += [
         {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]}
