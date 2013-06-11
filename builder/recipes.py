@@ -143,12 +143,17 @@ def distutils_recipe(ctx, pkg_attrs, configure, build_spec):
         {"prepend_path": "PYTHONPATH", "value": "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"},
         {"cmd": ["mkdir", "-p", "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"]},
         {"chdir": "src"},
-        {"cmd": ["$PYTHON/bin/python", "setup.py", "install", "--prefix=$ARTIFACT"]},
         ]
     if uses_eggs:
         build_spec["build"]["commands"] += [
-            {"cmd": ["sh", "-c", "mv ${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}/*.egg/* ${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}/"]},
-            ]
+            {"cmd": ["$PYTHON/bin/python", "setup.py", "install", "--prefix=.",
+                "--single-version-externally-managed", "--root=$ARTIFACT"]},
+        ]
+    else:
+        build_spec["build"]["commands"] += [
+            {"cmd": ["$PYTHON/bin/python", "setup.py", "install",
+                "--prefix=$ARTIFACT"]},
+        ]
     build_spec["build"]["commands"] += [
         {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]}
         ]
