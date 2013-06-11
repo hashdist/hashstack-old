@@ -136,7 +136,7 @@ def python_recipe(ctx, pkg_attrs, configure, build_spec):
         ]
 
 def distutils_recipe(ctx, pkg_attrs, configure, build_spec):
-    uses_eggs = pkg_attrs.get('eggs', False)
+    unpack_egg = pkg_attrs.get('unpack_egg', False)
     build_spec["build"]["commands"] += [
         # to make setuptools/distribute happy, one must set up a local site-packages
         # and put it in PYTHONPATH before launching setup.py
@@ -144,7 +144,7 @@ def distutils_recipe(ctx, pkg_attrs, configure, build_spec):
         {"cmd": ["mkdir", "-p", "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"]},
         {"chdir": "src"},
         ]
-    if uses_eggs:
+    if unpack_egg:
         build_spec["build"]["commands"] += [
             {"cmd": ["$PYTHON/bin/python", "setup.py", "install", "--prefix=.",
                 "--single-version-externally-managed", "--root=$ARTIFACT"]},
