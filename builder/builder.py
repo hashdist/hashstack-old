@@ -9,7 +9,8 @@ import textwrap
 from pprint import pprint
 
 from hashdist.deps import yaml
-from hashdist.core import load_configuration_from_inifile, SourceCache, BuildStore, atomic_symlink
+from hashdist.core import (load_configuration_from_inifile, SourceCache,
+        BuildStore, atomic_symlink, make_profile)
 from hashdist.core.fileutils import silent_makedirs
 from hashdist.hdist_logging import Logger, DEBUG, INFO
 
@@ -29,18 +30,20 @@ class Context(object):
         self.arch = arch
         self.build_env = build_env
         self.built = {}
+        self.imports_cache = {}
 
     def get_artifact_id(self, name):
         return self.built[name]['id']
 
     def build_all(self, packages, root_name):
         built = self.built # { name : dep_spec }
+        imports_cache = self.imports_cache
         # depth-first traversal
 
         def visit(name):
             # returns: dep_spec, that is, dict(ref=..., id=...)
             if name in built:
-                return built[name]
+                return built[name], imports_cache[name]
             pkg = packages[name]
             imports = [] # the imports to build this package
 
@@ -49,14 +52,16 @@ class Context(object):
             for dep in all_deps:
                 if dep == name:
                     continue
-                imports.append(visit(dep))
+                spec, _ = visit(dep)
+                imports.append(spec)
             artifact_id = build_package(self, pkg, imports)
             dep_spec = {'ref': pkg['provides'].upper(), 'id': artifact_id}
             built[name] = dep_spec
-            return dep_spec
+            imports_cache[name] = imports
+            return dep_spec, imports
 
-        dep_spec = visit(root_name)
-        return dep_spec['id']
+        dep_spec, imports = visit(root_name)
+        return dep_spec['id'], imports
 
 
 def download_sources(ctx, pkg):
@@ -148,6 +153,7 @@ def main(logger, hdist_config_filename):
     #argparser.add_argument('arch', help='e.g., "linux"')
     #argparser.add_argument('subset', nargs='*', help='only attempt to build packages given '
     #                       '(+ their dependencies)')
+    argparser.add_argument('-c', '--copy', help='Create a copy of the profile')
     args = argparser.parse_args()
 
     with open('config.yml') as f:
@@ -199,12 +205,18 @@ def main(logger, hdist_config_filename):
 
     # For virtual packages, they must be present among the manually
     # selected set to be selected.
-    ctx.launcher_id = ctx.build_all(packages, 'launcher')
+    ctx.launcher_id, imports = ctx.build_all(packages, 'launcher')
 
 
     packages['profile'] = {'package': 'profile', 'recipe': 'profile',
                            'deps': subset, 'provides': 'profile'}
-    profile_aid = ctx.build_all(packages, 'profile')
+    profile_aid, imports = ctx.build_all(packages, 'profile')
     profile_path = ctx.build_store.resolve(profile_aid)
     atomic_symlink(profile_path, target_link)
+
+    if args.copy:
+        virtuals = {}
+        make_profile(logger, ctx.build_store, imports,
+                args.copy, virtuals, hdist_config)
+
     return 0
