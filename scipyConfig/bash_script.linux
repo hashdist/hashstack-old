@@ -1,0 +1,9 @@
+#! /bin/bash
+
+set -e
+
+export BLAS=$LAPACK/lib
+export LAPACK=$LAPACK/lib
+export LDFLAGS="-shared -Wl,-rpath=$PYTHON/lib -Wl,-rpath=$LAPACK/lib"
+
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT

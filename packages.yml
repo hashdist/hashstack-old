@@ -201,8 +201,8 @@
 - package: scipy
   url: http://downloads.sourceforge.net/project/scipy/scipy/0.12.0/scipy-0.12.0.tar.gz
   key: tar.gz:xft6qaw27yw3aq6pxxyaipqtcl445hat
-  deps: [python, numpy]
-  recipe: distutils
+  deps: [python, numpy, lapack]
+  recipe: python_bash_script
 
 - package: 2decomp_fft
   url: http://www.2decomp.org/download/2decomp_fft-1.5.847.tar.gz
