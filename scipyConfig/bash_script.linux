@@ -1,0 +1,7 @@
+#! /bin/bash
+
+set -e
+
+export BLAS=$LAPACK/lib
+
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT
