@@ -146,6 +146,15 @@ def complete_dependencies_stable_order(ctx, packages, subset):
         search(root)
     return result
 
+def create_activate_script(env_path):
+    f = open(os.path.join(env_path, "bin", "activate"), "w")
+    f.write("""\
+ENV_PATH=%s
+export PATH=$ENV_PATH/bin:$PATH
+echo "Path set. Your \$PATH="
+echo $PATH
+""" % env_path)
+
 def main(logger, hdist_config_filename):
     # Parse arguments
     argparser = argparse.ArgumentParser()
@@ -218,5 +227,6 @@ def main(logger, hdist_config_filename):
         virtuals = {}
         make_profile(logger, ctx.build_store, imports,
                 args.copy, virtuals, hdist_config)
+        create_activate_script(args.copy)
 
     return 0
