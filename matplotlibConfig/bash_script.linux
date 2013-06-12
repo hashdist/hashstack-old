@@ -3,6 +3,6 @@
 set -e
 
 export PKG_CONFIG_PATH="$PNG/lib/pkgconfig:$FREETYPE/lib/pkgconfig"
-export LDFLAGS="-L$PNG/lib -Wl,-rpath=$PNG/lib"
+export LDFLAGS="-Wl,-rpath=$PNG/lib -Wl,-rpath=$FREETYPE/lib"
 
 $PYTHON/bin/python setup.py install --prefix=$ARTIFACT
