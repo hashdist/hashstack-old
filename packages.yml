@@ -321,3 +321,8 @@
   key: tar.bz2:svkucsx72khjc6ykkduuarp5ip6tv4wm
   deps: [python, graphicsmagick, distribute]
   recipe: distutils
+
+- package: lapack
+  url: http://www.netlib.org/lapack/lapack-3.4.2.tgz
+  key: tar.gz:mctf3kxrn3brka2gowkcmgfcemcsd2t2
+  deps: [cmake]
