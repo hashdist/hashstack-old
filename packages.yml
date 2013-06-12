@@ -77,7 +77,7 @@
 - package: petsc
   url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.3-p6.tar.gz
   key: tar.gz:bhqdyhmhdjcoimrnmgyapo7p2cr6btvf
-  deps: [mpi, python]
+  deps: [mpi, python, lapack]
 
 - package: petsc4py
   url: https://petsc4py.googlecode.com/files/petsc4py-3.3.1.tar.gz
