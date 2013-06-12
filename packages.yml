@@ -315,3 +315,9 @@
   key: tar.bz2:o2fytjuf2knq4rr23yq3ybsj6jzhqahl
   deps: []
   recipe: configure_make
+
+- package: pgmagick
+  url: https://bitbucket.org/hhatto/pgmagick/get/ver0.5.6.tar.bz2
+  key: tar.bz2:svkucsx72khjc6ykkduuarp5ip6tv4wm
+  deps: [python, graphicsmagick, distribute]
+  recipe: distutils
