@@ -1,1 +1,1 @@
-$PYTHON/bin/python ./config/configure.py --with-pic --with-clanguage=C --with-cc=$MPI/bin/mpicc --with-mpi-compilers --with-shared-libraries --prefix=$ARTIFACT --with-fortran=0
+$PYTHON/bin/python ./config/configure.py --with-pic --with-clanguage=C --with-cc=$MPI/bin/mpicc --with-mpi-compilers --with-shared-libraries --prefix=$ARTIFACT --with-fortran=0 --with-blas-lapack-dir=$LAPACK/lib
