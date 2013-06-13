@@ -160,8 +160,8 @@
 - package: freetype
   url: http://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz
   key: tar.gz:fgtq4vmghzfws73nt465yqc2rc4duml6
-  deps: []
-  recipe: configure_make
+  deps: [zlib]
+  recipe: bash_script
 
 - package: daetk
   url: git://github.com/erdc-cm/daetk.git
