@@ -101,6 +101,12 @@
   key: tar.bz2:jhroszmn7mbwsag2n2qcm6ttp6r4j3xg
   deps: []
 
+- package: bzip2
+  url: http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+  key: tar.gz:ukci6nh42xlm6r666acgd7fvfcqeqtmo
+  deps: [patchelf]
+  recipe: bash_script
+
 - package: png
   url: http://downloads.sourceforge.net/project/libpng/libpng16/1.6.2/libpng-1.6.2.tar.gz
   key: tar.gz:kfv6l2gevp6wrdtmopau65fveo466456
