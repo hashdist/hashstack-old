@@ -2,10 +2,7 @@
 
 set -e
 
-export arch=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
-export LDFLAGS="-L/usr/lib/$arch -L/lib/$arch -Wl,-rpath=$ARTIFACT/lib"
-export CFLAGS="-I/usr/include/$arch"
-export CPPFLAGS="-I/usr/include/$arch"
+export LDFLAGS="-Wl,-rpath=$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib"
 # Fix for #21:
 export HAS_HG="no"
 ./configure --prefix=$ARTIFACT --enable-shared
