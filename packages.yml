@@ -1,7 +1,7 @@
 - package: python
   url: http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
   key: tar.bz2:hndxkvegjzqwuba64tl456mes5ixoc6h
-  deps: [zlib, bzip2]
+  deps: [zlib, bzip2, ncurses]
   recipe: python
   requires_launcher: true
 
