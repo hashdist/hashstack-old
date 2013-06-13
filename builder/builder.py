@@ -186,7 +186,7 @@ def system_lib(name):
             return True
     return False
 
-def check_lib(filename):
+def check_lib(filename, artifact_path):
     s = subprocess.check_output(["ldd", filename])
     lines = s.split("\n")
     # Fill the libs_dict with library names, paths and addresses
@@ -218,18 +218,18 @@ def check_lib(filename):
         if system_lib(lib):
             continue
         path, address = libs_dict[lib]
-        if path.startswith("/home/ondrej/repos/python-hpcmp2/opt/"):
+        if path.startswith(artifact_path):
             # Our lib
             continue
         print("Lib:", filename)
         print(lib, path, address)
         print()
 
-def check_libs():
+def check_libs(artifact_path):
     s = subprocess.check_output(["find", "local/", "-name", "*.so*"])
     libs = s.split()
     for lib in libs:
-        check_lib(lib)
+        check_lib(lib, artifact_path)
 
 def main(logger, hdist_config_filename):
     # Parse arguments
@@ -255,7 +255,8 @@ def main(logger, hdist_config_filename):
     ctx = Context(logger, hdist_config, args.verbose, arch, env)
 
     if args.check_libs:
-        check_libs()
+        artifact_path = ctx.config["builder/artifacts"]
+        check_libs(artifact_path)
         return 0
 
     with open('packages.yml') as f:
