@@ -166,7 +166,7 @@
 - package: freetype
   url: http://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz
   key: tar.gz:fgtq4vmghzfws73nt465yqc2rc4duml6
-  deps: [zlib]
+  deps: [zlib, bzip2]
   recipe: bash_script
 
 - package: daetk
