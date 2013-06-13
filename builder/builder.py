@@ -226,7 +226,7 @@ def check_lib(filename, artifact_path):
         print()
 
 def check_libs(artifact_path):
-    s = subprocess.check_output(["find", "local/", "-name", "*.so*"])
+    s = subprocess.check_output(["find", "-L", "local/", "-name", "*.so*"])
     libs = s.split()
     for lib in libs:
         check_lib(lib, artifact_path)
