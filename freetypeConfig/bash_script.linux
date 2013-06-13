@@ -1,0 +1,9 @@
+#! /bin/bash
+
+set -e
+
+export LDFLAGS="-Wl,-rpath=$ZLIB/lib -Wl,-rpath=$BZIP2/lib"
+
+./configure --prefix=$ARTIFACT --with-zlib=$ZLIB --with-bzip2=$BZIP2
+make
+make install

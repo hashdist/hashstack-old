@@ -1,7 +1,7 @@
 - package: python
   url: http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
   key: tar.bz2:hndxkvegjzqwuba64tl456mes5ixoc6h
-  deps: [zlib]
+  deps: [zlib, bzip2]
   recipe: python
   requires_launcher: true
 
@@ -101,11 +101,17 @@
   key: tar.bz2:jhroszmn7mbwsag2n2qcm6ttp6r4j3xg
   deps: []
 
+- package: bzip2
+  url: http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+  key: tar.gz:ukci6nh42xlm6r666acgd7fvfcqeqtmo
+  deps: [patchelf]
+  recipe: bash_script
+
 - package: png
   url: http://downloads.sourceforge.net/project/libpng/libpng16/1.6.2/libpng-1.6.2.tar.gz
   key: tar.gz:kfv6l2gevp6wrdtmopau65fveo466456
-  deps: []
-  recipe: configure_make
+  deps: [zlib]
+  recipe: bash_script
 
 - package: launcher
   url: git://github.com/hashdist/hdist-launcher.git
@@ -160,8 +166,8 @@
 - package: freetype
   url: http://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz
   key: tar.gz:fgtq4vmghzfws73nt465yqc2rc4duml6
-  deps: []
-  recipe: configure_make
+  deps: [zlib, bzip2]
+  recipe: bash_script
 
 - package: daetk
   url: git://github.com/erdc-cm/daetk.git
@@ -301,7 +307,7 @@
 - package: libxml2
   url: ftp://xmlsoft.org/libxml2/libxml2-2.9.1.tar.gz
   key: tar.gz:7u6gjs3g6lcouj7jgtjhlecnslhmjffi
-  deps: [python]
+  deps: [zlib, python]
   recipe: python_bash_script
 
 - package: cmake

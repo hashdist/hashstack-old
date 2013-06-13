@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import sys
 import os
+import subprocess
 from os.path import join as pjoin
 from glob import glob
 import traceback
@@ -155,6 +156,87 @@ echo "Path set. Your \$PATH="
 echo $PATH
 """ % env_path)
 
+def system_lib(name):
+    if name == "":
+        return True
+    system_libs = [
+            "libm",
+            "libpthread",
+            "libdl",
+            "librt",
+            "libnsl",
+
+            # linux
+            "linux-vdso",
+
+            # gcc
+            "libstdc++",
+            "libgfortran",
+            "libquadmath",
+            "libgcc_s",
+
+            # libc
+            "libc",
+            "libutil",
+
+            # X11
+            "libX11",
+            "libXau",
+            "libXext",
+            "libxcb",
+            "libXdmcp",
+            ]
+
+    for lib in system_libs:
+        if name.startswith(lib + ".so"):
+            return True
+    return False
+
+def check_lib(filename, artifact_path):
+    s = subprocess.check_output(["ldd", filename])
+    lines = s.split("\n")
+    # Fill the libs_dict with library names, paths and addresses
+    libs_dict = {}
+    for line in lines:
+        line = line.strip()
+        if line == "":
+            continue
+        if "=>" in line:
+            lib, rest = line.split("=>")
+        else:
+            lib = ""
+            rest = line
+        rest = rest.strip()
+        idx = rest.rfind(" ")
+        if idx == -1:
+            path = ""
+            address = rest
+        else:
+            path = rest[:idx]
+            address = rest[idx:]
+
+        lib = lib.strip()
+        path = path.strip()
+        address = address.strip()
+        libs_dict[lib] = (path, address)
+
+    for lib in libs_dict:
+        if system_lib(lib):
+            continue
+        path, address = libs_dict[lib]
+        if path.startswith(artifact_path):
+            # Our lib
+            continue
+        print("Lib:", filename)
+        print(lib, path, address)
+        print()
+
+def check_libs(artifact_path):
+    s = subprocess.check_output(["find", "-L", "local/", "-name", "*.so*"])
+    libs = s.split()
+    for lib in libs:
+        check_lib(lib, artifact_path)
+
 def main(logger, hdist_config_filename):
     # Parse arguments
     argparser = argparse.ArgumentParser()
@@ -163,6 +245,7 @@ def main(logger, hdist_config_filename):
     #argparser.add_argument('subset', nargs='*', help='only attempt to build packages given '
     #                       '(+ their dependencies)')
     argparser.add_argument('-c', '--copy', help='Create a copy of the profile')
+    argparser.add_argument('--check-libs', action="store_true", help='Check .so libraries')
     args = argparser.parse_args()
 
     with open('config.yml') as f:
@@ -176,6 +259,11 @@ def main(logger, hdist_config_filename):
     # Set up Hashdist components, configured by ./hdistconfig
     hdist_config = load_configuration_from_inifile(hdist_config_filename)
     ctx = Context(logger, hdist_config, args.verbose, arch, env)
+
+    if args.check_libs:
+        artifact_path = ctx.config["builder/artifacts"]
+        check_libs(artifact_path)
+        return 0
 
     with open('packages.yml') as f:
         package_list = yaml.safe_load(f)

@@ -2,7 +2,8 @@
 
 set -e
 
-./configure --prefix=$ARTIFACT --without-python
+export LDFLAGS="-Wl,-rpath=$ZLIB/lib"
+./configure --prefix=$ARTIFACT --without-python --with-zlib=$ZLIB
 make
 make install
 
