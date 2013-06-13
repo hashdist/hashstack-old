@@ -71,8 +71,8 @@
 - package: numpy
   url: http://downloads.sourceforge.net/project/numpy/NumPy/1.7.1/numpy-1.7.1.tar.gz
   key: tar.gz:kusqdgrqqxb5qyhgz7smbiypwzovm5rg
-  deps: [python]
-  recipe: distutils
+  deps: [python, lapack]
+  recipe: python_bash_script
 
 - package: petsc
   url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.3-p6.tar.gz
