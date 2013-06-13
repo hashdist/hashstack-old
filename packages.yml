@@ -104,8 +104,8 @@
 - package: png
   url: http://downloads.sourceforge.net/project/libpng/libpng16/1.6.2/libpng-1.6.2.tar.gz
   key: tar.gz:kfv6l2gevp6wrdtmopau65fveo466456
-  deps: []
-  recipe: configure_make
+  deps: [zlib]
+  recipe: bash_script
 
 - package: launcher
   url: git://github.com/hashdist/hdist-launcher.git
