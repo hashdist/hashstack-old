@@ -8,3 +8,5 @@ export CFLAGS="-I$ZLIB/include -I$BZIP2/include -I$NCURSES/include -I$READLINE/i
 # Fix for #21:
 export HAS_HG="no"
 ./configure --prefix=$ARTIFACT --enable-shared
+make
+make install

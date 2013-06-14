@@ -88,7 +88,8 @@ def configure_make_recipe(ctx, pkg_attrs, configfiles, build_spec):
         ]
     add_profile_install(ctx, pkg_attrs, build_spec)
 
-def bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
+def bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec,
+        postprocess=True):
     create_temp_profile = pkg_attrs.get('create_temp_profile', False)
     commands = build_spec["build"]["commands"]
     if create_temp_profile:
@@ -99,9 +100,10 @@ def bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
         {"cmd": ["bash", "../bash_script"]}]
     if create_temp_profile:
         commands += [{"hit": ["build-profile", "pop"]}]
-    commands += [
-        {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]},
-        ]
+    if postprocess:
+        commands += [
+            {"hit": ["build-postprocess", "--shebang=multiline", "--write-protect"]},
+            ]
 
     if create_temp_profile:
         disable_imports_env(build_spec)
@@ -112,7 +114,7 @@ def json_multiline(s):
     return dedent(s).splitlines()
 
 def python_recipe(ctx, pkg_attrs, configure, build_spec):
-    standard_recipe(ctx, pkg_attrs, configure, build_spec, postprocess=False)
+    bash_script_recipe(ctx, pkg_attrs, configure, build_spec, postprocess=False)
     # Use the newly built Python to modify artifact.json so that
     # we make the PYTHON_SITE_PACKAGES_REL variable available, which contains,
     # e.g., "lib/python2.7/site-packages"
