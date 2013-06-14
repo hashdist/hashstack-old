@@ -5,5 +5,5 @@ set -e
 export CFLAGS="-I$NCURSES/include -I$NCURSES/include/ncurses"
 
 ./configure --prefix=$ARTIFACT --enable-shared --with-curses
-make
+make SHOBJ_CFLAGS="-fPIC -D_REENTRANT" SHOBJ_LDFLAGS="-shared -Wl,-rpath=$NCURSES/lib" SHLIB_LIBS="-ltinfo"
 make install
