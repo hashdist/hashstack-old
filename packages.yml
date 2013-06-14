@@ -340,7 +340,7 @@
   recipe: bash_script
 
 - package: readline
-  url: http://ftp.gnu.org/pub/gnu/readline/readline-6.1.tar.gz
-  key: tar.gz:6dfpmcgantgw2vvtx3qyincy2ue4kp43
+  url: ftp://ftp.cwru.edu/pub/bash/readline-6.2.tar.gz
+  key: tar.gz:pgtjmbykawgcgpds3vvmnfycdtdevpk6
   deps: [ncurses]
   recipe: bash_script

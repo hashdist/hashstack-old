@@ -2,6 +2,8 @@
 
 set -e
 
+export CFLAGS="-I$NCURSES/include -I$NCURSES/include/ncurses"
+
 ./configure --prefix=$ARTIFACT --enable-shared --with-curses
 make
 make install
