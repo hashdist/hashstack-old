@@ -168,6 +168,7 @@ def system_lib(name):
 
             # linux
             "linux-vdso",
+            "linux-gate",
 
             # gcc
             "libstdc++",
