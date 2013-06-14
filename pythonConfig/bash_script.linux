@@ -2,8 +2,9 @@
 
 set -e
 
-export LDFLAGS="-Wl,-rpath=$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib -Wl,-rpath=$BZIP2/lib -Wl,-rpath=$NCURSES/lib -Wl,-rpath=$READLINE/lib"
-export CFLAGS="-I$ZLIB/include -I$BZIP2/include -I$NCURSES/include -I$READLINE/include"
+export LDFLAGS="-Wl,-rpath=$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib -Wl,-rpath=$BZIP2/lib -Wl,-rpath=$NCURSES/lib -Wl,-rpath=$READLINE/lib -Wl,-rpath=$SQLITE/lib"
+export CFLAGS="-I$ZLIB/include -I$BZIP2/include -I$NCURSES/include -I$READLINE/include -I$SQLITE/include"
+export CPPFLAGS="$CFLAGS"
 
 # Fix for #21:
 export HAS_HG="no"
