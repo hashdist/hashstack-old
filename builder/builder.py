@@ -179,6 +179,7 @@ def system_lib(name):
             # libc
             "libc",
             "libutil",
+            "libcrypt",
 
             # X11
             "libX11",
