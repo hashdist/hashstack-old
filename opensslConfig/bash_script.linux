@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+# Note: use 'no-asm' option here if libcrypto.so fails to import due to an error
+# "cannot enable executable stack as shared object requires", see
+# https://github.com/qsnake/qsnake/issues/11 for more details.
+./config --prefix=$ARTIFACT shared zlib-dynamic -Wl,-rpath=$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib
+make
+make install
+
+$PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib:$ZLIB/lib $ARTIFACT/lib/engines/libgost.so

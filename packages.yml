@@ -350,3 +350,9 @@
   key: tar.gz:r72g2c5ktzsmbakvituct2mf6elbyclk
   deps: [readline]
   recipe: bash_script
+
+- package: openssl
+  url: https://www.openssl.org/source/openssl-1.0.1e.tar.gz
+  key: tar.gz:65hrl2gi74i2upk3wxzhnuqc5qmnojdo
+  deps: [zlib, patchelf]
+  recipe: bash_script
