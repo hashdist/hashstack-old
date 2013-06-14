@@ -344,3 +344,9 @@
   key: tar.gz:pgtjmbykawgcgpds3vvmnfycdtdevpk6
   deps: [ncurses]
   recipe: bash_script
+
+- package: sqlite
+  url: https://sqlite.org/2013/sqlite-autoconf-3071700.tar.gz
+  key: tar.gz:r72g2c5ktzsmbakvituct2mf6elbyclk
+  deps: [readline]
+  recipe: bash_script
