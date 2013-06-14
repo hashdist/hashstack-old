@@ -2,7 +2,7 @@
 
 set -e
 
-export LDFLAGS="-Wl,-rpath=$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib -Wl,-rpath=$BZIP2/lib -Wl,-rpath=$NCURSES/lib -Wl,-rpath=$READLINE/lib -Wl,-rpath=$SQLITE/lib -Wl,-rpath=$OPENSSL/lib"
+export LDFLAGS="-L$OPENSSL/lib -Wl,-rpath=$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib -Wl,-rpath=$BZIP2/lib -Wl,-rpath=$NCURSES/lib -Wl,-rpath=$READLINE/lib -Wl,-rpath=$SQLITE/lib -Wl,-rpath=$OPENSSL/lib"
 export CFLAGS="-I$ZLIB/include -I$BZIP2/include -I$NCURSES/include -I$READLINE/include -I$SQLITE/include -I$OPENSSL/include"
 export CPPFLAGS="$CFLAGS"
 
