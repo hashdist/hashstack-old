@@ -160,26 +160,25 @@ def system_lib(name):
     if name == "":
         return True
     system_libs = [
+            # linux
+            "linux-vdso",
+            "linux-gate",
+
+            # libc
+            "libc",
             "libm",
+            "libutil",
+            "libcrypt",
             "libpthread",
             "libdl",
             "librt",
             "libnsl",
-
-            # linux
-            "linux-vdso",
-            "linux-gate",
 
             # gcc
             "libstdc++",
             "libgfortran",
             "libquadmath",
             "libgcc_s",
-
-            # libc
-            "libc",
-            "libutil",
-            "libcrypt",
 
             # X11
             "libX11",
