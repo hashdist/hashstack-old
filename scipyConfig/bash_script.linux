@@ -5,5 +5,6 @@ set -e
 export LDFLAGS="-shared -Wl,-rpath=$PYTHON/lib -Wl,-rpath=$LAPACK/lib"
 export BLAS=$LAPACK/lib
 export LAPACK=$LAPACK/lib
+export ATLAS=None
 
 $PYTHON/bin/python setup.py install --prefix=$ARTIFACT
