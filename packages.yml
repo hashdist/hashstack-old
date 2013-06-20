@@ -356,3 +356,9 @@
   key: tar.gz:65hrl2gi74i2upk3wxzhnuqc5qmnojdo
   deps: [zlib, patchelf]
   recipe: bash_script
+
+- package: quilt
+  url: http://download.savannah.gnu.org/releases/quilt/quilt-0.60.tar.gz
+  key: tar.gz:hvzkfexegk7ltjz7tufm7y5hpsnu27sc
+  deps: []
+  recipe: configure_make
