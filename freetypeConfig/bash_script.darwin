@@ -1,0 +1,9 @@
+#! /bin/bash
+
+set -e
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-Wl,-rpath,@loader_path$ZLIB/lib -Wl,-rpath,@loader_path$BZIP2/lib"
+
+./configure --prefix=$ARTIFACT --with-zlib=$ZLIB --with-bzip2=$BZIP2
+make
+make install

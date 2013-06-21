@@ -1,0 +1,9 @@
+#! /bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-Wl,-rpath,@loader_path$HDF5/lib"
+
+$PYTHON/bin/python setup.py build --hdf5=$HDF5
+$PYTHON/bin/python setup.py install --hdf5=$HDF5 --prefix=$ARTIFACT

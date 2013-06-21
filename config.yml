@@ -1,0 +1,13 @@
+# Builds will be performed with these directories in $PATH in addition
+# to the dependencies built by python-hpcmp
+PATH: [/usr/bin, /bin]
+
+# Architecture; used to find, e.g., configure.$arch
+#arch: darwin
+arch: linux
+
+# Which packages from package.yml to include in the profile
+# (dependencies are automatically included)
+packages: [nose, readline, ipython, numpy, matplotlib, pytables,
+    hdf5, mpich, sphinx, mpi4py, petsc, petsc4py, superlu, tetgen, sympy,
+    scipy]

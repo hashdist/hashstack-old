@@ -1,0 +1,15 @@
+#! /bin/bash
+
+set -e
+
+export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
+export FC=/usr/local/bin/gfortran
+export F77=/usr/local/bin/gfortran
+export F90=/usr/local/bin/gfortran
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-Wl,-rpath,@loader_path$PYTHON/lib -Wl,-rpath,@loader_path$LAPACK/lib"
+export BLAS=$LAPACK/lib
+export LAPACK=$LAPACK/lib
+
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT

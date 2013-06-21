@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-Wl,-rpath,@loader_path$ZLIB/lib"
+./configure --prefix=$ARTIFACT --without-python
+make
+make install
+
+cd python
+
+sed -i.bak -e "s/includes_dir = \[/includes_dir = \[os.path.join(ROOT,'include'),/" setup.py
+
+LDFLAGS="-L$ARTIFACT/lib -Wl,-rpath=$ARTIFACT/lib" $PYTHON/bin/python setup.py install --prefix=$ARTIFACT

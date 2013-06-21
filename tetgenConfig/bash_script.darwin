@@ -1,0 +1,7 @@
+#! /bin/bash
+
+set -e
+
+make
+mkdir -p $ARTIFACT/bin
+cp tetgen $ARTIFACT/bin/

@@ -1,0 +1,6 @@
+#! /bin/bash
+
+set -e
+
+$PYTHON/bin/python setup.py build --mpicc=$MPI/bin/mpicc
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+./configure CFLAGS=-fPIC F77=/usr/local/bin/gfortran FC=/usr/local/bin/gfortran --enable-shared --enable-fc --prefix=${PYTHONHPC_PREFIX}

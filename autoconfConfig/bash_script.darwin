@@ -1,0 +1,9 @@
+#! /bin/bash
+
+set -e
+
+export M4=$M4/bin/m4
+
+./configure --prefix=$ARTIFACT
+make
+make install

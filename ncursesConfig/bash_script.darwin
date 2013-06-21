@@ -1,0 +1,7 @@
+#! /bin/bash
+
+set -e
+
+./configure --prefix=$ARTIFACT --with-shared --without-profile --without-debug --without-ada --without-tests --without-progs --with-ticlib=tic --with-termlib=tinfo
+make
+make install

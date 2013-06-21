@@ -1,0 +1,50 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-L$ZLIB/lib -L$BZIP2/lib -L$NCURSES/lib -L$READLINE/lib -L$SQLITE/lib -L$OPENSSL/lib  -Wl,-rpath,@loader_path$ARTIFACT/lib -Wl,-rpath,@loader_path$ZLIB/lib -Wl,-rpath,@loader_path$BZIP2/lib -Wl,-rpath,@loader_path$NCURSES/lib -Wl,-rpath,@loader_path$READLINE/lib -Wl,-rpath,@loader_path$SQLITE/lib -Wl,-rpath,@loader_path$OPENSSL/lib"
+export CFLAGS="-I$ZLIB/include -I$BZIP2/include -I$NCURSES/include -I$READLINE/include -I$SQLITE/include -I$OPENSSL/include"
+export CPPFLAGS="$CFLAGS"
+
+# Fix for #21:
+export HAS_HG="no"
+./configure --prefix=$ARTIFACT --enable-shared --disable-universalsdk  --enable-toolbox-glue
+make
+make install
+
+# Make sure extension modules were built correctly. This should be part of the
+# Python buildsystem, but unfortunately currently it will silently succeed even
+# if any of the modules below fail.
+echo "import math"
+$ARTIFACT/bin/python -c "import math"
+echo "    ok"
+
+# Test bzip2:
+echo "import bz2"
+$ARTIFACT/bin/python -c "import bz2"
+echo "    ok"
+
+# Make sure sufficient crypto support is available in the built python.
+echo "import hashlib"
+$ARTIFACT/bin/python -c "import hashlib"
+echo "    ok"
+
+# Make sure SSL works
+echo "import _ssl"
+$ARTIFACT/bin/python -c "import _ssl"
+echo "    ok"
+
+echo "import _hashlib"
+$ARTIFACT/bin/python -c "import _hashlib"
+echo "    ok"
+
+# Make sure HTTPS works
+echo "Test https support in httplib"
+$ARTIFACT/bin/python -c "import httplib; assert hasattr(httplib, 'HTTPS')"
+echo "    ok"
+
+# Test sqlite3
+echo "import _sqlite3"
+$ARTIFACT/bin/python -c "import _sqlite3"
+echo "    ok"

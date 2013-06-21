@@ -1,0 +1,364 @@
+- package: python
+  url: http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
+  key: tar.bz2:hndxkvegjzqwuba64tl456mes5ixoc6h
+  deps: [zlib, bzip2, ncurses, readline, sqlite, openssl]
+  recipe: python
+  requires_launcher: true
+
+- package: cython
+  recipe: distutils
+  url: http://www.cython.org/release/Cython-0.18.tar.gz
+  key: tar.gz:z5fnp6xnnph5w5w2ijeszytox6jhcko2
+  deps: [python]
+
+- package: hdf5
+  url: http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.11.tar.bz2
+  key: tar.bz2:l2q3vax4o42q5zriw6k243w6ax7ov4og
+  deps: [szip, zlib]
+
+- package: python-readline
+  recipe: distutils
+  url: https://pypi.python.org/packages/source/r/readline/readline-6.2.4.1.tar.gz
+  key: tar.gz:4ahynyb57zjopukqftwfyzahbmzgehef
+  deps: [python, distribute]
+
+- package: pyzmq
+  recipe: python_bash_script
+  deps: [python, cython]
+  key: tar.gz:3ltuep2ku7et7ddx3lorly2m4zlwcing
+  url: https://github.com/zeromq/pyzmq/downloads/pyzmq-2.2.0.1.tar.gz
+
+- package: pygments
+  recipe: distutils
+  deps: [python]
+  url: https://pypi.python.org/packages/source/P/Pygments/Pygments-1.6.tar.gz
+  key: tar.gz:pgpnjsxxoulokrcaqbwy3hgyfj3apx67
+
+- package: tornado
+  url: https://pypi.python.org/packages/source/t/tornado/tornado-3.0.1.tar.gz
+  key: tar.gz:duhrhxytlc5i6birx4ws66zm65flwrxu
+  deps: [python]
+  recipe: distutils
+
+- package: pexpect
+  recipe: distutils
+  deps: [python]
+
+- package: ipython
+  url: https://github.com/downloads/ipython/ipython/ipython-0.13.1.tar.gz
+  key: tar.gz:ho7rbfoe7up36cqiohm6ezlruhhdyqit
+  deps: [python, pyzmq, python-readline, tornado]
+  recipe: distutils
+
+- package: matplotlib
+  url: https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.2.1/matplotlib-1.2.1.tar.gz
+  key: tar.gz:klqys4vo3bptbmc455axpdwho2c56yas
+  deps: [python, numpy, freetype, png]
+  recipe: bash_script
+
+- package: nose
+  recipe: distutils
+  url: https://pypi.python.org/packages/source/n/nose/nose-1.3.0.tar.gz
+  key: tar.gz:jzr4ymzf3z247gh7vval44x2nf2t32be
+  deps: [python]
+
+- package: numexpr
+  url: https://pypi.python.org/packages/source/n/numexpr/numexpr-1.4.2.tar.gz
+  key: tar.gz:hd3t6bacxssskzqynw7muwdjrfqxyaxy
+  deps: [python, numpy]
+  recipe: distutils
+
+- package: numpy
+  url: http://downloads.sourceforge.net/project/numpy/NumPy/1.7.1/numpy-1.7.1.tar.gz
+  key: tar.gz:kusqdgrqqxb5qyhgz7smbiypwzovm5rg
+  deps: [python, lapack]
+  recipe: python_bash_script
+
+- package: petsc
+  url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.3-p6.tar.gz
+  key: tar.gz:bhqdyhmhdjcoimrnmgyapo7p2cr6btvf
+  deps: [mpi, python, lapack]
+
+- package: petsc4py
+  url: https://petsc4py.googlecode.com/files/petsc4py-3.3.1.tar.gz
+  key: tar.gz:347my4i3ng7uf5mygwdhylesjrzjqjun
+  deps: [python, numpy, petsc]
+  recipe: bash_script
+
+- package: sympy
+  url: http://sympy.googlecode.com/files/sympy-0.7.2.tar.gz
+  key: tar.gz:emck5pjjrwf5izzhhizlsd6wniso4yol
+  deps: [python]
+  recipe: distutils
+
+- package: szip
+  url: http://www.hdfgroup.org/ftp/lib-external/szip/2.1/src/szip-2.1.tar.gz
+  key: tar.gz:valnsxkwmlucpfrfvpn6u7iomikx27i7
+  deps: []
+
+- package: zlib
+  url: http://downloads.sourceforge.net/project/libpng/zlib/1.2.7/zlib-1.2.7.tar.bz2
+  key: tar.bz2:jhroszmn7mbwsag2n2qcm6ttp6r4j3xg
+  deps: []
+
+- package: bzip2
+  url: http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+  key: tar.gz:ukci6nh42xlm6r666acgd7fvfcqeqtmo
+  deps: []
+  recipe: bash_script
+
+- package: png
+  url: http://downloads.sourceforge.net/project/libpng/libpng16/1.6.2/libpng-1.6.2.tar.gz
+  key: tar.gz:kfv6l2gevp6wrdtmopau65fveo466456
+  deps: [zlib]
+  recipe: bash_script
+
+- package: launcher
+  url: git://github.com/hashdist/hdist-launcher.git
+  key: git:e66680ee90568c4a18b59fb10b3d54db7a1a0f74
+  recipe: pure_make
+  profile_install: false
+  deps: []
+
+- package: pytables
+  url: https://pypi.python.org/packages/source/t/tables/tables-2.4.0.tar.gz
+  key: tar.gz:fpndwh734ihogxktg7mxa4p7if32o5bl
+  deps: [python, numexpr, cython, hdf5]
+  recipe: bash_script
+
+- package: mpi4py
+  url: http://mpi4py.googlecode.com/files/mpi4py-1.3.tar.gz
+  key: tar.gz:wavtsotn3azgbzvn6wiybhfknxlt7soq
+  deps: [python, mpi]
+  recipe: bash_script
+
+- package: mpich
+  provides: mpi
+  url: http://www.mpich.org/static/tarballs/3.0.3/mpich-3.0.3.tar.gz
+  key: tar.gz:jj5yo7oe3e45wwngkuqqn35bud5kdfkr
+  deps: []
+
+- package: sphinx
+  url: https://pypi.python.org/packages/source/S/Sphinx/Sphinx-1.2b1.tar.gz
+  key: tar.gz:cyicw2pjhhm64yfqlvuuvackqpr44bd4
+  deps: [python, distribute, docutils, jinja2, pygments]
+  recipe: distutils
+
+- package: distribute
+  url: https://pypi.python.org/packages/source/d/distribute/distribute-0.6.36.tar.gz
+  key: tar.gz:er2ptudqnndwzyhbhemvzq23gyfnwzs5
+  deps: [python]
+  recipe: distutils
+
+- package: docutils
+  url: https://pypi.python.org/packages/source/d/docutils/docutils-0.10.tar.gz
+  key: tar.gz:g4dcjzq3m5z5ulzpwf6mfjhk5jf3lfwd
+  deps: [python]
+  recipe: distutils
+
+- package: jinja2
+  url: https://pypi.python.org/packages/source/J/Jinja2/Jinja2-2.6.tar.gz
+  key: tar.gz:vbpbqu3v3n24ccpzt3g6hvkucxydlzyg
+  deps: [python, distribute]
+  unpack_egg: true
+  recipe: distutils
+
+- package: freetype
+  url: http://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz
+  key: tar.gz:fgtq4vmghzfws73nt465yqc2rc4duml6
+  deps: [zlib, bzip2]
+  recipe: bash_script
+
+- package: daetk
+  url: git://github.com/erdc-cm/daetk.git
+  key: git:001688ce3c4c59051e4d0d80a173d4435d3e0beb
+  deps: [petsc]
+  recipe: bash_script
+
+- package: superlu
+  url: git://github.com/erdc-cm/superlu
+  key: git:55f7d100d8a5ffa2222534126c2b52986d4ff5bb
+  deps: []
+  recipe: bash_script
+
+- package: tetgen
+  url: http://tetgen.org/files/tetgen1.4.3.tar.gz
+  key: tar.gz:sutrdoygw73e7wcv5msmgpyi4p5pic65
+  deps: []
+  recipe: bash_script
+
+- package: git
+  url: https://git-core.googlecode.com/files/git-1.8.2.1.tar.gz
+  key: tar.gz:5vw37envnqkuaytvmo26q2b744tnvseb
+  deps: [zlib, curl]
+
+- package: curl
+  url: http://curl.haxx.se/download/curl-7.30.0.tar.bz2
+  key: tar.bz2:nmoeca4hx2ucman25sc5nktbsvlzizzo
+  deps: []
+  recipe: configure_make
+
+- package: triangle
+  url: http://www.netlib.org/voronoi/triangle.zip
+  key: zip:c5tde6w5aocjl6ruthu3ptdeef4sff2q
+  deps: []
+  recipe: bash_script
+
+- package: scipy
+  url: http://downloads.sourceforge.net/project/scipy/scipy/0.12.0/scipy-0.12.0.tar.gz
+  key: tar.gz:xft6qaw27yw3aq6pxxyaipqtcl445hat
+  deps: [swig,python, numpy, lapack]
+  recipe: python_bash_script
+
+- package: 2decomp_fft
+  url: http://www.2decomp.org/download/2decomp_fft-1.5.847.tar.gz
+  key: tar.gz:we35pt43o4o6bilu2htmj7yojc2kqs2r
+  deps: [mpi]
+  recipe: bash_script
+
+- package: vtk
+  url: http://www.vtk.org/files/release/6.0/vtk-6.0.0.rc2.tar.gz
+  key: tar.gz:6kkzwdtkupoga2rgglpmaqrqs4tiusji
+  deps: [mesa, python, cmake]
+  recipe: python_bash_script
+
+- package: mesa
+  url: ftp://ftp.freedesktop.org/pub/mesa/9.1.3/MesaLib-9.1.3.tar.bz2
+  key: tar.bz2:rvo2yiqc2a2vx7247umdlaxmqft5dujc
+  deps: [libtool, m4, autoconf, automake, pkgconf, python, libxml2]
+  recipe: bash_script
+
+- package: libtool
+  url: http://ftpmirror.gnu.org/libtool/libtool-2.4.2.tar.gz
+  key: tar.gz:wog6isdcvgdsspgt3dp24hcatviuw3co
+  deps: []
+  recipe: configure_make
+
+- package: autoconf
+  url: http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+  key: tar.gz:svf5ngzzd3obfvveuunc3ukhmvb5uxdl
+  deps: [m4]
+  recipe: bash_script
+
+- package: m4
+  url: http://ftp.gnu.org/gnu/m4/m4-1.4.16.tar.bz2
+  key: tar.bz2:ijiayh653ef4wfq6nnmn5ey5o2mstrev
+  deps: []
+  recipe: configure_make
+
+- package: automake
+  url: http://ftp.gnu.org/gnu/automake/automake-1.13.3.tar.gz
+  key: tar.gz:ra6jd63675zvzvbg27wpij4wsprplbcc
+  deps: [autoconf]
+
+- package: mayavi
+  url: https://github.com/enthought/mayavi.git
+  key: git:0dedbd920f1b242ca7ecfaa4474bae5cfc79af69
+  deps: [distribute, numpy, vtk, traitsui, apptools]
+  unpack_egg: true
+  recipe: distutils
+
+- package: traits
+  url: https://github.com/enthought/traits.git
+  key: git:da1d69129e95ed9117906b246c54779b1df5d8f3
+  deps: [numpy, distribute]
+  unpack_egg: true
+  recipe: distutils
+
+- package: traitsui
+  url: https://github.com/enthought/traitsui.git
+  key: git:2e3840301e6e2235efa661c61b26154a61cf70ba
+  deps: [distribute, pyface]
+  unpack_egg: true
+  recipe: distutils
+
+- package: pyface
+  url: https://github.com/enthought/pyface.git
+  key: git:a104f36cae458093840b179dc8c94e051efe8a18
+  deps: [distribute, traits]
+  unpack_egg: true
+  recipe: distutils
+
+- package: apptools
+  url: https://github.com/enthought/apptools.git
+  key: git:ef5408f787a8cbda5442d960b7decfdfad5efca1
+  deps: [distribute, configobj, traitsui]
+  unpack_egg: true
+  recipe: distutils
+
+- package: configobj
+  url: https://pypi.python.org/packages/source/c/configobj/configobj-4.7.2.tar.gz
+  key: tar.gz:kfp7si2gewjoqmq57c2iyr7dikhy2qdo
+  deps: [python]
+  recipe: distutils
+
+- package: pkgconf
+  url: http://rabbit.dereferenced.org/~nenolod/distfiles/pkgconf-0.9.2.tar.bz2
+  key: tar.bz2:5dd6utysqizyhuwjkwanisl32cc2uego
+  deps: []
+  recipe: configure_make
+
+- package: libxml2
+  url: ftp://xmlsoft.org/libxml2/libxml2-2.9.1.tar.gz
+  key: tar.gz:7u6gjs3g6lcouj7jgtjhlecnslhmjffi
+  deps: [zlib, python]
+  recipe: python_bash_script
+
+- package: cmake
+  url: http://www.cmake.org/files/v2.8/cmake-2.8.11.tar.gz
+  key: tar.gz:edingzqxs75ifqm6pj24omk4mqhaahft
+  deps: []
+  recipe: bash_script
+
+- package: graphicsmagick
+  url: https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.18/GraphicsMagick-1.3.18.tar.bz2
+  key: tar.bz2:o2fytjuf2knq4rr23yq3ybsj6jzhqahl
+  deps: []
+  recipe: configure_make
+
+- package: pgmagick
+  url: https://bitbucket.org/hhatto/pgmagick/get/ver0.5.6.tar.bz2
+  key: tar.bz2:svkucsx72khjc6ykkduuarp5ip6tv4wm
+  deps: [python, graphicsmagick, distribute]
+  recipe: distutils
+
+- package: lapack
+  url: http://www.netlib.org/lapack/lapack-3.4.2.tgz
+  key: tar.gz:mctf3kxrn3brka2gowkcmgfcemcsd2t2
+  deps: [cmake]
+
+- package: ncurses
+  url: http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz
+  key: tar.gz:sbdctd5uiazezhkbgxwou6dz77wykrw5
+  deps: []
+  recipe: bash_script
+
+- package: readline
+  url: ftp://ftp.cwru.edu/pub/bash/readline-6.2.tar.gz
+  key: tar.gz:pgtjmbykawgcgpds3vvmnfycdtdevpk6
+  deps: [ncurses]
+  recipe: bash_script
+
+- package: sqlite
+  url: http://sqlite.org/2013/sqlite-autoconf-3071700.tar.gz
+  key: tar.gz:r72g2c5ktzsmbakvituct2mf6elbyclk
+  deps: [readline]
+  recipe: bash_script
+
+- package: openssl
+  url: https://www.openssl.org/source/openssl-1.0.1e.tar.gz
+  key: tar.gz:65hrl2gi74i2upk3wxzhnuqc5qmnojdo
+  deps: [zlib]
+  recipe: bash_script
+
+- package: swig
+  url: http://sourceforge.net/projects/swig/files/swig/swig-2.0.10/swig-2.0.10.tar.gz
+  key: tar.gz:2hxpgkpim4jezzqihc222b6hmmkgw3ep
+  deps: [pcre]
+  recipe: bash_script
+
+- package: pcre
+  url: http://sourceforge.net/projects/pcre/files/pcre/8.33/pcre-8.33.tar.gz
+  key: tar.gz:bkfyj3wrhtsofaax2kl2iv752zvlcbul
+  deps: []
+  recipe: configure_make

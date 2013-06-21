@@ -1,0 +1,8 @@
+#! /bin/bash
+
+set -e
+
+export DAETK_DIR=`pwd`
+export DAETK_ARCH=darwin
+export PETSC_DIR=$PETSC
+make

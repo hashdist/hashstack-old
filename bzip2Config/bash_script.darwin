@@ -1,0 +1,15 @@
+#! /bin/bash
+
+set -e
+
+make -f Makefile
+make clean
+make install PREFIX=$ARTIFACT
+
+cp -v bzip2 $ARTIFACT/bin/bzip2
+cp -av libbz2.* $ARTIFACT/lib
+rm -v $ARTIFACT/bin/{bunzip2,bzcat}
+ln -sv bzip2 $ARTIFACT/bin/bunzip2
+ln -sv bzip2 $ARTIFACT/bin/bzcat
+
+#$PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib $ARTIFACT/bin/bzip2

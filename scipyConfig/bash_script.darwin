@@ -1,0 +1,23 @@
+#! /bin/bash
+
+set -e
+export CC='/usr/bin/gcc'
+export CFLAGS='-arch x86_64'
+export CXX='/usr/bin/g++'
+export CXXFLAGS='-arch x86_64'
+export FC='/usr/local/bin/gfortran'
+export FCFLAGS='-arch x86_64'
+export F77='/usr/local/bin/gfortran'
+export F77FLAGS='-arch x86_64'
+export F90='/usr/local/bin/gfortran'
+export F90FLAGS='-arch x86_64'
+export FFLAGS='-arch x86_64'
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-bundle -undefined dynamic_lookup -arch x86_64 -Wl,-rpath,@loader_path$PYTHON/lib -Wl,-rpath,@loader_path$LAPACK/lib  -L$PYTHON/lib -lpython2.7 -L$LAPACK/lib -llapack -lblas -L/usr/local/lib -lgfortran "
+export BLAS=$LAPACK/lib
+export LAPACK=$LAPACK/lib
+export ATLAS=None
+export UMFPACK=None
+export AMD=None
+export PATH=$PATH:$SWIG/bin
+$PYTHON/bin/python setup.py config -L$PYTHON/lib -lpython2.7 -L$LAPACK/lib -llapack -lblas -L/usr/local/lib -lgfortran install --prefix=$ARTIFACT

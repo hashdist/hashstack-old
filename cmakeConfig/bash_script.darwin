@@ -1,0 +1,7 @@
+#! /bin/bash
+
+set -e
+
+./bootstrap --prefix=$ARTIFACT
+make
+make install

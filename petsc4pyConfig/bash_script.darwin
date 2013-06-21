@@ -1,0 +1,8 @@
+#! /bin/bash
+
+set -e
+
+export PETSC_DIR=$PETSC
+
+$PYTHON/bin/python setup.py build
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT
