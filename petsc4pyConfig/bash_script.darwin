@@ -2,6 +2,8 @@
 
 set -e
 
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
 export PETSC_DIR=$PETSC
 
 $PYTHON/bin/python setup.py build

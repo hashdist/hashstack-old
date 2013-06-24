@@ -1,1 +1,5 @@
-./configure --disable-fortran --disable-cxx --disable-parallel --with-zlib=${ARTIFACT} --with-szlib=${ARTIFACT} --enable-shared --enable-threadsafe --with-pthread --prefix=${ARTIFACT} CC="/usr/bin/gcc" CFLAGS=" -I${ARTIFACT}/include" LDFLAGS=" -L${ARTIFACT}/lib" LD="/usr/bin/gcc"
+#!/bin/bash
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure --disable-fortran --disable-cxx --disable-parallel --with-zlib=${ARTIFACT} --with-szlib=${ARTIFACT} --enable-shared --enable-threadsafe --with-pthread --prefix=${ARTIFACT} CFLAGS="-I${ARTIFACT}/include" LDFLAGS=" -L${ARTIFACT}/lib"

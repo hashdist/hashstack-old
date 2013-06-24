@@ -71,13 +71,13 @@
 - package: numpy
   url: http://downloads.sourceforge.net/project/numpy/NumPy/1.7.1/numpy-1.7.1.tar.gz
   key: tar.gz:kusqdgrqqxb5qyhgz7smbiypwzovm5rg
-  deps: [python, lapack]
+  deps: [python, gfortran,lapack]
   recipe: python_bash_script
 
 - package: petsc
   url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.3-p6.tar.gz
   key: tar.gz:bhqdyhmhdjcoimrnmgyapo7p2cr6btvf
-  deps: [mpi, python, lapack]
+  deps: [gfortran,mpi, python, lapack]
 
 - package: petsc4py
   url: https://petsc4py.googlecode.com/files/petsc4py-3.3.1.tar.gz
@@ -104,7 +104,7 @@
 - package: bzip2
   url: http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
   key: tar.gz:ukci6nh42xlm6r666acgd7fvfcqeqtmo
-  deps: [patchelf]
+  deps: []
   recipe: bash_script
 
 - package: png
@@ -115,7 +115,7 @@
 
 - package: launcher
   url: git://github.com/hashdist/hdist-launcher.git
-  key: git:941878d2387709a20d164b014d9155552448ce2b
+  key: git:e66680ee90568c4a18b59fb10b3d54db7a1a0f74
   recipe: pure_make
   profile_install: false
   deps: []
@@ -136,7 +136,8 @@
   provides: mpi
   url: http://www.mpich.org/static/tarballs/3.0.3/mpich-3.0.3.tar.gz
   key: tar.gz:jj5yo7oe3e45wwngkuqqn35bud5kdfkr
-  deps: []
+  deps: [gfortran]
+  recipe: bash_script
 
 - package: sphinx
   url: https://pypi.python.org/packages/source/S/Sphinx/Sphinx-1.2b1.tar.gz
@@ -178,7 +179,7 @@
 - package: superlu
   url: git://github.com/erdc-cm/superlu
   key: git:55f7d100d8a5ffa2222534126c2b52986d4ff5bb
-  deps: []
+  deps: [lapack]
   recipe: bash_script
 
 - package: tetgen
@@ -207,7 +208,7 @@
 - package: scipy
   url: http://downloads.sourceforge.net/project/scipy/scipy/0.12.0/scipy-0.12.0.tar.gz
   key: tar.gz:xft6qaw27yw3aq6pxxyaipqtcl445hat
-  deps: [python, numpy, lapack]
+  deps: [swig,python, gfortran,lapack,numpy]
   recipe: python_bash_script
 
 - package: 2decomp_fft
@@ -219,7 +220,7 @@
 - package: vtk
   url: http://www.vtk.org/files/release/6.0/vtk-6.0.0.rc2.tar.gz
   key: tar.gz:6kkzwdtkupoga2rgglpmaqrqs4tiusji
-  deps: [mesa, python, patchelf, cmake]
+  deps: [mesa, python, cmake]
   recipe: python_bash_script
 
 - package: mesa
@@ -292,12 +293,6 @@
   deps: [python]
   recipe: distutils
 
-- package: patchelf
-  url: https://github.com/NixOS/patchelf
-  key: git:eea5b990b1fa41408f348abb098ca5f4d3c4382c
-  deps: [libtool, m4, autoconf, automake, pkgconf]
-  recipe: bash_script
-
 - package: pkgconf
   url: http://rabbit.dereferenced.org/~nenolod/distfiles/pkgconf-0.9.2.tar.bz2
   key: tar.bz2:5dd6utysqizyhuwjkwanisl32cc2uego
@@ -331,7 +326,7 @@
 - package: lapack
   url: http://www.netlib.org/lapack/lapack-3.4.2.tgz
   key: tar.gz:mctf3kxrn3brka2gowkcmgfcemcsd2t2
-  deps: [cmake]
+  deps: [cmake,gfortran]
 
 - package: ncurses
   url: http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz
@@ -346,7 +341,7 @@
   recipe: bash_script
 
 - package: sqlite
-  url: https://sqlite.org/2013/sqlite-autoconf-3071700.tar.gz
+  url: http://sqlite.org/2013/sqlite-autoconf-3071700.tar.gz
   key: tar.gz:r72g2c5ktzsmbakvituct2mf6elbyclk
   deps: [readline]
   recipe: bash_script
@@ -354,5 +349,53 @@
 - package: openssl
   url: https://www.openssl.org/source/openssl-1.0.1e.tar.gz
   key: tar.gz:65hrl2gi74i2upk3wxzhnuqc5qmnojdo
-  deps: [zlib, patchelf]
+  deps: [zlib]
+  recipe: bash_script
+
+- package: swig
+  url: http://sourceforge.net/projects/swig/files/swig/swig-2.0.10/swig-2.0.10.tar.gz
+  key: tar.gz:2hxpgkpim4jezzqihc222b6hmmkgw3ep
+  deps: [pcre]
+  recipe: bash_script
+
+- package: pcre
+  url: http://sourceforge.net/projects/pcre/files/pcre/8.33/pcre-8.33.tar.gz
+  key: tar.gz:bkfyj3wrhtsofaax2kl2iv752zvlcbul
+  deps: []
+  recipe: configure_make
+
+- package: gmp
+  url: http://ftp.gnu.org/gnu/gmp/gmp-5.1.2.tar.bz2
+  key: tar.bz2:ecm552te547frlblilvkuaugymrrimfi
+  deps: []
+  recipe: bash_script
+
+- package: libmpc
+  url: http://multiprecision.org/mpc/download/mpc-1.0.1.tar.gz
+  key: tar.gz:5vnicxh6uus5y54n6dftorultqnvksvp
+  deps: [gmp,mpfr]
+  recipe: bash_script
+
+- package: mpfr
+  url: http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.bz2
+  key: tar.bz2:phdt6yfpaefdbjocpkkvuhjnag5asw3s
+  deps: [gmp]
+  recipe: bash_script
+
+- package: cloog
+  url: http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.0.tar.gz
+  key: tar.gz:drfkrxphrbv6ts7a7edjym2iiozbakhw
+  deps: [pkgconf,gmp,isl]
+  recipe: bash_script
+
+- package: isl
+  url: http://www.kotnet.org/~skimo/isl/isl-0.11.2.tar.bz2
+  key: tar.bz2:43mdgr6skrcjk5zjt3eg77x5pe3b3ri7
+  deps: [gmp]
+  recipe: bash_script
+
+- package: gfortran
+  url: http://ftpmirror.gnu.org/gcc/gcc-4.8.1/gcc-4.8.1.tar.bz2
+  key: tar.bz2:krnujpr23hzmj2ioncaplsou6cupbzpw
+  deps: [zlib,gmp,libmpc,mpfr,cloog,isl]
   recipe: bash_script

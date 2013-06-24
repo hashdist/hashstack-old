@@ -1,1 +1,7 @@
-CC="/usr/bin/gcc"  CFLAGS="" CXX="/usr/bin/g++"  CXXFLAGS="" ./configure --enable-shared --prefix=${PYTHONHPC_PREFIX}
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure --enable-shared --prefix=${PYTHONHPC_PREFIX}

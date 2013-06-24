@@ -2,6 +2,8 @@
 
 set -e
 
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
 ./configure --prefix=$ARTIFACT --with-shared --without-profile --without-debug --without-ada --without-tests --without-progs --with-ticlib=tic --with-termlib=tinfo
 make
 make install

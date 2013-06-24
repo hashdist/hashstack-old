@@ -1,1 +1,7 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
 ./configure --prefix=${ARTIFACT} --disable-universalsdk  --enable-framework=${ARTIFACT}/Library/Frameworks --enable-toolbox-glue

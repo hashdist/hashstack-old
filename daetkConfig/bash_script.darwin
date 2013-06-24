@@ -2,6 +2,8 @@
 
 set -e
 
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
 export DAETK_DIR=`pwd`
 export DAETK_ARCH=darwin
 export PETSC_DIR=$PETSC

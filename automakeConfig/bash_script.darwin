@@ -2,6 +2,7 @@
 
 set -e
 
+export MACOSX_DEPLOYMENT_TARGET=10.8
 M4_orig=$M4
 export M4=$M4_orig/bin/m4
 AUTOCONF_orig=$AUTOCONF

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure --prefix=$ARTIFACT --build=x86_64-apple-darwin --disable-dependency-tracking --with-gmp=$GMP
+make
+make install

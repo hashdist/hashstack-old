@@ -1,6 +1,8 @@
-#! /bin/bash
+#!/bin/bash
 
 set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
 
 make triangle
 mkdir -p $ARTIFACT/bin

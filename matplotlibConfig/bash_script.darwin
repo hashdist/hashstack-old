@@ -2,7 +2,8 @@
 
 set -e
 
+export MACOSX_DEPLOYMENT_TARGET=10.8
 export PKG_CONFIG_PATH=$PNG/lib/pkgconfig
 
-CFLAGS="-mmacosx-version-min=10.8 -I$PNG/include -I$FREETYPE/include -I$FREETYPE/include/freetype2" LDFLAGS="-L$FREETYPE/lib -L$PNG/lib -Wl,-rpath,@loader_path$PNG/lib" $PYTHON/bin/python setup.py build 
+CFLAGS="-I$PNG/include -I$FREETYPE/include -I$FREETYPE/include/freetype2" LDFLAGS="-L$FREETYPE/lib -L$PNG/lib -Wl,-rpath,@loader_path$PNG/lib" $PYTHON/bin/python setup.py build 
 $PYTHON/bin/python setup.py install --prefix=$ARTIFACT

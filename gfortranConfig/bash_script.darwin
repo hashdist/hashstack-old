@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure \
+--prefix=$ARTIFACT \
+--enable-languages=fortran \
+--with-zlib=$ZLIB \
+--with-gmp=$GMP \
+--with-mpfr=$MPFR \
+--with-mpc=$LIBMPC \
+--with-cloog=$CLOOG \
+--with-isl=$ISL \
+--enable-checking=release \
+--disable-stage1-checking \
+--disable-build-poststage1-with-cxx \
+--disable-libstdcxx-pc \
+--disable-nls
+make bootstrap
+make
+make install
