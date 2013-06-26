@@ -2,4 +2,6 @@
 
 set -e
 
-./configure CFLAGS=-fPIC --enable-shared --enable-fc --prefix=${PYTHONHPC_PREFIX}
+./configure CFLAGS="-fPIC" --enable-shared --enable-fc --prefix=$ARTIFACT
+make
+make install
