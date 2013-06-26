@@ -75,14 +75,14 @@
   recipe: python_bash_script
 
 - package: petsc
-  url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.3-p6.tar.gz
-  key: tar.gz:bhqdyhmhdjcoimrnmgyapo7p2cr6btvf
+  url: https://bitbucket.org/petsc/petsc.git
+  key: git:e53ed6aa8368a9c1cf5e19ad082d3ac92ae326b5
   deps: [mpi, python, lapack]
 
 - package: petsc4py
-  url: https://petsc4py.googlecode.com/files/petsc4py-3.3.1.tar.gz
-  key: tar.gz:347my4i3ng7uf5mygwdhylesjrzjqjun
-  deps: [python, numpy, petsc]
+  url: https://github.com/erdc-cm/petsc4py.git
+  key: git:e29612c871aa29c8193c7559bbe425f4ce920bbc
+  deps: [python, numpy, petsc,cython]
   recipe: bash_script
 
 - package: sympy
@@ -134,9 +134,10 @@
 
 - package: mpich
   provides: mpi
-  url: http://www.mpich.org/static/tarballs/3.0.3/mpich-3.0.3.tar.gz
-  key: tar.gz:jj5yo7oe3e45wwngkuqqn35bud5kdfkr
+  url: http://www.mpich.org/static/tarballs/3.0.4/mpich-3.0.4.tar.gz
+  key: tar.gz:z5ryzblgamak6sfw653ol3gtlnjxrvmq
   deps: []
+  recipe: bash_script
 
 - package: sphinx
   url: https://pypi.python.org/packages/source/S/Sphinx/Sphinx-1.2b1.tar.gz
@@ -199,8 +200,8 @@
   recipe: configure_make
 
 - package: triangle
-  url: http://www.netlib.org/voronoi/triangle.zip
-  key: zip:c5tde6w5aocjl6ruthu3ptdeef4sff2q
+  url: https://github.com/erdc-cm/triangle.git
+  key: git:7ecebd8389cf6bab52c0855a68efab98d5cf2383
   deps: []
   recipe: bash_script
 
