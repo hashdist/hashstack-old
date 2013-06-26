@@ -1,8 +1,19 @@
 #! /bin/bash
 
 set -e
-
+env
+pwd
 export DAETK_DIR=`pwd`
 export DAETK_ARCH=linux
 export PETSC_DIR=$PETSC
+
+cp ../arch    config/linux
+cp ../archive config/linux.archive
+cp ../sources config/linux.sources
+touch dep.txt
 make
+mkdir $ARTIFACT/lib
+cp libdaetk.a $ARTIFACT/lib
+mkdir $ARTIFACT/include
+cp *.h $ARTIFACT/include
+cp -r pete/pete-2.1.0/src/PETE $ARTIFACT/include

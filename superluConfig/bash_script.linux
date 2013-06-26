@@ -7,4 +7,9 @@ mkdir lib
 export SuperLUroot=`pwd`
 make lib
 mkdir ${ARTIFACT}/lib/
+mkdir ${ARTIFACT}/include/
 cp lib/libsuperlu_4.1.a ${ARTIFACT}/lib/
+pwd
+ls 
+ls SRC
+cp SRC/*.h ${ARTIFACT}/include/

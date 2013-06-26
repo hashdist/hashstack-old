@@ -2,4 +2,6 @@
 
 set -e
 
-./configure CFLAGS=-fPIC --enable-shared --enable-fc --prefix=${PYTHONHPC_PREFIX}
+./configure CFLAGS="-fPIC" CXXFLAGS="-fPIC" F77FLAGS="-fPIC" F77=/usr/bin/gfortran FCFLAGS="-fPIC" FC=/usr/bin/gfortran CC=/usr/bin/gcc CXX=/usr/bin/g++ --enable-shared --enable-fc --prefix=$ARTIFACT
+make
+make install
