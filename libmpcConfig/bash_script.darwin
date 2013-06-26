@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure --prefix=$ARTIFACT --enable-cxx --with-gmp=$GMP --with-mpfr=$MPFR
+make
+make install

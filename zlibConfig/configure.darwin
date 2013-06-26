@@ -1,1 +1,7 @@
-CC="/usr/bin/gcc"  CFLAGS="" LD="/usr/bin/gcc"  LDFLAGS="" ./configure --shared --prefix=${PYTHONHPC_PREFIX} 
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure --shared --prefix=$ARTIFACT

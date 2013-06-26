@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-L$PCRE/lib -Wl,-rpath,@loader_path$ARTIFACT/lib -Wl,-rpath,@loader_path$PCRE/lib"
+export CFLAGS="-I$PCRE/include"
+export CPPFLAGS="$CFLAGS"
+
+./configure --prefix=$ARTIFACT --with-pcre-prefix=$PCRE
+make
+make install

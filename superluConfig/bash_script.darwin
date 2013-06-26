@@ -1,0 +1,12 @@
+#! /bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+cp ../make.inc make.inc
+mkdir lib
+export SuperLUroot=`pwd`
+export BLASLIB="-L$BLAS/lib -lblas"
+make lib
+mkdir ${ARTIFACT}/lib/
+cp lib/libsuperlu_4.1.a ${ARTIFACT}/lib/

@@ -1,0 +1,7 @@
+#! /bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT --zmq=bundled

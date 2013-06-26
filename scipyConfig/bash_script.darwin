@@ -1,0 +1,13 @@
+#! /bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-bundle -undefined dynamic_lookup -arch x86_64 -Wl,-rpath,@loader_path$PYTHON/lib -Wl,-rpath,@loader_path$LAPACK/lib  -L$PYTHON/lib -lpython2.7 -L$LAPACK/lib -llapack -lblas -L/usr/local/lib -lgfortran "
+export BLAS=$LAPACK/lib
+export LAPACK=$LAPACK/lib
+export ATLAS=None
+export UMFPACK=None
+export AMD=None
+export PATH=$PATH:$SWIG/bin
+$PYTHON/bin/python setup.py config_fc --f77exec=$GFORTRAN/bin/gfortran --f90exec=$GFORTRAN/bin/gfortran config -L$PYTHON/lib -lpython2.7 -L$LAPACK/lib -llapack -lblas -L$GFORTRAN/lib -lgfortran install --prefix=$ARTIFACT

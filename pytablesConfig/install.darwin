@@ -1,1 +1,7 @@
+!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
 ${PYTHONHPC_PYTHON} setup.py install --hdf5=${PYTHONHPC_PREFIX} --lflags=" -L${PYTHONHPC_PREFIX}/lib -lhdf5 -lz -lsz" 

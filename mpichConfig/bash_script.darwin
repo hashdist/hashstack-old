@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure CFLAGS="-arch x86_64 -fPIC" CXXFLAGS="-arch x86_64" F77FLAGS="-march=x86-64 -fPIC" F77=$GFORTRAN/bin/gfortran FCFLAGS="-march=x86-64 -fPIC" FC=$GFORTRAN/bin/gfortran CC=/usr/bin/gcc CXX=/usr/bin/g++ --enable-shared --enable-fc --prefix=$ARTIFACT
+make
+make install

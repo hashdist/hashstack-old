@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -e
+
+export M4=$M4/bin/m4
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure --prefix=$ARTIFACT
+make
+make install

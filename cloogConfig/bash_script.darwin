@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure --prefix=$ARTIFACT --disable-dependency-tracking --with-isl-prefix=$ISL --with-gmp-prefix=$GMP 
+make
+make install

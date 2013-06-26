@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+cp ../Makefile.inc src/Makefile.inc
+make
+mkdir -p $ARTIFACT/include
+cp include/* $ARTIFACT/include/

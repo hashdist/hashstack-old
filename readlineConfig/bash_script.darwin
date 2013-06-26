@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export CFLAGS="-I$NCURSES/include -I$NCURSES/include/ncurses"
+
+./configure --prefix=$ARTIFACT --enable-shared --with-curses
+make SHOBJ_CFLAGS="-fPIC -D_REENTRANT" SHOBJ_LDFLAGS="-rpath @loader_path$NCURSES/lib" SHLIB_LIBS="-ltinfo"
+make install

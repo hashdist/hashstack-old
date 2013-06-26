@@ -1,1 +1,7 @@
-./configure --prefix=${PYTHONHPC_PREFIX} --disable-universalsdk  --enable-framework=${PYTHONHPC_PREFIX}/Library/Frameworks --enable-toolbox-glue CC="/usr/bin/gcc"  CXX="/usr/bin/g++" CPPFLAGS="-I/${PYTHONHPC_PREFIX}/include" CXXFLAGS="-I${PYTHONHPC_PREFIX}/include" LD="/usr/bin/gcc"  LDFLAGS="-L${PYTHONHPC_PREFIX}/lib"
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+
+./configure --prefix=${ARTIFACT} --disable-universalsdk  --enable-framework=${ARTIFACT}/Library/Frameworks --enable-toolbox-glue

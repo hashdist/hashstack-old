@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export LDFLAGS="-Wl,-rpath,@loader_path$ARTIFACT/lib -Wl,-rpath,@loader_path$ZLIB/lib -Wl,-rpath,@loader_path$BZIP2/lib -Wl,-rpath,@loader_path$NCURSES/lib -Wl,-rpath,@loader_path$READLINE/lib"
+export CFLAGS="-I$ZLIB/include -I$BZIP2/include -I$NCURSES/include -I$READLINE/include"
+
+./configure --prefix=$ARTIFACT \
+    LDFLAGS="-Wl,-rpath,@loader_path$READLINE/lib" \
+    CFLAGS="-I$READLINE/include"
+make
+make install
