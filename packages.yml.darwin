@@ -115,7 +115,7 @@
 
 - package: launcher
   url: git://github.com/hashdist/hdist-launcher.git
-  key: git:e66680ee90568c4a18b59fb10b3d54db7a1a0f74
+  key: git:1ae18686890423e8e9948f0706103d4eac151296
   recipe: pure_make
   profile_install: false
   deps: []
