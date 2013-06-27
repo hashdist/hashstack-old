@@ -56,8 +56,8 @@
 # /usr/local/{lib,include}
 #
 [DEFAULT]
-#library_dirs = /usr/lib
-#include_dirs = /usr/include
+library_dirs = $(LAPACK)/lib
+include_dirs = $(LAPACK)/include
 [config_fc]
 #f77exec=${F77}
 #f77flags=${F77FLAGS}

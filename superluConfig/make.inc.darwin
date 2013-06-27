@@ -16,7 +16,7 @@
 #
 #  The machine (platform) identifier to append to the library names
 #
-PLAT = _linux
+PLAT = 
 
 #
 #  The name of the libraries to be created/linked to
@@ -41,15 +41,15 @@ LIBS		= $(SUPERLULIB) $(BLASLIB)
 #  If your system has no ranlib, set RANLIB = echo.
 #
 ARCH         = ar
-ARCHFLAGS    = cr
+ARCHFLAGS    = cru
 RANLIB       = ranlib
 
 CC           = gcc
 CFLAGS       = -O3
 NOOPTS       = 
-FORTRAN	     = g77
+FORTRAN	     = $(GFORTRAN)/bin/gfortran
 FFLAGS       = -O2
-LOADER       = $(FORTRAN)
+LOADER       = $(GFORTRAN)/bin/gfortran
 LOADOPTS     =
 
 #

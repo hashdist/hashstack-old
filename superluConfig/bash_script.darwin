@@ -9,4 +9,6 @@ export SuperLUroot=`pwd`
 export BLASLIB="-L$BLAS/lib -lblas"
 make lib
 mkdir ${ARTIFACT}/lib/
+mkdir ${ARTIFACT}/include/
 cp lib/libsuperlu_4.1.a ${ARTIFACT}/lib/
+cp SRC/*.h ${ARTIFACT}/include/

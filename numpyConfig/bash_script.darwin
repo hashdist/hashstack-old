@@ -3,5 +3,14 @@
 set -e
 
 export MACOSX_DEPLOYMENT_TARGET=10.8
+export CFLAGS="-arch x86_64"
+export CXXFLAGS="-arch x86_64"
+export F77FLAGS="-march=x86-64"
+export F90FLAGS="-march=x86-64"
+export FCFLAGS="-march=x86-64"
+export LDFLAGS="-bundle -m64 -march=x86-64 -Wl,-rpath,@loader_path$PYTHON/lib -Wl,-rpath,@loader_path$LAPACK/lib -Wl,-rpath,@loader_path$GFORTRAN/lib  -L$PYTHON/lib -lpython2.7 -L$LAPACK/lib -llapack -lblas -L$GFORTRAN/lib -lgfortran"
+export BLAS=$LAPACK/lib
+export LAPACK=$LAPACK/lib
+export ATLAS=None
 
 $PYTHON/bin/python setup.py config_fc --f77exec=$GFORTRAN/bin/gfortran --f90exec=$GFORTRAN/bin/gfortran config -L$PYTHON/lib -lpython2.7 -L$GFORTRAN/lib -lgfortran  install --prefix=$ARTIFACT

@@ -4,7 +4,16 @@ set -e
 
 export MACOSX_DEPLOYMENT_TARGET=10.8
 
+cp ../arch    config/darwin
+cp ../archive config/darwin.archive
+cp ../sources config/darwin.sources
 export DAETK_DIR=`pwd`
 export DAETK_ARCH=darwin
 export PETSC_DIR=$PETSC
+touch dep.txt
 make
+mkdir $ARTIFACT/lib
+cp libdaetk.a $ARTIFACT/lib
+mkdir $ARTIFACT/include
+cp *.h $ARTIFACT/include
+cp -r pete/pete-2.1.0/src/PETE $ARTIFACT/include
