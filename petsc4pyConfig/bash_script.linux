@@ -3,6 +3,8 @@
 set -e
 
 export PETSC_DIR=$PETSC
-
+export PATH=$CYTHON/bin:$PATH
 $PYTHON/bin/python setup.py build
 $PYTHON/bin/python setup.py install --prefix=$ARTIFACT
+mkdir $ARTIFACT/lib/petsc4py-config
+cp -r conf $ARTIFACT/lib/petsc4py-config

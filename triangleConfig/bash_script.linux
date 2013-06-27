@@ -1,7 +1,13 @@
-#! /bin/bash
+#!/bin/bash
 
 set -e
 
-make triangle
-mkdir -p $ARTIFACT/bin
-cp triangle $ARTIFACT/bin/
+cp ../makefile src
+cd src
+make install
+mkdir $ARTIFACT/bin
+cp ../bin/triangle $ARTIFACT/bin
+mkdir $ARTIFACT/lib
+cp ../lib/libtri.a $ARTIFACT/lib
+mkdir $ARTIFACT/include
+cp triangle.h $ARTIFACT/include
