@@ -25,7 +25,7 @@ def fetch_hashdist(hashdist_path, hashdist_commit):
             subprocess.check_call(['git', 'checkout', '-b', 'auto', hashdist_commit], cwd=hashdist_path)
     else:
         sys.stderr.write("Need to fetch Hashdist...\n")
-        subprocess.check_call(['git', 'clone', 'git://github.com/hashdist/hashdist.git', hashdist_path])
+        subprocess.check_call(['git', 'clone', 'https://github.com/hashdist/hashdist.git', hashdist_path])
         subprocess.check_call(['git', 'checkout', '-b', 'auto', hashdist_commit], cwd=hashdist_path)
     
 

@@ -114,7 +114,7 @@
   recipe: bash_script
 
 - package: launcher
-  url: git://github.com/hashdist/hdist-launcher.git
+  url: https://github.com/hashdist/hdist-launcher.git
   key: git:1ae18686890423e8e9948f0706103d4eac151296
   recipe: pure_make
   profile_install: false
@@ -171,13 +171,13 @@
   recipe: bash_script
 
 - package: daetk
-  url: git://github.com/erdc-cm/daetk.git
+  url: https://github.com/erdc-cm/daetk.git
   key: git:001688ce3c4c59051e4d0d80a173d4435d3e0beb
   deps: [petsc]
   recipe: bash_script
 
 - package: superlu
-  url: git://github.com/erdc-cm/superlu
+  url: https://github.com/erdc-cm/superlu
   key: git:55f7d100d8a5ffa2222534126c2b52986d4ff5bb
   deps: [lapack]
   recipe: bash_script
@@ -340,7 +340,7 @@
   recipe: bash_script
 
 - package: readline
-  url: ftp://ftp.cwru.edu/pub/bash/readline-6.2.tar.gz
+  url: http://ftp.gnu.org/gnu/readline/readline-6.2.tar.gz
   key: tar.gz:pgtjmbykawgcgpds3vvmnfycdtdevpk6
   deps: [ncurses]
   recipe: bash_script
