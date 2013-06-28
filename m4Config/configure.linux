@@ -2,4 +2,4 @@ set -e
 
 patch -p1 < ../stdio_build_fix.diff
 
-./configure --prefix=${PYTHONHPC_PREFIX}
+./configure --prefix=$ARTIFACT

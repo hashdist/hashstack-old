@@ -71,7 +71,7 @@
 - package: numpy
   url: http://downloads.sourceforge.net/project/numpy/NumPy/1.7.1/numpy-1.7.1.tar.gz
   key: tar.gz:kusqdgrqqxb5qyhgz7smbiypwzovm5rg
-  deps: [python, gfortran,lapack]
+  deps: [python,lapack]
   recipe: python_bash_script
 
 - package: petsc
@@ -208,7 +208,7 @@
 - package: scipy
   url: http://downloads.sourceforge.net/project/scipy/scipy/0.12.0/scipy-0.12.0.tar.gz
   key: tar.gz:xft6qaw27yw3aq6pxxyaipqtcl445hat
-  deps: [swig,python, gfortran,lapack,numpy]
+  deps: [python,lapack,numpy]
   recipe: python_bash_script
 
 - package: 2decomp_fft
@@ -245,7 +245,6 @@
   url: http://ftp.gnu.org/gnu/m4/m4-1.4.16.tar.bz2
   key: tar.bz2:ijiayh653ef4wfq6nnmn5ey5o2mstrev
   deps: []
-  recipe: configure_make
 
 - package: automake
   url: http://ftp.gnu.org/gnu/automake/automake-1.13.3.tar.gz
@@ -332,7 +331,7 @@
 - package: lapack
   url: http://www.netlib.org/lapack/lapack-3.4.2.tgz
   key: tar.gz:mctf3kxrn3brka2gowkcmgfcemcsd2t2
-  deps: [cmake,gfortran]
+  deps: [cmake]
 
 - package: ncurses
   url: http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz

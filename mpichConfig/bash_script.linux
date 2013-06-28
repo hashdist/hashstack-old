@@ -2,6 +2,6 @@
 
 set -e
 
-./configure CFLAGS="-fPIC" --enable-shared --enable-fc --prefix=$ARTIFACT
+./configure CFLAGS="-fPIC" CXXFLAGS="-fPIC" FCFLAGS="-fPIC" --enable-shared --enable-fc --prefix=$ARTIFACT
 make
 make install
