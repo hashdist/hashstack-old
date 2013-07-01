@@ -1,0 +1,5 @@
+#! /bin/bash
+
+set -e
+
+$RUBY/bin/ruby setup.rb --prefix=$ARTIFACT

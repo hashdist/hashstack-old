@@ -385,3 +385,9 @@
   key: tar.gz:hzyqikdsy53smqeumdugi6rpgbaihik2
   deps: []
   recipe: configure_make
+
+- package: rubygems
+  url: http://production.cf.rubygems.org/rubygems/rubygems-2.0.3.tgz
+  key: tar.gz:7sxvlbsaga6sf3se7jwzm2z3bxjehrfv
+  deps: [ruby]
+  recipe: bash_script
