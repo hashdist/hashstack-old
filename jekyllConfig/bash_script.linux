@@ -1,0 +1,6 @@
+#! /bin/bash
+
+set -e
+
+$RUBYGEMS/bin/gem build jekyll.gemspec
+$RUBYGEMS/bin/gem install ./jekyll-1.0.3.gem --install-dir=$ARTIFACT

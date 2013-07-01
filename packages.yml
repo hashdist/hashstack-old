@@ -391,3 +391,9 @@
   key: tar.gz:7sxvlbsaga6sf3se7jwzm2z3bxjehrfv
   deps: [ruby]
   recipe: bash_script
+
+- package: jekyll
+  url: https://github.com/mojombo/jekyll.git
+  key: git:700d840a06649309e15bd1fa946fb14925eb380d
+  deps: [ruby, rubygems]
+  recipe: bash_script
