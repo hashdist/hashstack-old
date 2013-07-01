@@ -379,3 +379,9 @@
   key: tar.gz:okj4tv7iv4xejkbpq3vzyoyfrcapjpgi
   deps: [python]
   recipe: distutils
+
+- package: ruby
+  url: ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz
+  key: tar.gz:hzyqikdsy53smqeumdugi6rpgbaihik2
+  deps: []
+  recipe: configure_make
