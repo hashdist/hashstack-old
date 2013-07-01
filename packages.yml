@@ -409,6 +409,7 @@
   url: http://labix.org/download/python-dateutil/python-dateutil-1.5.tar.gz
   key: tar.gz:ycfmu7mf7d4o5vq6qozueo4csjrmlfvj
   deps: [python, distribute]
+  unpack_egg: true
   recipe: distutils
 
 - package: pytz
