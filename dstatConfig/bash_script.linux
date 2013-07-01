@@ -2,4 +2,4 @@
 
 set -e
 
-make install DESTDIR=$ARTIFACT
+make install prefix= DESTDIR=$ARTIFACT
