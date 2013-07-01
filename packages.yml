@@ -417,3 +417,9 @@
   key: tar.bz2:mxvuttafw6ix7xogdyp6nwfekewcsxfv
   deps: [python]
   recipe: distutils
+
+- package: dstat
+  url: http://dag.wieers.com/home-made/dstat/dstat-0.7.2.tar.bz2
+  key: tar.bz2:gsuynwoxyaul3holnmxpdr2a64ra3zoj
+  deps: [python]
+  recipe: bash_script

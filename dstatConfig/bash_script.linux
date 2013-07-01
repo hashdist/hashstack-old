@@ -1,0 +1,5 @@
+#! /bin/bash
+
+set -e
+
+make install DESTDIR=$ARTIFACT
