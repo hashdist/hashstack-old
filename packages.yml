@@ -423,3 +423,9 @@
   key: tar.bz2:gsuynwoxyaul3holnmxpdr2a64ra3zoj
   deps: [python]
   recipe: bash_script
+
+- package: lxml
+  url: http://lxml.de/files/lxml-3.2.0.tgz
+  key: tar.gz:5kwddlcfyntfvlmtca2sszyyiyaoqif4
+  deps: [python]
+  recipe: bash_script
