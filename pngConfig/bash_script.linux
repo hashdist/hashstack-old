@@ -2,7 +2,7 @@
 
 set -e
 
-export CFLAGS="-I$ZLIB/include"
+export CPPFLAGS="-I$ZLIB/include"
 export LDFLAGS="-L$ZLIB/lib -Wl,-rpath=$ZLIB/lib"
 
 ./configure --prefix=$ARTIFACT
