@@ -439,5 +439,5 @@
 - package: netcdf4
   url: ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.3.0.tar.gz
   key: tar.gz:fakgkhcnwra2sw5y3ukephgap4czr57d
-  deps: [hdf5, zlib, curl]
+  deps: [hdf5]
   recipe: bash_script
