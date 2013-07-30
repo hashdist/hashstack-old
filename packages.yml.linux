@@ -430,6 +430,12 @@
   deps: [python]
   recipe: bash_script
 
+- package: python-netcdf4
+  url: http://netcdf4-python.googlecode.com/files/netCDF4-1.0.4.tar.gz
+  key: tar.gz:th26v25of6xje5m5co3zbxpeejvsxded
+  deps: [netcdf4, hdf5, python, numpy]
+  recipe: bash_script
+
 - package: netcdf4
   url: ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.3.0.tar.gz
   key: tar.gz:fakgkhcnwra2sw5y3ukephgap4czr57d
