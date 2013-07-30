@@ -429,3 +429,9 @@
   key: tar.gz:5kwddlcfyntfvlmtca2sszyyiyaoqif4
   deps: [python]
   recipe: bash_script
+
+- package: netcdf4
+  url: ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.3.0.tar.gz
+  key: tar.gz:fakgkhcnwra2sw5y3ukephgap4czr57d
+  deps: [hdf5, zlib, curl]
+  recipe: bash_script

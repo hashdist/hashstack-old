@@ -1,0 +1,11 @@
+#! /bin/bash
+
+set -e
+
+cd netcdf-4.3.0
+
+export LDFLAGS="-L$HDF5/lib -Wl,-rpath=$HDF5/lib"
+export CPPFLAGS="-I$HDF5/include"
+
+./configure --prefix=$ARTIFACT
+make check install
