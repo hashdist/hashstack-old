@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+./configure --prefix=$ARTIFACT --enable-cxx
+make
+make install
