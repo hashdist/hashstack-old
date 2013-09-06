@@ -45,8 +45,8 @@
   deps: [python]
 
 - package: ipython
-  url: https://github.com/downloads/ipython/ipython/ipython-0.13.1.tar.gz
-  key: tar.gz:ho7rbfoe7up36cqiohm6ezlruhhdyqit
+  url: https://pypi.python.org/packages/source/i/ipython/ipython-1.0.0.tar.gz
+  key: tar.gz:budveg2hqtq3d5twwszsyh3qribgz44y
   deps: [python, pyzmq, python-readline, tornado]
   recipe: distutils
 
