@@ -26,7 +26,7 @@
   recipe: python_bash_script
   deps: [python, cython]
   key: tar.gz:3ltuep2ku7et7ddx3lorly2m4zlwcing
-  url: https://github.com/zeromq/pyzmq/downloads/pyzmq-2.2.0.1.tar.gz
+  url: https://github.com/downloads/zeromq/pyzmq/pyzmq-2.2.0.1.tar.gz
 
 - package: pygments
   recipe: distutils
@@ -108,8 +108,8 @@
   recipe: bash_script
 
 - package: png
-  url: http://downloads.sourceforge.net/project/libpng/libpng16/1.6.2/libpng-1.6.2.tar.gz
-  key: tar.gz:kfv6l2gevp6wrdtmopau65fveo466456
+  url: http://prdownloads.sourceforge.net/libpng/libpng-1.6.3.tar.gz
+  key: tar.gz:sb63me5hubulvk2zj53bug3mnm72dgbj
   deps: [zlib]
   recipe: bash_script
 
