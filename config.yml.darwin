@@ -8,6 +8,6 @@ arch: darwin
 
 # Which packages from package.yml to include in the profile
 # (dependencies are automatically included)
-packages: [nose, readline, ipython, numpy, matplotlib, pytables,
+packages: [cmake, nose, readline, ipython, numpy, matplotlib, pytables,
     hdf5, mpich, sphinx, mpi4py, petsc, petsc4py, superlu, tetgen, triangle, sympy,
     scipy,gfortran,daetk]

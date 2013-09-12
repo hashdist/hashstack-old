@@ -12,6 +12,7 @@ export MACOSX_DEPLOYMENT_TARGET=10.8
 --CXXFLAGS="-arch x86_64" \
 --FC=$MPI/bin/mpif90 \
 --FCFLAGS="-march=x86-64" \
+--with-cmake=$CMAKE/bin/cmake \
 --with-shared-libraries=1 \
 --with-pic=1 \
 --with-x=0 \
