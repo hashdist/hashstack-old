@@ -8,9 +8,9 @@ setup(root_dir)
 
 from builder.builder import main
 from hashdist.cli.main import help_on_exceptions
-from hashdist.hdist_logging import Logger, DEBUG
+from hashdist.hdist_logging import Logger, INFO
 
-logger = Logger(DEBUG)
+logger = Logger(INFO)
 
 # Rest of builder assume the python-hpcmp dir is the cwd
 os.chdir(root_dir)
