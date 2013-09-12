@@ -217,3 +217,14 @@ def cygwin_python_recipe(ctx, pkg_attrs, configfiles, build_spec):
         {"set": pkg_attrs['package'].upper(),
          "value": "/usr"}
         ]
+
+def hardcode_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    build_spec["on_import"] += [
+        {"set": pkg_attrs['package'].upper(),
+         "value": pkg_attrs['prefix']},
+        ]
+    for ld in pkg_attrs.get('ld_library_path', []):
+        build_spec["on_import"].append({"prepend-path": "LD_LIBRARY_PATH", 
+                                        "value": pkg_attrs['ld_library_path']) 
+
+
