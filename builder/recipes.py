@@ -115,11 +115,14 @@ def json_multiline(s):
 
 def python_recipe(ctx, pkg_attrs, configure, build_spec):
     bash_script_recipe(ctx, pkg_attrs, configure, build_spec, postprocess=False)
+    set_python_site_packages_rel(build_spec)
+
+def set_python_site_packages_rel(build_spec, pythoncmd="$ARTIFACT/bin/python"):
     # Use the newly built Python to modify artifact.json so that
     # we make the PYTHON_SITE_PACKAGES_REL variable available, which contains,
     # e.g., "lib/python2.7/site-packages"
     build_spec["build"]["commands"] += [
-        {"cmd": ["$ARTIFACT/bin/python", "$in0"], "inputs": [
+        {"cmd": [pythoncmd, "$in0"], "inputs": [
             {"text": json_multiline("""\
             import os, sys, json
             pjoin = os.path.join
@@ -200,3 +203,17 @@ def python_bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
         {"prepend_path": "PYTHONPATH", "value": "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"}
         ]
     add_profile_install(ctx, pkg_attrs, build_spec)
+
+
+def cygwin_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    build_spec["on_import"] += [
+        {"set": pkg_attrs['package'].upper(),
+         "value": "/usr"}
+        ]
+
+def cygwin_python_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    set_python_site_packages_rel(build_spec,pythoncmd='python')
+    build_spec["on_import"] += [
+        {"set": pkg_attrs['package'].upper(),
+         "value": "/usr"}
+        ]
