@@ -200,3 +200,14 @@ def python_bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
         {"prepend_path": "PYTHONPATH", "value": "${ARTIFACT}/${PYTHON_SITE_PACKAGES_REL}"}
         ]
     add_profile_install(ctx, pkg_attrs, build_spec)
+
+
+#
+# Host system support
+#
+
+def debian_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    build_spec["on_import"] += [
+        {"set": pkg_attrs['package'].upper(),
+         "value": "/usr"}
+        ]
