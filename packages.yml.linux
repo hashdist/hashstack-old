@@ -77,7 +77,7 @@
 - package: petsc
   url: https://bitbucket.org/petsc/petsc.git
   key: git:e53ed6aa8368a9c1cf5e19ad082d3ac92ae326b5
-  deps: [mpi, python, lapack]
+  deps: [cmake, mpi, python, lapack]
 
 - package: petsc4py
   url: https://github.com/erdc-cm/petsc4py.git

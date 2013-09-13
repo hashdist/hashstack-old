@@ -4,6 +4,7 @@ $PYTHON/bin/python ./config/configure.py \
 --with-shared-libraries=1 \
 --with-blas-lapack-lib="-L$LAPACK/lib -llapack -lblas" \
 --with-c2html=0 \
+--with-cmake=$CMAKE/bin/cmake \
 --prefix=$ARTIFACT \
 --PETSC_ARCH=linux \
 --CC=$MPI/bin/mpicc \
