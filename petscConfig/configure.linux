@@ -6,9 +6,9 @@ $PYTHON/bin/python ./config/configure.py \
 --with-c2html=0 \
 --prefix=$ARTIFACT \
 --PETSC_ARCH=linux \
---CC=$MPI/bin/mpicc \
---CXX=$MPI/bin/mpicxx \
---FC=$MPI/bin/mpif90 \
+--CC=$MPICC \
+--CXX=$MPICXX \
+--FC=$MPIF90 \
 --download-metis=1 \
 --download-parmetis=1 \
 --download-superlu=1 \
