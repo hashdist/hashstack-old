@@ -9,4 +9,4 @@ set -e
 make
 make install
 
-$PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib:$ZLIB/lib $ARTIFACT/lib/engines/libgost.so
+#$PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib:$ZLIB/lib $ARTIFACT/lib/engines/libgost.so

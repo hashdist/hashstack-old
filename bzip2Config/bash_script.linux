@@ -13,4 +13,4 @@ rm -v $ARTIFACT/bin/{bunzip2,bzcat}
 ln -sv bzip2 $ARTIFACT/bin/bunzip2
 ln -sv bzip2 $ARTIFACT/bin/bzcat
 
-$PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib $ARTIFACT/bin/bzip2
+#$PATCHELF/bin/patchelf --set-rpath $ARTIFACT/lib $ARTIFACT/bin/bzip2

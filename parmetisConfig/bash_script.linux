@@ -1,0 +1,7 @@
+#! /bin/bash
+
+set -e
+
+make config prefix=$ARTIFACT cc=$MPI/bin/mpicc cxx=$MPI/bin/mpicxx
+make  prefix=$ARTIFACT cc=$MPI/bin/mpicc cxx=$MPI/bin/mpicxx
+make install  prefix=$ARTIFACT cc=$MPI/bin/mpicc cxx=$MPI/bin/mpicxx

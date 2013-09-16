@@ -2,13 +2,13 @@
 
 set -e
 
-export LDFLAGS="-L$ZLIB/lib -L$BZIP2/lib -L$NCURSES/lib -L$READLINE/lib -L$SQLITE/lib -L$OPENSSL/lib -Wl,-rpath=$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib -Wl,-rpath=$BZIP2/lib -Wl,-rpath=$NCURSES/lib -Wl,-rpath=$READLINE/lib -Wl,-rpath=$SQLITE/lib -Wl,-rpath=$OPENSSL/lib"
-export CFLAGS="-I$ZLIB/include -I$BZIP2/include -I$NCURSES/include -I$READLINE/include -I$SQLITE/include -I$OPENSSL/include"
+export LDFLAGS="-L$ZLIB/lib -L$BZIP2/lib -Wl,-rpath=$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib -Wl,-rpath=$BZIP2/lib"
+export CFLAGS="-I$ZLIB/include -I$BZIP2/include"
 export CPPFLAGS="$CFLAGS"
 
 # Fix for #21:
 export HAS_HG="no"
-./configure --prefix=$ARTIFACT --enable-shared
+./configure --prefix=$ARTIFACT
 make
 make install
 
