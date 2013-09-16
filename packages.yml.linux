@@ -447,3 +447,9 @@
   key: tar.bz2:ecm552te547frlblilvkuaugymrrimfi
   deps: []
   recipe: bash_script
+
+- package: fftw
+  url: http://www.fftw.org/fftw-3.3.3.tar.gz
+  key: tar.gz:qxg7ycqluegy7jhq7dtthkwbuwjwzbmy
+  deps: []
+  recipe: configure_make
