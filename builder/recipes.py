@@ -224,11 +224,11 @@ def hardcode_recipe(ctx, pkg_attrs, configfiles, build_spec):
          "value": pkg_attrs['prefix']},
         ]
     for ld in pkg_attrs.get('ld_library_path', []):
-        build_spec["on_import"].append({"prepend-path": "LD_LIBRARY_PATH", 
-                                        "value": pkg_attrs['ld_library_path']})
+        build_spec["on_import"].append({"prepend_path": "LD_LIBRARY_PATH", 
+                                        "value": ld})
     for p in pkg_attrs.get('path', []):
-        build_spec["on_import"].append({"prepend-path": "PATH", 
-                                        "value": pkg_attrs['path']})
+        build_spec["on_import"].append({"prepend_path": "PATH", 
+                                        "value": p})
     for k, v in pkg_attrs.get('vars', {}):
         build_spec["on_import"].append({"set": k, "value": v})
 
