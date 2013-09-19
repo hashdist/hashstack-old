@@ -2,8 +2,6 @@
 
 set -e
 
-export MACOSX_DEPLOYMENT_TARGET=10.8
-
 ./bootstrap --prefix=$ARTIFACT
 make
 make install

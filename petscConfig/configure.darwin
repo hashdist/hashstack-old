@@ -2,8 +2,6 @@
 
 set -e
 
-export MACOSX_DEPLOYMENT_TARGET=10.8
-
 ./config/configure.py \
 --prefix=$ARTIFACT \
 --CC=$MPI/bin/mpicc \
