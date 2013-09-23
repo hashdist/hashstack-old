@@ -2,6 +2,6 @@
 
 set -e
 
-./configure --prefix=$ARTIFACT --enable-sse2
+./configure --prefix=$ARTIFACT --enable-sse2 --enable-avx
 make
 make install
