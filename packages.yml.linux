@@ -452,4 +452,4 @@
   url: http://www.fftw.org/fftw-3.3.3.tar.gz
   key: tar.gz:qxg7ycqluegy7jhq7dtthkwbuwjwzbmy
   deps: []
-  recipe: configure_make
+  recipe: bash_script
