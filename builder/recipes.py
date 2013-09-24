@@ -25,14 +25,7 @@ def add_profile_install(ctx, pkg_attrs, build_spec):
             ]
 
     rules += [
-        {"action": "relative_symlink",
-         "select": "$ARTIFACT/lib/python*/site-packages/*",
-         "prefix": "$ARTIFACT",
-         "target": "$PROFILE",
-         "dirs": True},
-        {"action": "exclude",
-         "select": "$ARTIFACT/lib/python*/site-packages/**/*"},
-        {"action": "relative_symlink",
+        {"action": "copy",
          "select": "$ARTIFACT/*/**/*",
          "prefix": "$ARTIFACT",
          "target": "$PROFILE"}

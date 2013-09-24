@@ -7,6 +7,19 @@ arch: linux
 
 # Which packages from package.yml to include in the profile
 # (dependencies are automatically included)
-packages: [nose, readline, ipython, numpy, matplotlib, pytables,
-    hdf5, mpich, sphinx, mpi4py, petsc, petsc4py, superlu, tetgen, triangle,sympy,
-    scipy,daetk]
+#packages: [nose, readline, numpy, matplotlib, pytables,
+#    hdf5, mpich, sphinx, mpi4py, petsc, petsc4py, superlu, tetgen, triangle,sympy,
+#    scipy,daetk]
+
+## Check dynamic libraries
+#packages: [szip, zlib, hdf5]
+
+## Check Python + dynamic libraries
+packages: [szip, zlib, hdf5, pytables, python]
+
+## Check distutils
+#packages: [nose]
+
+#packages: [nose, readline, ipython, numpy, matplotlib, pytables,
+#    hdf5, mpich, sphinx, mpi4py, petsc, petsc4py, superlu, tetgen, triangle,sympy,
+#    scipy,daetk]

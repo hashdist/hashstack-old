@@ -1,1 +1,0 @@
-./configure LDFLAGS="-L$ARTIFACT/lib -Wl,-rpath=$ZLIB/lib -Wl,-rpath=$SZIP/lib" --with-szlib=$SZIP --with-zlib=$ZLIB --enable-shared --enable-threadsafe -disable-parallel --with-pthread --with-pic --prefix=$ARTIFACT

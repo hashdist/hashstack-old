@@ -1,0 +1,7 @@
+set -e
+
+cmake -DCMAKE_INSTALL_PREFIX:PATH="$ARTIFACT" \
+      -DCMAKE_RC_FLAGS="-DGCC_WINDRES" \
+      -DBUILD_SHARED_LIBS=true .
+make
+make install

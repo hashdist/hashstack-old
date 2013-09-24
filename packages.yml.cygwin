@@ -13,6 +13,7 @@
   url: http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.11.tar.bz2
   key: tar.bz2:l2q3vax4o42q5zriw6k243w6ax7ov4og
   deps: [szip, zlib]
+  recipe: bash_script
 
 - package: python-readline
   recipe: distutils
@@ -22,9 +23,14 @@
 
 - package: pyzmq
   recipe: python_bash_script
-  deps: [python, cython]
+  deps: [python, cython, zeromq]
   key: tar.gz:3ltuep2ku7et7ddx3lorly2m4zlwcing
   url: https://github.com/downloads/zeromq/pyzmq/pyzmq-2.2.0.1.tar.gz
+
+- package: zeromq
+  deps: []
+  url: http://download.zeromq.org/zeromq-3.2.4.tar.gz
+  key: tar.gz:36lkcqoilns4fs3mbwzceiysmyr2bhxm
 
 - package: pygments
   recipe: distutils
@@ -72,19 +78,8 @@
   deps: [python,lapack]
   recipe: python_bash_script
 
-- package: parmetis
-  url: http://glaros.dtc.umn.edu/gkhome/fetch/sw/parmetis/parmetis-4.0.3.tar.gz
-  key: tar.gz:adfsk
-  deps: []
-  recipe: bash_script
-
 - package: petsc
   url: https://bitbucket.org/petsc/petsc.git
-  key: git:47da4c6d11120cc5c162840baeab1ba5357e1b3c
-  deps: [mpi, python, lapack, parmetis]
-
-- package: parmetis
-  url: https://bitbucket.org/petsc/parmetis-pkg.git
   key: git:47da4c6d11120cc5c162840baeab1ba5357e1b3c
   deps: [mpi, python, lapack]
 
@@ -104,11 +99,13 @@
   url: http://www.hdfgroup.org/ftp/lib-external/szip/2.1/src/szip-2.1.tar.gz
   key: tar.gz:valnsxkwmlucpfrfvpn6u7iomikx27i7
   deps: []
+  recipe: bash_script
 
 - package: zlib
   url: http://downloads.sourceforge.net/project/libpng/zlib/1.2.7/zlib-1.2.7.tar.bz2
   key: tar.bz2:jhroszmn7mbwsag2n2qcm6ttp6r4j3xg
   deps: []
+  recipe: bash_script
 
 - package: bzip2
   url: http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
