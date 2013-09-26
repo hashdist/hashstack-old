@@ -80,13 +80,14 @@
 
 - package: petsc
   url: https://bitbucket.org/petsc/petsc.git
-  key: git:47da4c6d11120cc5c162840baeab1ba5357e1b3c
+  key: git:6b9dab4062b0f0f99389d8ef9cccb5efe0dcc977
   deps: [mpi, python, lapack]
+  recipe: bash_script
 
 - package: petsc4py
-  url: https://github.com/erdc-cm/petsc4py.git
-  key: git:e29612c871aa29c8193c7559bbe425f4ce920bbc
-  deps: [python, numpy, petsc,cython]
+  url: https://bitbucket.org/petsc/petsc4py.git
+  key: git:d0666c26f6dabd145099300b1c653e955c0bb002
+  deps: [python, numpy, petsc, cython]
   recipe: bash_script
 
 - package: sympy
@@ -137,6 +138,11 @@
   key: tar.gz:wavtsotn3azgbzvn6wiybhfknxlt7soq
   deps: [python, mpi]
   recipe: bash_script
+
+- package: openmpi
+  provides: mpi
+  deps: []
+  recipe: cygwin
 
 - package: mpich
   provides: mpi
@@ -357,3 +363,15 @@
   key: tar.gz:hvzkfexegk7ltjz7tufm7y5hpsnu27sc
   deps: []
   recipe: configure_make
+
+- package: parmetis
+  url: https://bitbucket.org/petsc/pkg-parmetis/get/v4.0.3p1.tar.gz
+  key: tar.gz:io5naofwcf7wchlmshng6mfcnap5fepo
+  deps: []
+  recipe: bash_script
+
+- package: metis
+  url: https://bitbucket.org/petsc/pkg-metis/get/v5.1.0-p1.tar.gz
+  key: tar.gz:faq
+  deps: []
+  recipe: bash_script

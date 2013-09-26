@@ -9,4 +9,4 @@ $PYTHON/bin/python ./config/configure.py \
 --CXX=$MPI/bin/mpicxx \
 --FC=$MPI/bin/mpif90 \
 --download-metis=1 \
---with-parmetis=$PARMETIS 
+--download-parmetis=1

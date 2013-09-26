@@ -3,9 +3,18 @@
 set -e
 
 export PETSC_DIR=$PETSC
-export PATH=$CYTHON/bin:$PATH
-export LDFLAGS="-L$PETSC/lib -lpetsc"
+
+# manual intervention here
+$PYTHON/bin/python conf/cythonize.py
+
+# now hack the cython-generated interfaces
+patch -p1 < ../fix_libpetsc4py_decls.patch
+
 $PYTHON/bin/python setup.py build
 $PYTHON/bin/python setup.py install --prefix=$ARTIFACT
+
+#test
+(cd test; PYTHONPATH=$PYTHONPATH:$ARTIFACT/lib/python2.7/site-packages PATH=$PATH:$PETSC/bin $PYTHON/bin/python runtests.py)
+
 mkdir $ARTIFACT/lib/petsc4py-config
 cp -r conf $ARTIFACT/lib/petsc4py-config
