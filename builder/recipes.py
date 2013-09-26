@@ -201,6 +201,8 @@ def python_bash_script_recipe(ctx, pkg_attrs, configfiles, build_spec):
 def cygwin_recipe(ctx, pkg_attrs, configfiles, build_spec):
     build_spec["on_import"] += [
         {"set": pkg_attrs['package'].upper(),
+         "value": "/usr"},
+         {"set": pkg_attrs['provides'].upper(),
          "value": "/usr"}
         ]
 
