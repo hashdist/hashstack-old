@@ -1,0 +1,35 @@
+set -e
+
+# this is fixed in PETSc next as of 09/24/2013
+# https://bitbucket.org/petsc/petsc/commits/50bcd979838a41ef30e4433272ba6c2e94f335bb?at=next
+
+patch -p1 < ../fix_dll_link_detection.patch
+
+# This is fixed in PETSc next as of 09/25/2013
+# https://bitbucket.org/petsc/petsc/commits/a8462a61d8863e7afb1a97ed45427e9758c92e07
+patch -p1 < ../fix_fenv_detection.patch
+
+PETSC_ARCH=linux
+
+$PYTHON/bin/python ./config/configure.py \
+--with-shared-libraries=1 \
+--with-clanguage=C \
+--with-blas-lapack-lib="-L$LAPACK/lib -llapack -lblas" \
+--with-c2html=0 \
+--prefix=$ARTIFACT \
+--PETSC_ARCH=$PETSC_ARCH \
+--CC=$MPI/bin/mpicc \
+--CXX=$MPI/bin/mpicxx \
+--download-parmetis=1 \
+--download-metis=1 \
+--with-fortran=0 
+
+make all
+make install
+
+# Need to move the DLLs into the appropriate directories
+install $PETSC_ARCH/cyg*.dll $ARTIFACT/bin
+install $PETSC_ARCH/lib/cyg*.dll $ARTIFACT/bin
+
+PATH=$PATH:$ARTIFACT/bin make check
+
