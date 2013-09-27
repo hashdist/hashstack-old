@@ -24,13 +24,15 @@
 - package: pyzmq
   recipe: python_bash_script
   deps: [python, cython, zeromq]
-  key: tar.gz:3ltuep2ku7et7ddx3lorly2m4zlwcing
-  url: https://github.com/downloads/zeromq/pyzmq/pyzmq-2.2.0.1.tar.gz
+  key: tar.gz:rzx34kmzebcfmilkfwtcikjhoel62f3b
+  url: https://github.com/zeromq/pyzmq/releases/download/v13.1.0/pyzmq-13.1.0.tar.gz
 
 - package: zeromq
+  recipe: bash_script
   deps: []
   url: http://download.zeromq.org/zeromq-3.2.4.tar.gz
   key: tar.gz:36lkcqoilns4fs3mbwzceiysmyr2bhxm
+
 
 - package: pygments
   recipe: distutils

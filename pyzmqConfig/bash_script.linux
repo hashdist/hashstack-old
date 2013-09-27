@@ -1,5 +1,10 @@
 #! /bin/bash
 
-set -e
+# inplace-build to test
+PATH=$PATH:$ZEROMQ/bin $PYTHON/bin/python setup.py build_ext --zmq=$ZEROMQ --inplace
 
-$PYTHON/bin/python setup.py install --prefix=$ARTIFACT --zmq=bundled
+# test
+PATH=$PATH:$ZEROMQ/bin $PYTHON/bin/python setup.py test --zmq=$ZEROMQ;
+
+# okay real install
+PATH=$PATH:$ZEROMQ/bin $PYTHON/bin/python setup.py install --zmq=$ZEROMQ --prefix=$ARTIFACT

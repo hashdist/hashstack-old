@@ -24,7 +24,10 @@ arch: linux
 #packages: [openmpi, mpi4py]
 
 ## Check dynamic petsc
-packages: [openmpi, petsc, petsc4py]
+#packages: [openmpi, petsc, petsc4py]
+
+## Check IPYthon stack
+packages: [zeromq, pyzmq]
 
 #packages: [nose, readline, ipython, numpy, matplotlib, pytables,
 #    hdf5, mpich, sphinx, mpi4py, petsc, petsc4py, superlu, tetgen, triangle,sympy,

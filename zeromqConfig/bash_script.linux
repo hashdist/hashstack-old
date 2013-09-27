@@ -1,0 +1,19 @@
+set -e
+
+./configure
+make
+
+# shared libraries broken with 0MQ on Cygwin64
+# manual library build and install from static library
+
+gcc -shared -o cygzmq.dll -Wl,--out-implib=libzmq.dll.a -Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--whole-archive src/.libs/libzmq.a -Wl,--no-whole-archive -lstdc++
+
+mkdir -p $ARTIFACT/include
+install include/zmq.h  $ARTIFACT/include
+install include/zmq_utils.h  $ARTIFACT/include
+
+mkdir -p $ARTIFACT/bin
+install cygzmq.dll $ARTIFACT/bin
+
+mkdir -p $ARTIFACT/lib
+install libzmq.dll.a $ARTIFACT/lib
