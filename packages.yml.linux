@@ -108,8 +108,8 @@
   recipe: bash_script
 
 - package: png
-  url: http://downloads.sourceforge.net/project/libpng/libpng16/1.6.2/libpng-1.6.2.tar.gz
-  key: tar.gz:kfv6l2gevp6wrdtmopau65fveo466456
+  url: http://downloads.sourceforge.net/project/libpng/libpng16/1.6.6/libpng-1.6.6.tar.gz
+  key: tar.gz:dj4va2fjpzsuvcl3usxe76jiywh6phjz
   deps: [zlib]
   recipe: bash_script
 
