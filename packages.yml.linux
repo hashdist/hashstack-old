@@ -453,3 +453,9 @@
   key: tar.gz:qxg7ycqluegy7jhq7dtthkwbuwjwzbmy
   deps: []
   recipe: bash_script
+
+- package: matplotlib-basemap
+  url: http://downloads.sourceforge.net/project/matplotlib/matplotlib-toolkits/basemap-1.0.7/basemap-1.0.7.tar.gz
+  key: tar.gz:4b7mfygwhmsmtlwslie75cx7ewmpqkuf
+  deps: [matplotlib]
+  recipe: distutils
