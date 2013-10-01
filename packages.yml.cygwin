@@ -21,6 +21,12 @@
   key: tar.gz:4ahynyb57zjopukqftwfyzahbmzgehef
   deps: [python, distribute]
 
+- package: pyreadline
+  recipe: distutils
+  deps: []
+  url: https://github.com/pyreadline/pyreadline.git
+  key: git:64e56d74203f27d5bc26350a523d23c19d74ec3b
+
 - package: pyzmq
   recipe: python_bash_script
   deps: [python, cython, zeromq]
@@ -41,8 +47,8 @@
   key: tar.gz:pgpnjsxxoulokrcaqbwy3hgyfj3apx67
 
 - package: tornado
-  url: https://pypi.python.org/packages/source/t/tornado/tornado-3.0.1.tar.gz
-  key: tar.gz:duhrhxytlc5i6birx4ws66zm65flwrxu
+  url: https://pypi.python.org/packages/source/t/tornado/tornado-3.1.1.tar.gz
+  key: tar.gz:grmqjp7eudhf22dsap3yhgdkoph5pxb2
   deps: [python]
   recipe: distutils
 
@@ -51,9 +57,9 @@
   deps: [python]
 
 - package: ipython
-  url: https://github.com/downloads/ipython/ipython/ipython-0.13.1.tar.gz
-  key: tar.gz:ho7rbfoe7up36cqiohm6ezlruhhdyqit
-  deps: [python, pyzmq, python-readline, tornado]
+  url: https://pypi.python.org/packages/source/i/ipython/ipython-1.1.0.tar.gz
+  key: tar.gz:nrheuzjclk2fx2jd626qw4nwato7rlgx
+  deps: [python, pyzmq, python-readline, tornado, jinja2, nose]
   recipe: distutils
 
 - package: matplotlib

@@ -27,8 +27,16 @@ arch: linux
 #packages: [openmpi, petsc, petsc4py]
 
 ## Check IPYthon stack
-packages: [zeromq, pyzmq]
+#packages: [zeromq, pyzmq, tornado, ipython]
 
-#packages: [nose, readline, ipython, numpy, matplotlib, pytables,
-#    hdf5, mpich, sphinx, mpi4py, petsc, petsc4py, superlu, tetgen, triangle,sympy,
-#    scipy,daetk]
+## Check IPython+matplotlib
+#packages: [matplotlib, ipython]
+
+## Check scipy
+#packages: [scipy, nose]
+
+## Check SciPy Stack sans Pandas
+#packages: [ipython, numpy, scipy, matplotlib, sympy, nose]
+
+packages: [nose, ipython, numpy, matplotlib, pytables, openmpi, sphinx, 
+           mpi4py, petsc4py, superlu, tetgen, triangle, sympy, scipy, daetk]
