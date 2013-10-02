@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import subprocess
 
 subprocess.check_call(['cygcheck','-c'])
@@ -14,7 +15,12 @@ def get_installed_packages():
     packages = [p.split()[0] for p in packages if p]
     return packages
     
-with open('cygstack.txt') as packages:
+if len(sys.argv) > 1:
+    cygstack = sys.argv[1]
+else:
+    cygstack = 'cygstack.txt'
+
+with open(cygstack) as packages:
     # header_data
     packages.readline()
     packages.readline()
