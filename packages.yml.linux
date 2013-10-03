@@ -20,6 +20,7 @@
   recipe: distutils
   url: https://pypi.python.org/packages/source/r/readline/readline-6.2.4.1.tar.gz
   key: tar.gz:4ahynyb57zjopukqftwfyzahbmzgehef
+  unpack_egg: true
   deps: [python, distribute]
 
 - package: pyzmq
