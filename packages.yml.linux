@@ -458,5 +458,11 @@
 - package: matplotlib-basemap
   url: http://downloads.sourceforge.net/project/matplotlib/matplotlib-toolkits/basemap-1.0.7/basemap-1.0.7.tar.gz
   key: tar.gz:4b7mfygwhmsmtlwslie75cx7ewmpqkuf
-  deps: [matplotlib]
-  recipe: distutils
+  deps: [matplotlib, geos]
+  recipe: bash_script
+
+- package: geos
+  url: http://download.osgeo.org/geos/geos-3.4.2.tar.bz2
+  key: tar.bz2:cxul7x36feehvfl3k2wfipvjvabscsa4
+  deps: []
+  recipe: configure_make
