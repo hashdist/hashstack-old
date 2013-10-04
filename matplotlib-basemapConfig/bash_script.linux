@@ -1,0 +1,7 @@
+#! /bin/bash
+
+set -e
+
+export GEOS_DIR=$GEOS
+
+$PYTHON/bin/python setup.py install --prefix=$ARTIFACT

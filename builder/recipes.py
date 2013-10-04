@@ -26,6 +26,12 @@ def add_profile_install(ctx, pkg_attrs, build_spec):
 
     rules += [
         {"action": "relative_symlink",
+         "select": "$ARTIFACT/lib/python*/site-packages/mpl_toolkits/**/*",
+         "prefix": "$ARTIFACT",
+         "target": "$PROFILE"},
+        {"action": "exclude",
+         "select": "$ARTIFACT/lib/python*/site-packages/mpl_toolkits/**/*"},
+        {"action": "relative_symlink",
          "select": "$ARTIFACT/lib/python*/site-packages/*",
          "prefix": "$ARTIFACT",
          "target": "$PROFILE",
