@@ -75,10 +75,61 @@
   deps: [python, lapack]
   recipe: python_bash_script
 
+- package: petsc-env
+  prefix: /usr/local
+  deps: []
+  path:
+    - /opt/cray/atp/1.6.3/bin
+    - /opt/cray/xt-asyncpe/5.21/bin
+    - /opt/cray/xpmem/0.1-2.0400.31280.3.1.gem/bin
+    - /opt/cray/dmapp/3.2.1-1.0400.4255.2.159.gem/bin
+    - /opt/cray/pmi/3.0.1-1.0000.8917.33.1.gem/bin
+    - /opt/cray/ugni/2.3-1.0400.4374.4.88.gem/bin
+    - /opt/cray/udreg/2.3.1-1.0400.4264.3.1.gem/bin
+    - /opt/gcc/4.8.0/bin
+    - /usr/local/usp/git/1.8.4-gnu/bin
+    - /usr/krb5/bin
+    - /usr/krb5/openssl/bin
+    - /usr/local/krb5/bin
+    - /usr/local/krb5/openssl/bin
+    - /usr/krb5/bin
+    - /opt/intel/composer_xe_2013.4.183/bin/intel64
+    - /opt/intel/composer_xe_2013.4.183/mpirt/bin/intel64
+    - /usr/local/usp/git/1.8.4-gnu/bin
+    - /usr/krb5/bin
+    - /usr/krb5/openssl/bin
+    - /opt/java/jdk1.7.0_07/bin
+    - /usr/local/krb5/bin
+    - /usr/local/krb5/openssl/bin
+    - /opt/pbs/12.1.0.131281/bin
+    - /opt/cray/eslogin/eswrap/1.0.20-1.010101.433.0/bin
+    - /usr/krb5/bin
+    - /opt/modules/3.2.6.7/bin
+    - /usr/local/bin
+    - /usr/bin
+    - /bin
+    - /usr/bin/X11
+    - /usr/X11R6/bin
+    - /usr/games
+    - /usr/lib/mit/bin
+    - /usr/lib/mit/sbin
+    - /sbin
+    - /usr/sbin
+    - /opt/cray/bin
+    - /usr/local/bin
+    - /usr/local/usp/bin
+    - /usr/local/fta/bin
+    - /usr/local/applic/COTS
+    - /usr/local/bin
+    - /usr/local/usp/bin
+    - /usr/local/fta/bin
+    - /usr/local/applic/COTS
+  recipe: hardcode
+
 - package: petsc
-  url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.3-p6.tar.gz
-  key: tar.gz:bhqdyhmhdjcoimrnmgyapo7p2cr6btvf
-  deps: [mpi, python, lapack]
+  url: http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.4.2.tar.gz
+  key: tar.gz:6e5q3sly7yg4yhpqgl4bikrp2ncsc7yc
+  deps: [mpi, python, lapack, petsc-env]
 
 - package: petsc4py
   url: https://petsc4py.googlecode.com/files/petsc4py-3.3.1.tar.gz
@@ -135,9 +186,14 @@
 
 - package: mpich
   provides: mpi
-  url: http://www.mpich.org/static/tarballs/3.0.3/mpich-3.0.3.tar.gz
-  key: tar.gz:jj5yo7oe3e45wwngkuqqn35bud5kdfkr
   deps: []
+  prefix: /opt/cray/xt-asyncpe/5.21/
+  vars:
+    MPICC: cc
+    MPICXX: cc
+    MPIF77: ftn
+    MPIF90: ftn
+  recipe: hardcode
 
 - package: sphinx
   url: https://pypi.python.org/packages/source/S/Sphinx/Sphinx-1.2b1.tar.gz
@@ -340,10 +396,10 @@
   recipe: bash_script
 
 - package: readline
-  url: ftp://ftp.cwru.edu/pub/bash/readline-6.2.tar.gz
-  key: tar.gz:pgtjmbykawgcgpds3vvmnfycdtdevpk6
   deps: [ncurses]
-  recipe: bash_script
+  prefix: /usr
+  ld_library_path:  ['/usr/lib64',]
+  recipe: hardcode
 
 - package: sqlite
   url: https://sqlite.org/2013/sqlite-autoconf-3071700.tar.gz

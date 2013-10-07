@@ -2,4 +2,4 @@
 
 set -e
 
-./configure CFLAGS=-fPIC --enable-shared --enable-fc --prefix=${PYTHONHPC_PREFIX}
+./configure CFLAGS=-fPIC --enable-shared --enable-fc --prefix=${PYTHONHPC_PREFIX} FC=/opt/intel/composer_xe_2013.4.183/bin/intel64/ifort F77=/opt/intel/composer_xe_2013.4.183/bin/intel64/ifort

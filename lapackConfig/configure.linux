@@ -1,6 +1,7 @@
 $CMAKE/bin/cmake -DCMAKE_INSTALL_PREFIX="$ARTIFACT" \
     -DCMAKE_INSTALL_RPATH:STRING="$ARTIFACT/lib" \
     -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DCMAKE_Fortran_COMPILER=/opt/intel/composer_xe_2013.4.183/bin/intel64/ifort \
     -DCMAKE_Fortran_FLAGS_RELEASE:STRING="-O3 -fPIC -march=native -ffast-math -funroll-loops" \
     -DBUILD_TESTING:BOOL=OFF \
     -DBUILD_SHARED_LIBS:BOOL=ON \

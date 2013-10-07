@@ -1,1 +1,30 @@
-$PYTHON/bin/python ./config/configure.py --with-pic --with-clanguage=C --with-cc=$MPI/bin/mpicc --with-mpi-compilers --with-shared-libraries --prefix=$ARTIFACT --with-fortran=0 --with-blas-lapack-lib="-L$LAPACK/lib -llapack -lblas"
+mkdir tmp
+export TMPDIR=/lustre/home1/u/aterrel/tmp
+
+$PYTHON/bin/python ./config/configure.py \
+  --useThreads=0 \
+  --prefix=$ARTIFACT \
+  --with-clanguage=C \
+  --CC=/opt/cray/xt-asyncpe/5.21/bin/cc \
+  --CXX=/opt/cray/xt-asyncpe/5.21/bin/cc \
+  --FC=/opt/cray/xt-asyncpe/5.21/bin/ftn \
+  --with-blas-lapack-lib="-L/opt/cray/libsci/12.1.00/gnu/48/lib/ -lsci_gnu" \
+  --with-pic=1 \
+  --with-cmake=$CMAKE/bin/cmake \
+  --download-metis=1 \
+  --download-parmetis=1 \
+  --download-superlu=1 \
+  --download-superlu_dist=1 \
+  --download-hypre=1 \
+  --download-blacs=1 \
+  --download-scalapack=1 \
+  --download-mumps=1
+
+
+#  --FC=ftn \
+#  --with-mpi-compilers \
+#  --with-mpi-dir=/opt/cray/mpt/6.0.0/gni/mpich2-gnu/47 \
+#  --with-shared-libraries \
+#  --with-blas-lapack-lib="-L/opt/cray/libsci/12.1.00/gnu/47/x86_64/lib/ -lsci_gnu"
+
+#  --with-blas-lapack-lib="-L$LAPACK/lib -llapack -lblas"

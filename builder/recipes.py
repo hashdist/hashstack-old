@@ -220,6 +220,8 @@ def debian_recipe(ctx, pkg_attrs, configfiles, build_spec):
 
 
 def hardcode_recipe(ctx, pkg_attrs, configfiles, build_spec):
+    print "Inside hardcode_recipe:"
+    print "pkg_attrs"
     build_spec["on_import"] += [
         {"set": pkg_attrs['package'].upper(),
          "value": pkg_attrs['prefix']},
