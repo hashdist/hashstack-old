@@ -388,7 +388,7 @@
   recipe: bash_script
 
 - package: isl
-  url: http://www.kotnet.org/~skimo/isl/isl-0.11.2.tar.bz2
+  url: http://isl.gforge.inria.fr/isl-0.11.2.tar.bz2
   key: tar.bz2:43mdgr6skrcjk5zjt3eg77x5pe3b3ri7
   deps: [gmp]
   recipe: bash_script
