@@ -26,7 +26,7 @@
   recipe: python_bash_script
   deps: [python, cython]
   key: tar.gz:3ltuep2ku7et7ddx3lorly2m4zlwcing
-  url: https://github.com/zeromq/pyzmq/downloads/pyzmq-2.2.0.1.tar.gz
+  url: https://github.com/downloads/zeromq/pyzmq/pyzmq-2.2.0.1.tar.gz
 
 - package: pygments
   recipe: distutils
