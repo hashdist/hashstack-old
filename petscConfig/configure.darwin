@@ -15,6 +15,7 @@ export MACOSX_DEPLOYMENT_TARGET=10.8
 --with-shared-libraries=1 \
 --with-pic=1 \
 --with-x=0 \
+--with-cmake=$CMAKE/bin/cmake \
 --download-metis=1 \
 --download-parmetis=1 \
 --download-superlu=1 \
