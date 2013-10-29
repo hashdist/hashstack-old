@@ -1,0 +1,6 @@
+#!/bin/bash
+export PATH=/usr/local/sage/sage-5.10.rc1/local/bin:$PATH
+
+./configure --prefix=$ARTIFACT --enable-shared
+make
+make install

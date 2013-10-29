@@ -6,6 +6,7 @@ pwd
 export DAETK_DIR=`pwd`
 export DAETK_ARCH=linux
 export PETSC_DIR=$PETSC
+export PATH=$MPI/bin:$PATH
 
 cp ../arch    config/linux
 cp ../archive config/linux.archive

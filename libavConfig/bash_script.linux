@@ -1,0 +1,7 @@
+#!/bin/bash
+export PATH=/usr/local/sage/sage-5.10.rc1/local/bin:$X264/bin:$PATH
+export LDFLAGS="-L$X264/lib -lx264"
+export CFLAGS="-I$X264/include"
+./configure --prefix=$ARTIFACT --enable-gpl --enable-libx264
+make
+make install

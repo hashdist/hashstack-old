@@ -1,3 +1,15 @@
+- package: libav
+  url: http://libav.org/releases/libav-9.10.tar.gz
+  key: tar.gz:x6wecsfs6fumkzcpjbxumo4xcweo3wd2
+  deps: [x264]
+  recipe: bash_script
+  
+- package: x264
+  url: git://git.videolan.org/x264.git
+  key: git:3361d59a0a83dcb8b321cc0eb8e6ba68ca49c7d4
+  deps: [zlib]
+  recipe: bash_script
+  
 - package: python
   url: http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
   key: tar.bz2:hndxkvegjzqwuba64tl456mes5ixoc6h
@@ -45,8 +57,8 @@
   deps: [python]
 
 - package: ipython
-  url: https://github.com/downloads/ipython/ipython/ipython-0.13.1.tar.gz
-  key: tar.gz:ho7rbfoe7up36cqiohm6ezlruhhdyqit
+  url: https://github.com/ipython/ipython/releases/download/rel-1.1.0/ipython-1.1.0.tar.gz
+  key: tar.gz:nrheuzjclk2fx2jd626qw4nwato7rlgx
   deps: [python, pyzmq, python-readline, tornado]
   recipe: distutils
 
@@ -172,8 +184,8 @@
 
 - package: daetk
   url: https://github.com/erdc-cm/daetk.git
-  key: git:001688ce3c4c59051e4d0d80a173d4435d3e0beb
-  deps: [petsc]
+  key: git:36a4747ec8883f64709dd19c5f68fdc71f747be0
+  deps: [mpi,petsc]
   recipe: bash_script
 
 - package: superlu
